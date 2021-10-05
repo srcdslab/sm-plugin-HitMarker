@@ -13,16 +13,16 @@
 #define	HIT_OVERLAY_INTERVAL			0.15
 #define	HIT_SOUND_INTERVAL				1.0
 
-#define SND_PATH_HIT_PRECACHE			"nide/hitmarker.mp3"
-#define SND_PATH_HIT					"sound/nide/hitmarker.mp3"
+#define SND_PATH_HIT_PRECACHE			"hitmarker.mp3"
+#define SND_PATH_HIT					"sound/hitmarker.mp3"
 
-#define MATERIAL_PATH_HIT 				"overlays/nide/hitmarker/hitmarker"
+#define MATERIAL_PATH_HIT 				"overlays/hitmarker/hitmarker"
 
-#define	MATERIAL_PATH_HIT_VTF_PRECACHE	"overlays/nide/hitmarker/hitmarker.vtf"
-#define	MATERIAL_PATH_HIT_VTF			"materials/overlays/nide/hitmarker/hitmarker.vtf"
+#define	MATERIAL_PATH_HIT_VTF_PRECACHE	"overlays/hitmarker/hitmarker.vtf"
+#define	MATERIAL_PATH_HIT_VTF			"materials/overlays/hitmarker/hitmarker.vtf"
 
-#define	MATERIAL_PATH_HIT_VMT_PRECACHE	"overlays/nide/hitmarker/hitmarker.vmt"
-#define MATERIAL_PATH_HIT_VMT			"materials/overlays/nide/hitmarker/hitmarker.vmt"
+#define	MATERIAL_PATH_HIT_VMT_PRECACHE	"overlays/hitmarker/hitmarker.vmt"
+#define MATERIAL_PATH_HIT_VMT			"materials/overlays/hitmarker/hitmarker.vmt"
 
 Handle g_hShowZombie = INVALID_HANDLE, g_hShowBoss = INVALID_HANDLE, g_hHearSound = INVALID_HANDLE;
 
