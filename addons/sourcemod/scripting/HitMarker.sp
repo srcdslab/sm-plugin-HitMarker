@@ -116,7 +116,7 @@ public void OnPluginEnd()
 	// Late unload
 	if (g_bLate)
 	{
-		for (int i = 1; i <= MAXPLAYERS; i++)
+		for (int i = 1; i <= MaxClients; i++)
 		{
 			if(IsClientConnected(i))
 			{
