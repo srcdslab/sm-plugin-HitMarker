@@ -280,7 +280,7 @@ public void Hook_EventOnDamage(Event event, const char[] name, bool dontBroadcas
 
 public Action Timer_NoOverlay(Handle timer, int client)
 {
-	if (!IsValidClient(client) || !IsClientInGame(client))
+	if (!IsValidClient(client, false, false, true))
 		return Plugin_Handled;
 
 	g_bShowing[client] = false;
@@ -306,7 +306,7 @@ stock void HandleHit(int client, bool bBoss)
 
 stock void HandleHitClient(int client, bool bBoss)
 {
-	if (!IsValidClient(client))
+	if (!IsValidClient(client, false, false, true))
 		return;
 
 	if (((bBoss && g_bShowBoss[client]) || (!bBoss && g_bShowZombie[client])) && !g_bShowing[client])
@@ -389,13 +389,4 @@ public void SetClientCookies(int client)
 
 	Format(sValue, sizeof(sValue), "%i", g_bHearSound[client]);
 	SetClientCookie(client, g_hHearSound, sValue);
-}
-
-bool IsValidClient(int client, bool nobots = true)
-{
-	if (client <= 0 || client > MaxClients || !IsClientConnected(client) || (nobots && IsFakeClient(client)))
-	{
-		return false;
-	}
-	return IsClientInGame(client);
 }
