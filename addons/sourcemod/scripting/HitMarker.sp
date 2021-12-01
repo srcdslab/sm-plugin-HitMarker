@@ -4,6 +4,8 @@
 #include <multicolors>
 #include <clientprefs>
 
+#include "utilshelper.inc"
+
 #undef REQUIRE_PLUGIN
 #include <Spectate>
 
@@ -13,16 +15,10 @@
 #define	HIT_OVERLAY_INTERVAL			0.15
 #define	HIT_SOUND_INTERVAL				1.0
 
-#define SND_PATH_HIT_PRECACHE			"hitmarker.mp3"
-#define SND_PATH_HIT					"sound/hitmarker.mp3"
-
+#define SND_PATH_HIT_PRECACHE			"hitmarker/hitmarker.mp3"
 #define MATERIAL_PATH_HIT 				"overlays/hitmarker/hitmarker"
-
 #define	MATERIAL_PATH_HIT_VTF_PRECACHE	"overlays/hitmarker/hitmarker.vtf"
-#define	MATERIAL_PATH_HIT_VTF			"materials/overlays/hitmarker/hitmarker.vtf"
-
 #define	MATERIAL_PATH_HIT_VMT_PRECACHE	"overlays/hitmarker/hitmarker.vmt"
-#define MATERIAL_PATH_HIT_VMT			"materials/overlays/hitmarker/hitmarker.vmt"
 
 Handle g_hShowZombie = INVALID_HANDLE, g_hShowBoss = INVALID_HANDLE, g_hHearSound = INVALID_HANDLE;
 
@@ -134,9 +130,7 @@ public void OnMapStart()
 	PrecacheModel(MATERIAL_PATH_HIT_VTF_PRECACHE);
 	PrecacheModel(MATERIAL_PATH_HIT_VMT_PRECACHE);
 
-	AddFileToDownloadsTable(SND_PATH_HIT);
-	AddFileToDownloadsTable(MATERIAL_PATH_HIT_VTF);
-	AddFileToDownloadsTable(MATERIAL_PATH_HIT_VMT);
+	AddFilesToDownloadsTable("hitmarker_downloadlist.ini");
 }
 
 public void OnClientPutInServer(int client)
