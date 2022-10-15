@@ -8,6 +8,7 @@
 
 #undef REQUIRE_PLUGIN
 #include <Spectate>
+#define REQUIRE_PLUGIN
 
 #pragma newdecls required
 #pragma semicolon 1
@@ -37,7 +38,7 @@ public Plugin myinfo =
 	name = "HitMarker",
 	author = "Nano, maxime1907",
 	description = "Displays a hitmarker when you deal damage",
-	version = "1.0",
+	version = "1.0.0",
 	url = ""
 };
 
