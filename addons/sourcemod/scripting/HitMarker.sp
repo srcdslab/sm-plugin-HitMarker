@@ -21,29 +21,41 @@
 #define	MATERIAL_PATH_HIT_VTF_PRECACHE	"overlays/hitmarker/hitmarker.vtf"
 #define	MATERIAL_PATH_HIT_VMT_PRECACHE	"overlays/hitmarker/hitmarker.vmt"
 
-Handle g_hShowZombie = INVALID_HANDLE, g_hShowBoss = INVALID_HANDLE, g_hHearSound = INVALID_HANDLE;
+ConVar g_cHitIntervalDisplay;
 
-ConVar g_cHitIntervalDisplay, g_cHitVolumeSound, g_cHitSpectator;
-float g_fHitIntervalDisplay, g_fHitVolumeSound;
-bool g_bHitSpectator;
+float 
+	g_fHitIntervalDisplay,
+	g_fClientSoundVolume[MAXPLAYERS + 1] = { 1.0, ... };
 
-bool g_bShowZombie[MAXPLAYERS + 1], g_bShowBoss[MAXPLAYERS + 1], g_bHearSound[MAXPLAYERS + 1], g_bShowing[MAXPLAYERS + 1] = { false, ... };
+bool 
+	g_bLate = false,
+	g_bLibrarySpectate = false,
+	g_bShowZombie[MAXPLAYERS + 1], 
+	g_bShowBoss[MAXPLAYERS + 1],
+	g_bHearSound[MAXPLAYERS + 1],
+	g_bShowing[MAXPLAYERS + 1] = { false, ... },
+	g_bHearSoundSpec[MAXPLAYERS + 1] = { true, ... };
 
-bool g_bLate = false;
-
-bool g_bLibrarySpectate = false;
+Handle 
+	g_hShowZombie = INVALID_HANDLE,
+	g_hShowBoss = INVALID_HANDLE,
+	g_hHearSound = INVALID_HANDLE,
+	g_hHMSpec = INVALID_HANDLE,
+	g_hSoundVolume = INVALID_HANDLE;
 
 public Plugin myinfo = 
 {
 	name = "HitMarker",
 	author = "Nano, maxime1907",
 	description = "Displays a hitmarker when you deal damage",
-	version = "1.0.0",
+	version = "1.1",
 	url = ""
 };
 
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	RegPluginLibrary("HitMarker");
+
 	g_bLate = late;
 	return APLRes_Success;
 }
@@ -69,16 +81,14 @@ public void OnLibraryRemoved(const char[] name)
 public void OnPluginStart()
 {
 	g_cHitIntervalDisplay = CreateConVar("sm_hitmarker_interval_display", "0.1", "How much time between every hit", 0, true, 0.0, true, 1.0);
-	g_cHitVolumeSound = CreateConVar("sm_hitmarker_volume_sound", "1.0", "Volume of the hit effect", 0, true, 0.0, true, 1.0);
-	g_cHitSpectator = CreateConVar("sm_hitmarkers_spectate", "1", "Enable hitmarker for spectators", 0, true, 0.0, true, 1.0);
-
+	
 	g_cHitIntervalDisplay.AddChangeHook(OnConVarChanged);
-	g_cHitVolumeSound.AddChangeHook(OnConVarChanged);
-	g_cHitSpectator.AddChangeHook(OnConVarChanged);
 
 	g_hShowZombie = RegClientCookie("hitmaker_zombie", "Enable/Disable hitmarker against zombies", CookieAccess_Private);
 	g_hShowBoss = RegClientCookie("hitmarker_boss", "Enable/Disable hitmarker against bosses", CookieAccess_Private);
 	g_hHearSound = RegClientCookie("hitmarker_sound", "Enable/Disable hitmarker sound effect", CookieAccess_Private);
+	g_hHMSpec = RegClientCookie("hitmarker_sound_spec", "Enable/Disable hitmarker sound effect", CookieAccess_Private);
+	g_hSoundVolume = RegClientCookie("hitmarker_sound_volume", "Enable/Disable hitmarker sound effect", CookieAccess_Private);
 
 	SetCookieMenuItem(CookieMenu_HitMarker, INVALID_HANDLE, "HitMarker Settings");
 
@@ -91,6 +101,7 @@ public void OnPluginStart()
 
 	RegConsoleCmd("sm_hitmarker", Command_HitMarker);
 	RegConsoleCmd("sm_hm", Command_HitMarker);
+	RegConsoleCmd("sm_hmvolume", Command_HitMarkerVolume);
 
 	AutoExecConfig(true);
 	GetConVars();
@@ -166,7 +177,19 @@ public void OnConVarChanged(ConVar convar, char[] oldValue, char[] newValue)
 
 public Action Command_HitMarker(int client, int args)
 {	
+	if(!client)
+		return Plugin_Handled;
+		
 	DisplayCookieMenu(client);
+	return Plugin_Handled;
+}
+
+public Action Command_HitMarkerVolume(int client, int args)
+{
+	if(!client)
+		return Plugin_Handled;
+		
+	DisplaySoundVolumesMenu(client);
 	return Plugin_Handled;
 }
 
@@ -195,11 +218,14 @@ public void DisplayCookieMenu(int client)
 	Menu menu = new Menu(MenuHandler_HitMarker, MENU_ACTIONS_DEFAULT | MenuAction_DisplayItem);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
-	SetMenuTitle(menu, "HitMarker Settings");
-	AddMenuItem(menu, NULL_STRING, "Show against zombies");
-	AddMenuItem(menu, NULL_STRING, "Show against bosses");
-	AddMenuItem(menu, NULL_STRING, "Hear a sound effect");
-	DisplayMenu(menu, client, MENU_TIME_FOREVER);
+	
+	menu.SetTitle("HitMarker Settings");
+	menu.AddItem(NULL_STRING, "Show against zombies");
+	menu.AddItem(NULL_STRING, "Show against bosses");
+	menu.AddItem(NULL_STRING, "Hear a sound effect");
+	menu.AddItem(NULL_STRING, "Hear sound in spec");
+	menu.AddItem(NULL_STRING, "Change Sound Volume");
+	menu.Display(client, MENU_TIME_FOREVER);
 }
 
 public int MenuHandler_HitMarker(Menu menu, MenuAction action, int param1, int param2)
@@ -232,9 +258,19 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int param1, int p
 				{
 					g_bHearSound[param1] = !g_bHearSound[param1];
 				}
+				case 3:
+				{
+					g_bHearSoundSpec[param1] = !g_bHearSoundSpec[param1];
+				}
+				case 4:
+				{
+					DisplaySoundVolumesMenu(param1);
+				}
 				default: return 0;
+				
 			}
-			DisplayMenu(menu, param1, MENU_TIME_FOREVER);
+			if(param2 != 4)
+				DisplayCookieMenu(param1);
 		}
 		case MenuAction_DisplayItem:
 		{
@@ -253,6 +289,14 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int param1, int p
 				{
 					Format(sBuffer, sizeof(sBuffer), "Hear a sound effect: %s", g_bHearSound[param1] ? "Enabled" : "Disabled");
 				}
+				case 3:
+				{
+					Format(sBuffer, sizeof(sBuffer), "Hear sound in spec: %s", g_bHearSoundSpec[param1] ? "Enabled" : "Disabled");
+				}
+				case 4:
+				{
+					Format(sBuffer, sizeof(sBuffer), "HitMarker Sound Volume");
+				}
 			}
 			return RedrawMenuItem(sBuffer);
 		}
@@ -260,6 +304,53 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int param1, int p
 	return 0;
 }
 
+public void DisplaySoundVolumesMenu(int client)
+{
+	Menu menu = new Menu(MenuHandler_HitMarkerSoundVolume, MENU_ACTIONS_DEFAULT | MenuAction_DisplayItem);
+	menu.ExitBackButton = true;
+	menu.ExitButton = true;
+	
+	menu.SetTitle("HitMarker Sound Volume");
+	menu.AddItem("1.0", "100%", (g_fClientSoundVolume[client] == 1.0) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.90", "90%", (g_fClientSoundVolume[client] == 0.90) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.80", "80%", (g_fClientSoundVolume[client] == 0.80) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.60", "60%", (g_fClientSoundVolume[client] == 0.60) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.50", "50%", (g_fClientSoundVolume[client] == 0.50) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.30", "30%", (g_fClientSoundVolume[client] == 0.30) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.AddItem("0.15", "15%", (g_fClientSoundVolume[client] == 0.15) ? ITEMDRAW_DISABLED : ITEMDRAW_DEFAULT);
+	menu.Display(client, MENU_TIME_FOREVER);
+}
+
+public int MenuHandler_HitMarkerSoundVolume(Menu menu, MenuAction action, int param1, int param2) 
+{
+	switch(action)
+	{
+		case MenuAction_End:
+		{
+			delete menu;
+		}
+		
+		case MenuAction_Cancel:
+		{
+			if(param2 == MenuCancel_ExitBack)
+			{
+				DisplayCookieMenu(param1);
+				return 0;
+			}
+		}
+		
+		case MenuAction_Select:
+		{
+			char sBuffer[10];
+			menu.GetItem(param2, sBuffer, sizeof(sBuffer));
+			float volume = StringToFloat(sBuffer);
+			g_fClientSoundVolume[param1] = volume;
+			DisplaySoundVolumesMenu(param1);
+		}
+	}
+	
+	return 0;
+}
 // ##     ##  #######   #######  ##    ##  ######  
 // ##     ## ##     ## ##     ## ##   ##  ##    ## 
 // ##     ## ##     ## ##     ## ##  ##   ##       
@@ -270,6 +361,9 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int param1, int p
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
+	if (!IsValidClient(activator, false, false, true))
+		return;
+		
 	HandleHit(activator, true);
 }
 
@@ -301,7 +395,7 @@ stock void HandleHit(int client, bool bBoss)
 {
 	HandleHitClient(client, bBoss);
 
-	if (g_bHitSpectator && g_bLibrarySpectate)
+	if (g_bHearSoundSpec[client] && g_bLibrarySpectate)
 		HandleHitSpectators(client, bBoss);
 }
 
@@ -310,6 +404,9 @@ stock void HandleHitClient(int client, bool bBoss)
 	if (!IsValidClient(client, false, false, true))
 		return;
 
+	if (!g_bHearSoundSpec[client] && GetClientTeam(client) == CS_TEAM_SPECTATOR)
+		return;
+		
 	if (((bBoss && g_bShowBoss[client]) || (!bBoss && g_bShowZombie[client])) && !g_bShowing[client])
 	{
 		g_bShowing[client] = true;
@@ -320,7 +417,7 @@ stock void HandleHitClient(int client, bool bBoss)
 
 	if (g_bHearSound[client])
 	{
-		EmitSoundToClient(client, SND_PATH_HIT_PRECACHE, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_fHitVolumeSound);
+		EmitSoundToClient(client, SND_PATH_HIT_PRECACHE, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_fClientSoundVolume[client]);
 	}
 }
 
@@ -350,18 +447,18 @@ void Cleanup(bool bPluginEnd = false)
 			CloseHandle(g_hShowBoss);
 		if (g_hHearSound != INVALID_HANDLE)
 			CloseHandle(g_hHearSound);
-
+		if (g_hHMSpec != INVALID_HANDLE)
+			CloseHandle(g_hHMSpec);
+		if (g_hSoundVolume != INVALID_HANDLE)
+			CloseHandle(g_hSoundVolume);
+			
 		delete g_cHitIntervalDisplay;
-		delete g_cHitVolumeSound;
-		delete g_cHitSpectator;
 	}
 }
 
 public void GetConVars()
 {
 	g_fHitIntervalDisplay = g_cHitIntervalDisplay.FloatValue;
-	g_fHitVolumeSound = g_cHitVolumeSound.FloatValue;
-	g_bHitSpectator = g_cHitSpectator.BoolValue;
 }
 
 public void ReadClientCookies(int client)
@@ -376,6 +473,12 @@ public void ReadClientCookies(int client)
 
 	GetClientCookie(client, g_hHearSound, sValue, sizeof(sValue));
 	g_bHearSound[client] = (sValue[0] == '\0' ? true : StringToInt(sValue) == 1);
+	
+	GetClientCookie(client, g_hHMSpec, sValue, sizeof(sValue));
+	g_bHearSoundSpec[client] = (sValue[0] == '\0' ? true : StringToInt(sValue) == 1);
+	
+	GetClientCookie(client, g_hSoundVolume, sValue, sizeof(sValue));
+	g_fClientSoundVolume[client] = (sValue[0] == '\0') ? 1.0 : StringToFloat(sValue);
 }
 
 public void SetClientCookies(int client)
@@ -390,4 +493,10 @@ public void SetClientCookies(int client)
 
 	Format(sValue, sizeof(sValue), "%i", g_bHearSound[client]);
 	SetClientCookie(client, g_hHearSound, sValue);
+
+	Format(sValue, sizeof(sValue), "%i", g_bHearSoundSpec[client]);
+	SetClientCookie(client, g_hHMSpec, sValue);
+	
+	Format(sValue, sizeof(sValue), "%f", g_fClientSoundVolume[client]);
+	SetClientCookie(client, g_hSoundVolume, sValue);
 }
