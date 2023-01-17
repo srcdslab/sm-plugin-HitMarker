@@ -361,6 +361,9 @@ public int MenuHandler_HitMarkerSoundVolume(Menu menu, MenuAction action, int pa
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
+	if (!IsValidClient(activator, false, false, true))
+		return;
+		
 	HandleHit(activator, true);
 }
 
