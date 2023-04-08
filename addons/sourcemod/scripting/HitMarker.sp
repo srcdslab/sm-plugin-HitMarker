@@ -21,7 +21,9 @@
 #define	MATERIAL_PATH_HIT_VTF_PRECACHE	"overlays/hitmarker/hitmarker.vtf"
 #define	MATERIAL_PATH_HIT_VMT_PRECACHE	"overlays/hitmarker/hitmarker.vmt"
 
-ConVar g_cHitIntervalDisplay;
+ConVar 
+	g_cvEnable,
+	g_cHitIntervalDisplay;
 
 float 
 	g_fHitIntervalDisplay,
@@ -46,9 +48,9 @@ Handle
 public Plugin myinfo = 
 {
 	name = "HitMarker",
-	author = "Nano, maxime1907",
+	author = "Nano, maxime1907, .Rushaway, Dolly",
 	description = "Displays a hitmarker when you deal damage",
-	version = "1.1",
+	version = "1.2",
 	url = ""
 };
 
@@ -80,6 +82,7 @@ public void OnLibraryRemoved(const char[] name)
 
 public void OnPluginStart()
 {
+	g_cvEnable = CreateConVar("sm_hitmarker_enable", "1", "Enable HitMarker functions", _, true, 0.0, true, 1.0);
 	g_cHitIntervalDisplay = CreateConVar("sm_hitmarker_interval_display", "0.1", "How much time between every hit", 0, true, 0.0, true, 1.0);
 	
 	g_cHitIntervalDisplay.AddChangeHook(OnConVarChanged);
@@ -361,6 +364,9 @@ public int MenuHandler_HitMarkerSoundVolume(Menu menu, MenuAction action, int pa
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
+	if (g_cvEnable.IntValue <= 0)
+		return;
+
 	if (!IsValidClient(activator, false, false, true))
 		return;
 		
@@ -369,6 +375,9 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 
 public void Hook_EventOnDamage(Event event, const char[] name, bool dontBroadcast)
 {
+	if (g_cvEnable.IntValue <= 0)
+		return;
+
 	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	HandleHit(attacker, false);
 }
