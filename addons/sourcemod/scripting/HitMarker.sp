@@ -50,7 +50,7 @@ public Plugin myinfo =
 	name = "HitMarker",
 	author = "Nano, maxime1907, .Rushaway, Dolly",
 	description = "Displays a hitmarker when you deal damage",
-	version = "1.2",
+	version = "1.2.1",
 	url = ""
 };
 
@@ -413,9 +413,6 @@ stock void HandleHitClient(int client, bool bBoss)
 	if (!IsValidClient(client, false, false, true))
 		return;
 
-	if (!g_bHearSoundSpec[client] && GetClientTeam(client) == CS_TEAM_SPECTATOR)
-		return;
-		
 	if (((bBoss && g_bShowBoss[client]) || (!bBoss && g_bShowZombie[client])) && !g_bShowing[client])
 	{
 		g_bShowing[client] = true;
@@ -423,6 +420,9 @@ stock void HandleHitClient(int client, bool bBoss)
 
 		CreateTimer(g_fHitIntervalDisplay, Timer_NoOverlay, client);
 	}
+
+	if (!g_bHearSoundSpec[client] && GetClientTeam(client) == CS_TEAM_SPECTATOR)
+		return;
 
 	if (g_bHearSound[client])
 	{
