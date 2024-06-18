@@ -50,7 +50,7 @@ public Plugin myinfo =
 	name = "HitMarker",
 	author = "Nano, maxime1907, .Rushaway, Dolly",
 	description = "Displays a hitmarker when you deal damage",
-	version = "1.2.1",
+	version = "1.2.2",
 	url = ""
 };
 
@@ -492,6 +492,9 @@ public void ReadClientCookies(int client)
 
 public void SetClientCookies(int client)
 {
+	if (!IsValidClient(client, false, false, true))
+		return;
+
 	char sValue[8];
 
 	Format(sValue, sizeof(sValue), "%i", g_bShowZombie[client]);
