@@ -15,12 +15,6 @@ project:
       unpack:
       - source: /addons
         dest: /addons
-    - name: utilshelper
-      type: git
-      repo: https://github.com/srcdslab/sm-plugin-utilshelper
-      unpack:
-      - source: /addons
-        dest: /addons
     - name: spectate
       type: git
       repo: https://github.com/srcdslab/sm-plugin-Spectate
