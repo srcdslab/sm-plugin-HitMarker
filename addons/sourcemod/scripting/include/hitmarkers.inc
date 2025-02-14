@@ -3,11 +3,11 @@
 #endif
 #define _hitmarkers_included
 
-#define HitMarker_V_MAJOR   2
-#define HitMarker_V_MINOR   0
-#define HitMarker_V_PATCH   0
+#define HitMarker_V_MAJOR   "2"
+#define HitMarker_V_MINOR   "0"
+#define HitMarker_V_PATCH   "0"
 
-#define HitMarker_VERSION   "2.0.0"
+#define HitMarker_VERSION   HitMarker_V_MAJOR..."."...HitMarker_V_MINOR..."."...HitMarker_V_PATCH
 
 enum HitmarkerType
 {
@@ -23,20 +23,12 @@ enum MenuType
 	Menu_BodyColor,
 };
 
-/**
- * Called when the plugin becomes available.
- * 
- * @noreturn
- */
-forward void HitMarker_OnPluginOK();
-
-/**
- * Called when the plugin becomes unavailable.
- * This can happen when the plugin is reloaded or unloaded.
- * 
- * @noreturn
- */
-forward void HitMarker_OnPluginNotOK();
+enum SoundType
+{
+	Sound_Boss,
+	Sound_Zombie,
+	Sound_Detailed,
+}
 
 /**
  * Gets the current status of a hitmarker setting for a client.
@@ -49,6 +41,25 @@ forward void HitMarker_OnPluginNotOK();
 native bool GetHitmarkerStatus(int client, HitmarkerType type);
 
 /**
+ * Gets the current status of a hit sound type for a client.
+ *
+ * @param client    Client index
+ * @param type      Type of sound to query
+ * @return          True if enabled, false otherwise
+ * @error          Invalid client index or client not in game
+ */
+native bool GetHitsoundStatus(int client, SoundType type);
+
+/**
+ * Gets the current volume setting for a client's hit sounds.
+ *
+ * @param client    Client index
+ * @return          Volume value between 0.0 and 1.0
+ * @error          Invalid client index or client not in game
+ */
+native float GetHitsoundVolume(int client);
+
+/**
  * Toggles a hitmarker setting for a client.
  *
  * @param client    Client index
@@ -57,6 +68,26 @@ native bool GetHitmarkerStatus(int client, HitmarkerType type);
  * @error          Invalid client index or client not in game
  */
 native void ToggleHitmarker(int client, HitmarkerType type);
+
+/**
+ * Toggles a hit sound type for a client.
+ *
+ * @param client    Client index
+ * @param type      Type of sound to toggle
+ * @noreturn
+ * @error          Invalid client index or client not in game
+ */
+native void ToggleHitsound(int client, SoundType type);
+
+/**
+ * Sets the volume for a client's hit sounds.
+ *
+ * @param client    Client index
+ * @param volume    New volume value between 0.0 and 1.0
+ * @noreturn
+ * @error          Invalid client index or client not in game
+ */
+native void SetHitsoundVolume(int client, float volume);
 
 /**
  * Opens a hitmarker settings menu for a client.
@@ -68,10 +99,19 @@ native void ToggleHitmarker(int client, HitmarkerType type);
  */
 native void OpenHitmarkerMenu(int client, MenuType type);
 
+/**
+ * Opens the hit sounds settings menu for a client.
+ *
+ * @param client    Client index
+ * @noreturn
+ * @error          Invalid client index or client not in game
+ */
+native void OpenHitsoundMenu(int client);
+
 public SharedPlugin __pl_hitmarkers =
 {
 	name = "hitmarkers",
-	file = "hitmarkers.smx",
+	file = "HitMarkers.smx",
 #if defined REQUIRE_PLUGIN
 	required = 1
 #else
@@ -83,7 +123,12 @@ public SharedPlugin __pl_hitmarkers =
 public void __pl_hitmarkers_SetNTVOptional()
 {
 	MarkNativeAsOptional("GetHitmarkerStatus");
+	MarkNativeAsOptional("GetHitsoundStatus");
+	MarkNativeAsOptional("GetHitsoundVolume");
 	MarkNativeAsOptional("ToggleHitmarker");
+	MarkNativeAsOptional("ToggleHitsound");
+	MarkNativeAsOptional("SetHitsoundVolume");
 	MarkNativeAsOptional("OpenHitmarkerMenu");
+	MarkNativeAsOptional("OpenHitsoundMenu");
 }
 #endif
