@@ -252,6 +252,15 @@ public void OnConVarChange(ConVar convar, char[] oldValue, char[] newValue)
 	g_bShowDamage = g_cvShowDamage.BoolValue;
 }
 
+public void OnConfigsExecuted()
+{
+	PrecacheSounds();
+	GetConVarString(g_cvHitsound, g_sHitsoundPath, sizeof(g_sHitsoundPath));
+	GetConVarString(g_cvHitsoundBody, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	GetConVarString(g_cvHitsoundHead, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	GetConVarString(g_cvHitsoundKill, g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
+}
+
 stock void VerifyNatives()
 {
 	VerifyNative_DynamicChannel();
@@ -760,7 +769,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
 
-	if (!IsPlayerAlive(attacker) || GetClientTeam(attacker) != CS_TEAM_CT)
+	if (!IsPlayerAlive(attacker))
 		return;
 
 	// Only perform 1 hitmarker/hitsound per tick
@@ -769,7 +778,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 		return;
 
 	int victim = GetClientOfUserId(GetEventInt(event, "userid"));
-	if (!IsClientInGame(victim) || GetClientTeam(victim) == CS_TEAM_CT || attacker == victim)
+	if (!IsClientInGame(victim) || attacker == victim)
 		return;
 
 	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
@@ -891,7 +900,8 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 	if (!g_HS_pData[activator].enable || !g_HS_pData[activator].boss)
 		return;
 
-	if (GetClientTeam(activator) != CS_TEAM_CT)
+	int iTeam = GetClientTeam(activator);
+	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPEC)
 		return;
 
 	if (g_HS_pData[activator].fVolume != 0.0)
@@ -972,11 +982,6 @@ public void Init()
 public void OnMapStart()
 {
 	CleanupAndInit();
-	PrecacheSounds();
-	GetConVarString(g_cvHitsound, g_sHitsoundPath, sizeof(g_sHitsoundPath));
-	GetConVarString(g_cvHitsoundBody, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
-	GetConVarString(g_cvHitsoundHead, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
-	GetConVarString(g_cvHitsoundKill, g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
 }
 
 public void OnMapEnd()
