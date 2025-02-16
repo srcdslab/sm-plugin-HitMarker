@@ -901,7 +901,7 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 		return;
 
 	int iTeam = GetClientTeam(activator);
-	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPEC)
+	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPECTATOR)
 		return;
 
 	if (g_HS_pData[activator].fVolume != 0.0)
