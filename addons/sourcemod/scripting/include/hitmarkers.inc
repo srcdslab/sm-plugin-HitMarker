@@ -5,7 +5,7 @@
 
 #define HitMarker_V_MAJOR   "2"
 #define HitMarker_V_MINOR   "0"
-#define HitMarker_V_PATCH   "0"
+#define HitMarker_V_PATCH   "1"
 
 #define HitMarker_VERSION   HitMarker_V_MAJOR..."."...HitMarker_V_MINOR..."."...HitMarker_V_PATCH
 
