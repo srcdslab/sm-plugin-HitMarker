@@ -19,6 +19,7 @@
 //----------------------------------------------------------------------------------------------------
 // Purpose: Plugin convars
 //----------------------------------------------------------------------------------------------------
+ConVar g_cvEnable;
 ConVar g_cvChannel;
 ConVar g_cvShowDamage;
 ConVar g_cvHitsound;
@@ -44,6 +45,7 @@ Cookie g_cDetailed;
 //----------------------------------------------------------------------------------------------------
 // Purpose: Global variables
 //----------------------------------------------------------------------------------------------------
+bool g_bEnable = true;
 bool g_bShowDamage = true;
 bool g_bPlugin_DynamicChannels = false;
 bool g_bDynamicNative = false;
@@ -142,6 +144,10 @@ public void OnPluginStart()
 	// LoadTranslations("plugin.hitmarkers.phrases");
 
 	// HitMarker convars
+	g_cvEnable = CreateConVar("sm_hitmarker_enable", "1", "Enable hitmarkers");
+	g_cvEnable.AddChangeHook(OnConVarChange);
+	g_bEnable = g_cvEnable.BoolValue;
+
 	g_cvChannel = CreateConVar("sm_hitmarker_channel", "4", "Channel for hitmarkers to be displayed on");
 	g_cvChannel.AddChangeHook(OnConVarChange);
 	g_iHUDChannel = g_cvChannel.IntValue;
@@ -248,6 +254,7 @@ public void OnLibraryRemoved(const char[] name)
 
 public void OnConVarChange(ConVar convar, char[] oldValue, char[] newValue)
 {
+	g_bEnable = g_cvEnable.BoolValue;
 	g_iHUDChannel = g_cvChannel.IntValue;
 	g_bShowDamage = g_cvShowDamage.BoolValue;
 }
@@ -765,6 +772,9 @@ void InternalToggleShowHealth(int client)
 //----------------------------------------------------------------------------------------------------
 public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 {
+	if (!g_bEnable)
+		return;
+
 	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
@@ -876,6 +886,9 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
+	if (!g_bEnable)
+		return;
+
 	if (!(1 <= activator <= MaxClients) || !IsClientInGame(activator))
 		return;
 
