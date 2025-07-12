@@ -37,6 +37,7 @@ Cookie g_cHitsoundSettings;   // Combined: enable|boss|detailed|volume
 //----------------------------------------------------------------------------------------------------
 // Purpose: Global variables
 //----------------------------------------------------------------------------------------------------
+bool g_bLate = false;
 bool g_bEnable = true;
 bool g_bShowDamage = true;
 bool g_bPlugin_DynamicChannels = false;
@@ -131,6 +132,12 @@ public Plugin myinfo =
 	url = "https://github.com/srcdslab/sm-plugin-HitMarker"
 };
 
+public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
+{
+	g_bLate = late;
+	return APLRes_Success;
+}
+
 public void OnPluginStart()
 {
 	// LoadTranslations("plugin.hitmarkers.phrases");
@@ -193,11 +200,16 @@ public void OnPluginStart()
 	g_cHitmarkerColors = new Cookie("hitmarker_colors", "Combined hitmarker colors (headR|headG|headB|bodyR|bodyG|bodyB)", CookieAccess_Private);
 	g_cHitsoundSettings = new Cookie("hitsound_settings", "Combined hitsound settings (enable|boss|detailed|volume)", CookieAccess_Private);
 
+	if (!g_bLate)
+		return;
+
 	for (int client = 1; client <= MaxClients; client++)
 	{
 		if (IsClientInGame(client) && AreClientCookiesCached(client))
 			OnClientCookiesCached(client);
 	}
+
+	g_bLate = false;
 }
 
 public void OnAllPluginsLoaded()
