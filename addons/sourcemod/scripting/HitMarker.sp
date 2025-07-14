@@ -132,12 +132,6 @@ public Plugin myinfo =
 	url = "https://github.com/srcdslab/sm-plugin-HitMarker"
 };
 
-public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
-{
-	g_bLate = late;
-	return APLRes_Success;
-}
-
 public void OnPluginStart()
 {
 	// LoadTranslations("plugin.hitmarkers.phrases");
@@ -284,6 +278,7 @@ stock void VerifyNative_TopDefenders()
 //----------------------------------------------------------------------------------------------------
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	g_bLate = late;
 	RegPluginLibrary("hitmarkers");
 
 	// Get client settings native
