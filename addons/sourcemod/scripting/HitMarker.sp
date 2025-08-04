@@ -141,7 +141,7 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-	// LoadTranslations("plugin.hitmarkers.phrases");
+	LoadTranslations("HitMarker.phrases");
 
 	// HitMarker convars
 	g_cvEnable = CreateConVar("sm_hitmarker_enable", "1", "Enable hitmarkers");
