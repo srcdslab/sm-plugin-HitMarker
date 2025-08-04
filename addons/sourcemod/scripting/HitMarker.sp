@@ -1038,7 +1038,7 @@ public void HitmarkerMenu(int client)
 	{
 		menu.SetTitle("Hitmarker Settings\n ");
 
-		switch(g_HM_pData[client].enable)
+		switch (g_HM_pData[client].enable)
 		{
 			case 0:
 				Format(buffer, sizeof(buffer), "Disabled");
@@ -1053,7 +1053,7 @@ public void HitmarkerMenu(int client)
 	else
 	{
 		menu.SetTitle("Hitmarkers\n \nCurrent Style (%d/%d):\n%s", g_HM_pData[client].style + 1, sizeof(g_sHitStyles), g_sHitStyles[g_HM_pData[client].style]);
-		switch(g_HM_pData[client].enable)
+		switch (g_HM_pData[client].enable)
 		{
 			case 0:
 				Format(buffer, sizeof(buffer), "Disabled");
@@ -1074,7 +1074,7 @@ public void HitmarkerMenu(int client)
 		menu.AddItem("bodycolor", buffer);
 	}
 
-	switch(g_HM_pData[client].type)
+	switch (g_HM_pData[client].type)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Game Center");
@@ -1086,7 +1086,7 @@ public void HitmarkerMenu(int client)
 	Format(buffer, sizeof(buffer), "Display Type: %s", buffer);
 	menu.AddItem("display", buffer);
 
-	switch(g_HM_pData[client].damage)
+	switch (g_HM_pData[client].damage)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Off");
@@ -1098,7 +1098,7 @@ public void HitmarkerMenu(int client)
 	Format(buffer, sizeof(buffer), "Show Damage: %s", buffer);
 	menu.AddItem("showdamage", buffer);
 
-	switch(g_HM_pData[client].health)
+	switch (g_HM_pData[client].health)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Off");
