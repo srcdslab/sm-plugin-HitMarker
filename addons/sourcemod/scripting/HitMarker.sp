@@ -772,9 +772,6 @@ void InternalToggleShowHealth(int client)
 //----------------------------------------------------------------------------------------------------
 public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 {
-	if (!g_bEnable)
-		return;
-
 	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
@@ -791,13 +788,8 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (!IsClientInGame(victim) || attacker == victim)
 		return;
 
-	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
-		g_HM_pData[attacker].style = 0;
-
-	int damage = GetEventInt(event, "dmg_health");
 	int hitgroup = GetEventInt(event, "hitgroup");
 	int hp = GetEventInt(event, "health");
-	int previousHealth = hp + damage;
 
 	// Play hitsound
 	if (g_HS_pData[attacker].detailed)
@@ -811,6 +803,18 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	}
 	else
 		EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+
+	g_iLastTick[attacker] = tick;
+
+	// Only display hitmarkers if enabled
+	if (!g_bEnable)
+		return;
+
+	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
+		g_HM_pData[attacker].style = 0;
+
+	int damage = GetEventInt(event, "dmg_health");
+	int previousHealth = hp + damage;
 
 	// Build our hitmarker
 	char sRank[32], buffer[128], sHP[128] = "Dead";
@@ -880,24 +884,28 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 			SendHudMsg(attacker, buffer, DISPLAY_GAME, hitgroup);
 		}
 	}
-
-	g_iLastTick[attacker] = tick;
 }
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
-	if (!g_bEnable)
-		return;
-
 	if (!(1 <= activator <= MaxClients) || !IsClientInGame(activator))
 		return;
 
 	if (!IsPlayerAlive(activator))
 		return;
 
-	// Only show 1 hitmarker per tick
+	// Only perform 1 hitmarker/hitsound per tick
 	int tick = GetGameTickCount();
 	if (tick == g_iLastTick[activator])
+		return;
+
+	if (g_HS_pData[activator].fVolume != 0.0)
+		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
+
+	g_iLastTick[activator] = tick;
+
+	// Only display hitmarkers if enabled
+	if (!g_bEnable)
 		return;
 
 	if (g_HM_pData[activator].enable == 2)
@@ -917,11 +925,6 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPECTATOR)
 		return;
 
-	if (g_HS_pData[activator].fVolume != 0.0)
-	{
-		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
-		g_iLastTick[activator] = tick;
-	}
 }
 
 void SendHudMsg(int client, char[] szMessage, DisplayType type = DISPLAY_HINT, int hitgroup = 0)
