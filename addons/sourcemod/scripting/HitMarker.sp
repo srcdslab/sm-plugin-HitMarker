@@ -775,7 +775,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
 
-	if (!IsPlayerAlive(attacker))
+	if (!IsPlayerAlive(attacker) || GetClientTeam(attacker) == CS_TEAM_T)
 		return;
 
 	// Only perform 1 hitmarker/hitsound per tick
