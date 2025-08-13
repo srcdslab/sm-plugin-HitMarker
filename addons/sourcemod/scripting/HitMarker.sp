@@ -141,7 +141,7 @@ public Plugin myinfo =
 
 public void OnPluginStart()
 {
-	// LoadTranslations("plugin.hitmarkers.phrases");
+	LoadTranslations("HitMarker.phrases");
 
 	// HitMarker convars
 	g_cvEnable = CreateConVar("sm_hitmarker_enable", "1", "Enable hitmarkers");
@@ -164,10 +164,8 @@ public void OnPluginStart()
 	AutoExecConfig(true, "Hitmarkers");
 
 	// Plugin commands
-	RegConsoleCmd("sm_hm", Command_Hitmarkers, "Open hitmarkers settings");
 	RegConsoleCmd("sm_hitmarker", Command_Hitmarkers, "Open hitmarker settings");
 	RegConsoleCmd("sm_hitmarkers", Command_Hitmarkers, "Open hitmarker settings");
-	RegConsoleCmd("sm_sd", Command_Hitmarkers, "Open hitmarkers settings");
 	RegConsoleCmd("sm_showdamage", Command_Hitmarkers, "Open hitmarkers settings");
 
 	RegConsoleCmd("sm_headhitcolor", Command_HeadColor, "Change your zombie hitmarker color.");
@@ -176,7 +174,6 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_bodyhitcolor", Command_BodyColor, "Change your zombie hitmarker color.");
 	RegConsoleCmd("sm_bodyhitcolour", Command_BodyColor, "Change your zombie hitmarker color.");
 
-	RegConsoleCmd("sm_hits", Command_Hitsound, "Bring up hitsounds settings menu");
 	RegConsoleCmd("sm_hitsound", Command_Hitsound, "Bring up hitsounds settings menu");
 	RegConsoleCmd("sm_hitsounds", Command_Hitsound, "Bring up hitsounds settings menu");
 
@@ -195,7 +192,6 @@ public void OnPluginStart()
 	// Client cookies
 	SetCookieMenuItem(SettingsMenuHandler, INVALID_HANDLE, "Hitmarker Settings");
 	SetCookieMenuItem(CookieMenu_HitMarker, INVALID_HANDLE, "Hit Sound Settings");
-	
 
 	g_cShowDamage = new Cookie("hitmarker_damage", "Show damage under hitmarker", CookieAccess_Private);
 	g_cShowHitmarker = new Cookie("hitmarker_enable", "Show hitmarkers", CookieAccess_Private);
@@ -595,7 +591,7 @@ public Action Command_HeadColor(int client, int args)
 	Format(buffer, sizeof(buffer), "%d %d %d", r, g, b);
 	g_cHeadshotColor.Set(client, buffer);
 
-	CReplyToCommand(client, "{green}[HitMarker]{default} You have set your headshot hitmarker color to {red}%d {green}%d {blue}%d", r, g, b);
+	CReplyToCommand(client, "%t %t", "Hitmarker Prefix", "Head Color", r, g, b);
 	return Plugin_Handled;
 }
 
@@ -633,7 +629,7 @@ public Action Command_BodyColor(int client, int args)
 	Format(buffer, sizeof(buffer), "%d %d %d", r, g, b);
 	g_cBodyshotColor.Set(client, buffer);
 
-	CReplyToCommand(client, "{green}[HitMarker]{default} You have set your headshot hitmarker color to {red}%d {green}%d {blue}%d", r, g, b);
+	CReplyToCommand(client, "%t %t", "Hitmarker Prefix", "Body Color", r, g, b);
 	return Plugin_Handled;
 }
 
@@ -648,20 +644,20 @@ public Action Command_Hitsound(int client, int args)
 		{
 			g_HS_pData[client].enable = false;
 			g_cEnable.Set(client, "0");
-			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds have been {red}disabled!");
+			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Disabled");
 		}
 		else
-			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds are already {red}disabled!");
+			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Already Disabled");
 	}
 	else if (strcmp(buffer, "on", false) == 0)
 	{
 		if (g_HS_pData[client].enable)
-			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds are already {green}enabled!");
+			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Already Enabled");
 		else
 		{
 			g_HS_pData[client].enable = true;
 			g_cEnable.Set(client, "1");
-			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds have been {green}enabled!");
+			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Enabled");
 		}
 	}
 	else
@@ -675,7 +671,7 @@ public Action Command_Hitsound(int client, int args)
 
 			g_HS_pData[client].volume = input;
 			g_HS_pData[client].fVolume = fVolume;
-			CPrintToChat(client, "{green}[HitSound]{default} Hitsound volume has been changed to {green}%d", input);
+			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Volume", input);
 			g_cVolume.Set(client, recalc);
 		}
 		else
@@ -692,18 +688,18 @@ void InternalToggleHitmarker(int client)
 	g_HM_pData[client].enable++;
 	if (g_HM_pData[client].enable > 2)
 		g_HM_pData[client].enable = 0;
-	
+
 	char buffer[32];
 	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].enable);
 	g_cShowHitmarker.Set(client, buffer);
 	switch (g_HM_pData[client].enable)
 	{
 		case 0:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarkers are now {red}disabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Disabled");
 		case 1:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarkers are now {green}enabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Enabled");
 		case 2:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarkers are now {green}enabled (Players + Bosses)");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker All");
 	}
 }
 
@@ -712,18 +708,18 @@ void InternalToggleDamage(int client)
 	g_HM_pData[client].damage++;
 	if (g_HM_pData[client].damage > 2)
 		g_HM_pData[client].damage = 0;
-	
+
 	char buffer[32];
 	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].damage);
 	g_cShowDamage.Set(client, buffer);
 	switch (g_HM_pData[client].damage)
 	{
 		case 0:
-			CPrintToChat(client, "{green}[HitMarker]{default} Damage display under hitmarkers is now {red}disabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Disabled");
 		case 1:
-			CPrintToChat(client, "{green}[HitMarker]{default} Damage display under hitmarkers is now {green}enabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Enabled");
 		case 2:
-			CPrintToChat(client, "{green}[HitMarker]{default} Damage display under hitmarkers is now {green}enabled (+Rank)");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Rank");
 	}
 }
 
@@ -732,18 +728,18 @@ void InternalToggleDisplayType(int client)
 	g_HM_pData[client].type++;
 	if (g_HM_pData[client].type > 2)
 		g_HM_pData[client].type = 0;
-	
+
 	char buffer[32];
 	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].type);
 	g_cDisplayType.Set(client, buffer);
 	switch (g_HM_pData[client].type)
 	{
 		case 0:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarker display type is now using {green}Game Center");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Center");
 		case 1:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarker display type is now using {green}Game_text");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Game Text");
 		case 2:
-			CPrintToChat(client, "{green}[HitMarker]{default} Hitmarker display type is now using {green}Hint");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Hint Text");
 	}
 }
 
@@ -752,18 +748,18 @@ void InternalToggleShowHealth(int client)
 	g_HM_pData[client].health++;
 	if (g_HM_pData[client].health > 2)
 		g_HM_pData[client].health = 0;
-	
+
 	char buffer[32];
 	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].health);
 	g_cShowHealth.Set(client, buffer);
 	switch (g_HM_pData[client].health)
 	{
 		case 0:
-			CPrintToChat(client, "{green}[HitMarker]{default} Health display under hitmarkers is now {red}disabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Disabled");
 		case 1:
-			CPrintToChat(client, "{green}[HitMarker]{default} Health display under hitmarkers is now {green}enabled");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Enabled");
 		case 2:
-			CPrintToChat(client, "{green}[HitMarker]{default} Health display under hitmarkers is now {green}enabled (+Victim name)");
+			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Name");
 	}
 }
 
@@ -772,14 +768,11 @@ void InternalToggleShowHealth(int client)
 //----------------------------------------------------------------------------------------------------
 public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 {
-	if (!g_bEnable)
-		return;
-
 	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
 
-	if (!IsPlayerAlive(attacker))
+	if (!IsPlayerAlive(attacker) || GetClientTeam(attacker) == CS_TEAM_T)
 		return;
 
 	// Only perform 1 hitmarker/hitsound per tick
@@ -791,13 +784,8 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (!IsClientInGame(victim) || attacker == victim)
 		return;
 
-	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
-		g_HM_pData[attacker].style = 0;
-
-	int damage = GetEventInt(event, "dmg_health");
 	int hitgroup = GetEventInt(event, "hitgroup");
 	int hp = GetEventInt(event, "health");
-	int previousHealth = hp + damage;
 
 	// Play hitsound
 	if (g_HS_pData[attacker].detailed)
@@ -811,6 +799,18 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	}
 	else
 		EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+
+	g_iLastTick[attacker] = tick;
+
+	// Only display hitmarkers if enabled
+	if (!g_bEnable)
+		return;
+
+	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
+		g_HM_pData[attacker].style = 0;
+
+	int damage = GetEventInt(event, "dmg_health");
+	int previousHealth = hp + damage;
 
 	// Build our hitmarker
 	char sRank[32], buffer[128], sHP[128] = "Dead";
@@ -855,7 +855,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 		// The Hitmarker is not enabled but we still need to Format for damage or/and health
 		if (!g_HM_pData[attacker].enable)
 			Format(buffer, sizeof(buffer), "\n\n\n\n\n\n\n\n");
-	
+
 		// For this display we need to always set the new line at the end of the string
 		// This is because we re-use the buffer for each line
 		if (g_bShowDamage && g_HM_pData[attacker].damage != 0)
@@ -880,24 +880,28 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 			SendHudMsg(attacker, buffer, DISPLAY_GAME, hitgroup);
 		}
 	}
-
-	g_iLastTick[attacker] = tick;
 }
 
 public void Hook_EntityOnDamage(const char[] output, int caller, int activator, float delay)
 {
-	if (!g_bEnable)
-		return;
-
 	if (!(1 <= activator <= MaxClients) || !IsClientInGame(activator))
 		return;
 
 	if (!IsPlayerAlive(activator))
 		return;
 
-	// Only show 1 hitmarker per tick
+	// Only perform 1 hitmarker/hitsound per tick
 	int tick = GetGameTickCount();
 	if (tick == g_iLastTick[activator])
+		return;
+
+	if (g_HS_pData[activator].fVolume != 0.0)
+		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
+
+	g_iLastTick[activator] = tick;
+
+	// Only display hitmarkers if enabled
+	if (!g_bEnable)
 		return;
 
 	if (g_HM_pData[activator].enable == 2)
@@ -917,15 +921,10 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPECTATOR)
 		return;
 
-	if (g_HS_pData[activator].fVolume != 0.0)
-	{
-		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
-		g_iLastTick[activator] = tick;
-	}
 }
 
 void SendHudMsg(int client, char[] szMessage, DisplayType type = DISPLAY_HINT, int hitgroup = 0)
-{	
+{
 	if (type == DISPLAY_HINT && IsVoteInProgress())
 		type = DISPLAY_GAME;
 
@@ -1002,8 +1001,8 @@ public void OnMapEnd()
 	Cleanup();
 }
 
-public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast) 
-{ 
+public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
+{
 	CleanupAndInit();
 }
 
@@ -1035,8 +1034,8 @@ public void HitmarkerMenu(int client)
 	if (g_HM_pData[client].enable == 0)
 	{
 		menu.SetTitle("Hitmarker Settings\n ");
-		
-		switch(g_HM_pData[client].enable)
+
+		switch (g_HM_pData[client].enable)
 		{
 			case 0:
 				Format(buffer, sizeof(buffer), "Disabled");
@@ -1051,7 +1050,7 @@ public void HitmarkerMenu(int client)
 	else
 	{
 		menu.SetTitle("Hitmarkers\n \nCurrent Style (%d/%d):\n%s", g_HM_pData[client].style + 1, sizeof(g_sHitStyles), g_sHitStyles[g_HM_pData[client].style]);
-		switch(g_HM_pData[client].enable)
+		switch (g_HM_pData[client].enable)
 		{
 			case 0:
 				Format(buffer, sizeof(buffer), "Disabled");
@@ -1072,7 +1071,7 @@ public void HitmarkerMenu(int client)
 		menu.AddItem("bodycolor", buffer);
 	}
 
-	switch(g_HM_pData[client].type)
+	switch (g_HM_pData[client].type)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Game Center");
@@ -1084,7 +1083,7 @@ public void HitmarkerMenu(int client)
 	Format(buffer, sizeof(buffer), "Display Type: %s", buffer);
 	menu.AddItem("display", buffer);
 
-	switch(g_HM_pData[client].damage)
+	switch (g_HM_pData[client].damage)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Off");
@@ -1096,7 +1095,7 @@ public void HitmarkerMenu(int client)
 	Format(buffer, sizeof(buffer), "Show Damage: %s", buffer);
 	menu.AddItem("showdamage", buffer);
 
-	switch(g_HM_pData[client].health)
+	switch (g_HM_pData[client].health)
 	{
 		case 0:
 			Format(buffer, sizeof(buffer), "Off");
@@ -1413,7 +1412,7 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int s
 					Format(buffer, sizeof(buffer), "%.2f", g_HS_pData[client].fVolume);
 					g_cVolume.Set(client, buffer);
 
-					CPrintToChat(client, "{green}[HitSound]{default} Hitsound volume has been changed to {green}%d", g_HS_pData[client].volume);
+					CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Volume", g_HS_pData[client].volume);
 				}
 			}
 			DisplayCookieMenu(client);
@@ -1425,21 +1424,21 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int s
 public void ToggleZombieHitsound(int client)
 {
 	g_HS_pData[client].enable = !g_HS_pData[client].enable;
-	CPrintToChat(client, "{green}[HitSound]{default} Zombie hitsounds are now %s", g_HS_pData[client].enable ? "{green}enabled" : "{red}disabled");
+	CPrintToChat(client, "%t %t", "Hitsound Prefix", "Toggle Zombie", g_HS_pData[client].enable ? "Enabled" : "Disabled");
 	g_HS_pData[client].enable ? g_cEnable.Set(client, "1") : g_cEnable.Set(client, "0");
 }
 
 public void ToggleBossHitsound(int client)
 {
 	g_HS_pData[client].boss = !g_HS_pData[client].boss;
-	CPrintToChat(client, "{green}[HitSound]{default} Boss hitsounds are now %s", g_HS_pData[client].boss ? "{green}enabled" : "{red}disabled");
+	CPrintToChat(client, "%t %t", "Hitsound Prefix", "Toggle Boss", g_HS_pData[client].boss ? "Enabled" : "Disabled");
 	g_HS_pData[client].boss ? g_cBoss.Set(client, "1") : g_cBoss.Set(client, "0");
 }
 
 public void ToggleDetailedHitsound(int client)
 {
 	g_HS_pData[client].detailed = !g_HS_pData[client].detailed;
-	CPrintToChat(client, "{green}[HitSound]{default} Detailed hitsounds are now %s", g_HS_pData[client].detailed ? "{green}enabled" : "{red}disabled");
+	CPrintToChat(client, "%t %t", "Hitsound Prefix", "Toggle Detailed", g_HS_pData[client].detailed ? "Enabled" : "Disabled");
 	g_HS_pData[client].detailed ? g_cDetailed.Set(client, "1") : g_cDetailed.Set(client, "0");
 }
 
