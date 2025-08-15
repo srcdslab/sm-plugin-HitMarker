@@ -537,19 +537,17 @@ void LoadHitsoundSettings(int client)
 //----------------------------------------------------------------------------------------------------
 public void OnClientPutInServer(int client)
 {
-	if (!AreClientCookiesCached(client))
+	if (!g_bLate)
+		return;
+
+	if (AreClientCookiesCached(client))
 	{
-		g_HM_pData[client].damage = 1;
-		g_HM_pData[client].enable = 2;
-		g_HM_pData[client].health = 1;
-		g_HM_pData[client].type = view_as<int>(DISPLAY_CENTER);
-		g_HM_pData[client].style = g_iHitmarkerStyle;
-		g_HM_pData[client].headColor[0] = 255;
-		g_HM_pData[client].headColor[1] = 45;
-		g_HM_pData[client].headColor[2] = 45;
-		g_HM_pData[client].bodyColor[0] = 255;
-		g_HM_pData[client].bodyColor[1] = 165;
-		g_HM_pData[client].bodyColor[2] = 0;
+		OnClientCookiesCached(client);
+	}
+	else
+	{
+		g_HM_pData[client].Reset();
+		g_HS_pData[client].Reset();
 	}
 }
 
@@ -806,7 +804,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	int previousHealth = hp + damage;
 
 	// Play hitsound
-	if (g_HS_pData[attacker].enabled)
+	if (g_HS_pData[attacker].enable)
 	{
 		if (g_HS_pData[attacker].detailed)
 		{
@@ -1459,15 +1457,15 @@ stock void PrecacheSounds()
 	AddFileToDownloadsTable(sBuffer);
 
 	// Body Shot Sound
-	GetConVarString(g_sHitsoundHeadPath, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
-	PrecacheSound(g_sHitsoundHeadPath, true);
-	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
+	GetConVarString(g_cvHitsoundBody, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	PrecacheSound(g_sHitsoundBodyPath, true);
+	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundBodyPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Head Shot Sound
-	GetConVarString(g_sHitsoundBodyPath, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
-	PrecacheSound(g_sHitsoundBodyPath, true);
-	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundBodyPath);
+	GetConVarString(g_cvHitsoundHead, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	PrecacheSound(g_sHitsoundHeadPath, true);
+	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Kill Shot Sound
