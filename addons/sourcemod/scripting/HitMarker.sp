@@ -806,17 +806,20 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	int previousHealth = hp + damage;
 
 	// Play hitsound
-	if (g_HS_pData[attacker].detailed)
+	if (g_HS_pData[attacker].enabled)
 	{
-		if (hp == 0)
-			EmitSoundToClient(attacker, g_sHitsoundKillPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
-		else if (hitgroup == 1)
-			EmitSoundToClient(attacker, g_sHitsoundHeadPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+		if (g_HS_pData[attacker].detailed)
+		{
+			if (hp == 0)
+				EmitSoundToClient(attacker, g_sHitsoundKillPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			else if (hitgroup == 1)
+				EmitSoundToClient(attacker, g_sHitsoundHeadPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			else
+				EmitSoundToClient(attacker, g_sHitsoundBodyPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+		}
 		else
-			EmitSoundToClient(attacker, g_sHitsoundBodyPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
 	}
-	else
-		EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
 
 	// Build our hitmarker
 	char sRank[32], buffer[128], sHP[128] = "Dead";
@@ -1456,13 +1459,13 @@ stock void PrecacheSounds()
 	AddFileToDownloadsTable(sBuffer);
 
 	// Body Shot Sound
-	GetConVarString(g_cvHitsoundBody, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	GetConVarString(g_sHitsoundHeadPath, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
 	PrecacheSound(g_sHitsoundHeadPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Head Shot Sound
-	GetConVarString(g_cvHitsoundHead, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	GetConVarString(g_sHitsoundBodyPath, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
 	PrecacheSound(g_sHitsoundBodyPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundBodyPath);
 	AddFileToDownloadsTable(sBuffer);
