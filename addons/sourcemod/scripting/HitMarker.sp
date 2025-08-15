@@ -1250,7 +1250,6 @@ public int HeadColorHandler(Handle menu, MenuAction action, int client, int sele
 				g_HM_pData[client].headColor[2] = 200;
 			}
 
-			Format(buffer, sizeof(buffer), "%d %d %d", g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
 			SaveHitmarkerColors(client);
 
 			HeadColor(client);
@@ -1451,25 +1450,25 @@ stock void PrecacheSounds()
 	char sBuffer[PLATFORM_MAX_PATH];
 
 	// Boss Hitmarker Sound
-	GetConVarString(g_cvHitsound, g_sHitsoundPath, sizeof(g_sHitsoundPath));
+	g_cvHitsound.GetString(g_sHitsoundPath, sizeof(g_sHitsoundPath));
 	PrecacheSound(g_sHitsoundPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Body Shot Sound
-	GetConVarString(g_cvHitsoundBody, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	g_cvHitsoundBody.GetString(g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
 	PrecacheSound(g_sHitsoundBodyPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundBodyPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Head Shot Sound
-	GetConVarString(g_cvHitsoundHead, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	g_cvHitsoundHead.GetString(g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
 	PrecacheSound(g_sHitsoundHeadPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Kill Shot Sound
-	GetConVarString(g_cvHitsoundKill, g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
+	g_cvHitsoundKill.GetString(g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
 	PrecacheSound(g_sHitsoundKillPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundKillPath);
 	AddFileToDownloadsTable(sBuffer);
