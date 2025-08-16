@@ -30,21 +30,14 @@ ConVar g_cvHitsoundKill;
 //----------------------------------------------------------------------------------------------------
 // Purpose: Cookie handles
 //----------------------------------------------------------------------------------------------------
-Cookie g_cShowDamage;
-Cookie g_cShowHitmarker;
-Cookie g_cDisplayType;
-Cookie g_cHitmarkerStyle;
-Cookie g_cShowHealth;
-Cookie g_cHeadshotColor;
-Cookie g_cBodyshotColor;
-Cookie g_cVolume;
-Cookie g_cEnable;
-Cookie g_cBoss;
-Cookie g_cDetailed;
+Cookie g_cHitmarkerSettings;  // Combined: damage|enable|health|type|style
+Cookie g_cHitmarkerColors;    // Combined: headR|headG|headB|bodyR|bodyG|bodyB
+Cookie g_cHitsoundSettings;   // Combined: enable|boss|detailed|volume
 
 //----------------------------------------------------------------------------------------------------
 // Purpose: Global variables
 //----------------------------------------------------------------------------------------------------
+bool g_bLate = false;
 bool g_bEnable = true;
 bool g_bShowDamage = true;
 bool g_bPlugin_DynamicChannels = false;
@@ -197,23 +190,26 @@ public void OnPluginStart()
 	SetCookieMenuItem(CookieMenu_HitMarker, INVALID_HANDLE, "Hit Sound Settings");
 	
 
-	g_cShowDamage = new Cookie("hitmarker_damage", "Show damage under hitmarker", CookieAccess_Private);
-	g_cShowHitmarker = new Cookie("hitmarker_enable", "Show hitmarkers", CookieAccess_Private);
-	g_cDisplayType = new Cookie("hitmarker_display", "Hitmarker display type", CookieAccess_Private);
-	g_cHitmarkerStyle = new Cookie("hitmarker_style", "Hitmarker style", CookieAccess_Private);
-	g_cHeadshotColor = new Cookie("hitmarker_head_color", "Headshot hitmarker color", CookieAccess_Private);
-	g_cBodyshotColor = new Cookie("hitmarker_body_color", "Bodyshot hitmarker color", CookieAccess_Private);
-	g_cShowHealth = new Cookie("hitmarker_health", "Show health under hitmarker", CookieAccess_Private);
+	g_cHitmarkerSettings = new Cookie("hitmarker_settings", "Combined hitmarker settings (damage|enable|health|type|style)", CookieAccess_Private);
+	g_cHitmarkerColors = new Cookie("hitmarker_colors", "Combined hitmarker colors (headR|headG|headB|bodyR|bodyG|bodyB)", CookieAccess_Private);
+	g_cHitsoundSettings = new Cookie("hitsound_settings", "Combined hitsound settings (enable|boss|detailed|volume)", CookieAccess_Private);
 
-	g_cEnable = new Cookie("hitsound_enable", "Toggle hitsounds", CookieAccess_Private);
-	g_cVolume = new Cookie("hitsound_volume", "Hitsound volume", CookieAccess_Private);
-	g_cBoss = new Cookie("hitsound_boss", "Toggle boss hitsounds", CookieAccess_Private);
-	g_cDetailed = new Cookie("hitsound_detailed", "Toggle detailed hitsounds", CookieAccess_Private);
+	if (!g_bLate)
+		return;
 
 	for (int client = 1; client <= MaxClients; client++)
 	{
-		if (IsClientInGame(client) && AreClientCookiesCached(client))
-			OnClientCookiesCached(client);
+		if (!IsClientInGame(client) || IsFakeClient(client))
+			continue;
+
+		if (!AreClientCookiesCached(client))
+		{
+			g_HM_pData[client].Reset();
+			g_HS_pData[client].Reset();
+			continue;
+		}
+
+		OnClientCookiesCached(client);
 	}
 }
 
@@ -289,6 +285,7 @@ stock void VerifyNative_TopDefenders()
 //----------------------------------------------------------------------------------------------------
 public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max)
 {
+	g_bLate = late;
 	RegPluginLibrary("hitmarkers");
 
 	// Get client settings native
@@ -310,20 +307,21 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 public int Native_GetHitmarkerStatus(Handle plugin, int numParams)
 {
+	int client = GetNativeCell(1);
 	HitmarkerType type = view_as<HitmarkerType>(GetNativeCell(2));
 	switch (type)
 	{
 		case Hitmarker_Damage:
 		{
-			return g_HM_pData[GetNativeCell(1)].damage;
+			return g_HM_pData[client].damage;
 		}
 		case Hitmarker_Enable:
 		{
-			return g_HM_pData[GetNativeCell(1)].enable;
+			return g_HM_pData[client].enable;
 		}
 		case Hitmarker_Rank:
 		{
-			return g_HM_pData[GetNativeCell(1)].health;
+			return g_HM_pData[client].health;
 		}
 	}
 	return 1;
@@ -331,20 +329,21 @@ public int Native_GetHitmarkerStatus(Handle plugin, int numParams)
 
 public int Native_ToggleHitmarker(Handle plugin, int numParams)
 {
+	int client = GetNativeCell(1);
 	HitmarkerType type = view_as<HitmarkerType>(GetNativeCell(2));
 	switch (type)
 	{
 		case Hitmarker_Damage:
 		{
-			InternalToggleDamage(GetNativeCell(1));
+			InternalToggleDamage(client);
 		}
 		case Hitmarker_Enable:
 		{
-			InternalToggleHitmarker(GetNativeCell(1));
+			InternalToggleHitmarker(client);
 		}
 		case Hitmarker_Rank:
 		{
-			InternalToggleShowHealth(GetNativeCell(1));
+			InternalToggleShowHealth(client);
 		}
 	}
 	return 1;
@@ -352,20 +351,21 @@ public int Native_ToggleHitmarker(Handle plugin, int numParams)
 
 public int Native_OpenHitmarkerMenu(Handle plugin, int numParams)
 {
+	int client = GetNativeCell(1);
 	MenuType type = view_as<MenuType>(GetNativeCell(2));
 	switch (type)
 	{
 		case Menu_Hitmarker:
 		{
-			HitmarkerMenu(GetNativeCell(1));
+			HitmarkerMenu(client);
 		}
 		case Menu_HeadColor:
 		{
-			HeadColor(GetNativeCell(1));
+			HeadColor(client);
 		}
 		case Menu_BodyColor:
 		{
-			BodyColor(GetNativeCell(1));
+			BodyColor(client);
 		}
 	}
 	return 1;
@@ -373,15 +373,16 @@ public int Native_OpenHitmarkerMenu(Handle plugin, int numParams)
 
 public int Native_GetHitsoundStatus(Handle plugin, int numParams)
 {
+	int client = GetNativeCell(1);
 	SoundType type = view_as<SoundType>(GetNativeCell(2));
 	switch (type)
 	{
 		case Sound_Zombie:
-			return g_HS_pData[GetNativeCell(1)].enable;
+			return g_HS_pData[client].enable;
 		case Sound_Boss:
-			return g_HS_pData[GetNativeCell(1)].boss;
+			return g_HS_pData[client].boss;
 		case Sound_Detailed:
-			return g_HS_pData[GetNativeCell(1)].detailed;
+			return g_HS_pData[client].detailed;
 	}
 	return 1;
 }
@@ -408,11 +409,12 @@ public int Native_ToggleHitsound(Handle plugin, int numParams)
 
 public int Native_SetHitsoundVolume(Handle plugin, int numParams)
 {
-	char buffer[4];
-	Format(buffer, sizeof(buffer), "%.2f", GetNativeCell(2) / 100.0);
-	g_HS_pData[GetNativeCell(1)].volume = GetNativeCell(2);
-	g_HS_pData[GetNativeCell(1)].fVolume = StringToFloat(buffer);
-	g_cVolume.Set(GetNativeCell(1), buffer);
+	int client = GetNativeCell(1);
+	int volume = GetNativeCell(2);
+	
+	g_HS_pData[client].volume = volume;
+	g_HS_pData[client].fVolume = volume / 100.0;
+	SaveHitsoundSettings(client);
 	return 1;
 }
 
@@ -423,26 +425,123 @@ public int Native_OpenHitsoundMenu(Handle plugin, int numParams)
 }
 
 //----------------------------------------------------------------------------------------------------
-// Purpose: Client connect & disconnect
+// Purpose: Cookie helper functions
 //----------------------------------------------------------------------------------------------------
-public void OnClientPutInServer(int client)
+void SaveHitmarkerSettings(int client)
 {
-	if (!AreClientCookiesCached(client))
+	char buffer[32];
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d", 
+		g_HM_pData[client].damage, 
+		g_HM_pData[client].enable, 
+		g_HM_pData[client].health, 
+		g_HM_pData[client].type, 
+		g_HM_pData[client].style);
+	g_cHitmarkerSettings.Set(client, buffer);
+}
+
+void LoadHitmarkerSettings(int client)
+{
+	char buffer[32];
+	g_cHitmarkerSettings.Get(client, buffer, sizeof(buffer));
+	
+	if (buffer[0] == '\0')
 	{
+		// Default values
 		g_HM_pData[client].damage = 1;
 		g_HM_pData[client].enable = 2;
 		g_HM_pData[client].health = 1;
 		g_HM_pData[client].type = view_as<int>(DISPLAY_CENTER);
 		g_HM_pData[client].style = g_iHitmarkerStyle;
+		return;
+	}
+	
+	char parts[5][8];
+	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+	
+	g_HM_pData[client].damage = StringToInt(parts[0]);
+	g_HM_pData[client].enable = StringToInt(parts[1]);
+	g_HM_pData[client].health = StringToInt(parts[2]);
+	g_HM_pData[client].type = StringToInt(parts[3]);
+	g_HM_pData[client].style = StringToInt(parts[4]);
+}
+
+void SaveHitmarkerColors(int client)
+{
+	char buffer[32];
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d|%d", 
+		g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2],
+		g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
+	g_cHitmarkerColors.Set(client, buffer);
+}
+
+void LoadHitmarkerColors(int client)
+{
+	char buffer[32];
+	g_cHitmarkerColors.Get(client, buffer, sizeof(buffer));
+	
+	if (buffer[0] == '\0')
+	{
+		// Default colors
 		g_HM_pData[client].headColor[0] = 255;
 		g_HM_pData[client].headColor[1] = 45;
 		g_HM_pData[client].headColor[2] = 45;
 		g_HM_pData[client].bodyColor[0] = 255;
 		g_HM_pData[client].bodyColor[1] = 165;
 		g_HM_pData[client].bodyColor[2] = 0;
+		return;
 	}
+	
+	char parts[6][8];
+	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+	
+	g_HM_pData[client].headColor[0] = StringToInt(parts[0]);
+	g_HM_pData[client].headColor[1] = StringToInt(parts[1]);
+	g_HM_pData[client].headColor[2] = StringToInt(parts[2]);
+	g_HM_pData[client].bodyColor[0] = StringToInt(parts[3]);
+	g_HM_pData[client].bodyColor[1] = StringToInt(parts[4]);
+	g_HM_pData[client].bodyColor[2] = StringToInt(parts[5]);
 }
 
+void SaveHitsoundSettings(int client)
+{
+	char buffer[32];
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d", 
+		g_HS_pData[client].enable ? 1 : 0,
+		g_HS_pData[client].boss ? 1 : 0,
+		g_HS_pData[client].detailed ? 1 : 0,
+		g_HS_pData[client].volume);
+	g_cHitsoundSettings.Set(client, buffer);
+}
+
+void LoadHitsoundSettings(int client)
+{
+	char buffer[32];
+	g_cHitsoundSettings.Get(client, buffer, sizeof(buffer));
+	
+	if (buffer[0] == '\0')
+	{
+		// Default values
+		g_HS_pData[client].enable = true;
+		g_HS_pData[client].boss = true;
+		g_HS_pData[client].detailed = false;
+		g_HS_pData[client].volume = DEFAULT_VOLUME_INT;
+		g_HS_pData[client].fVolume = DEFAULT_VOLUME;
+		return;
+	}
+	
+	char parts[4][8];
+	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+	
+	g_HS_pData[client].enable = StringToInt(parts[0]) == 1;
+	g_HS_pData[client].boss = StringToInt(parts[1]) == 1;
+	g_HS_pData[client].detailed = StringToInt(parts[2]) == 1;
+	g_HS_pData[client].volume = StringToInt(parts[3]);
+	g_HS_pData[client].fVolume = g_HS_pData[client].volume / 100.0;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Purpose: Client connect & disconnect
+//----------------------------------------------------------------------------------------------------
 public void OnClientDisconnect(int client)
 {
 	g_HM_pData[client].Reset();
@@ -455,101 +554,9 @@ public void OnClientDisconnect(int client)
 //----------------------------------------------------------------------------------------------------
 public void OnClientCookiesCached(int client)
 {
-	char buffer[32];
-	g_cShowHitmarker.Get(client, buffer, sizeof(buffer));
-
-	if (buffer[0] == '\0' && !IsFakeClient(client))
-	{
-		g_cShowHitmarker.Set(client, "2");
-		g_cShowDamage.Set(client, "1");
-		g_cShowHealth.Set(client, "1");
-
-		// Default display type is game center bcs players are used to it
-		// Dont wanna make karen start crying a river..
-		IntToString(view_as<int>(DISPLAY_CENTER), buffer, sizeof(buffer));
-		g_cDisplayType.Set(client, buffer);
-		IntToString(g_iHitmarkerStyle, buffer, sizeof(buffer));
-		g_cHitmarkerStyle.Set(client, buffer);
-		g_cHeadshotColor.Set(client, "255 45 45");
-		g_cBodyshotColor.Set(client, "255 165 0");
-		return;
-	}
-
-	g_cShowHitmarker.Get(client, buffer, sizeof(buffer));
-	g_HM_pData[client].enable = StringToInt(buffer);
-
-	g_cShowDamage.Get(client, buffer, sizeof(buffer));
-	g_HM_pData[client].damage = StringToInt(buffer);
-
-	g_cDisplayType.Get(client, buffer, sizeof(buffer));
-	g_HM_pData[client].type = StringToInt(buffer);
-
-	g_cShowHealth.Get(client, buffer, sizeof(buffer));
-	g_HM_pData[client].health = strcmp(buffer, "1", false) == 0;
-
-	g_cHitmarkerStyle.Get(client, buffer, sizeof(buffer));
-	g_HM_pData[client].style = StringToInt(buffer);
-
-	char buffer2[3][8];
-	int val;
-
-	g_cHeadshotColor.Get(client, buffer, sizeof(buffer));
-	ExplodeString(buffer, " ", buffer2, sizeof(buffer2), sizeof(buffer2[]), true);
-
-	val = StringToInt(buffer2[0]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].headColor[0] = val;
-
-	val = StringToInt(buffer2[1]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].headColor[1] = val;
-
-	val = StringToInt(buffer2[2]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].headColor[2] = val;
-
-	g_cBodyshotColor.Get(client, buffer, sizeof(buffer));
-	ExplodeString(buffer, " ", buffer2, sizeof(buffer2), sizeof(buffer2[]), true);
-
-	val = StringToInt(buffer2[0]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].bodyColor[0] = val;
-
-	val = StringToInt(buffer2[1]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].bodyColor[1] = val;
-
-	val = StringToInt(buffer2[2]);
-	if (val > 255) val = 255;
-	else if (val < 0) val = 0;
-	g_HM_pData[client].bodyColor[2] = val;
-
-	g_cEnable.Get(client, buffer, sizeof(buffer));
-
-	if (buffer[0] == '\0')
-	{
-		g_cEnable.Set(client, "1");
-		g_cBoss.Set(client, "1");
-		g_cDetailed.Set(client, "1");
-		g_cVolume.Set(client, "0.80");
-	}
-
-	g_HS_pData[client].enable = strcmp(buffer, "1", false) == 0;
-
-	g_cBoss.Get(client, buffer, sizeof(buffer));
-	g_HS_pData[client].boss = strcmp(buffer, "1", false) == 0;
-
-	g_cDetailed.Get(client, buffer, sizeof(buffer));
-	g_HS_pData[client].detailed = strcmp(buffer, "1", false) == 0;
-
-	g_cVolume.Get(client, buffer, sizeof(buffer));
-	g_HS_pData[client].fVolume = StringToFloat(buffer);
-	g_HS_pData[client].volume = RoundToNearest(g_HS_pData[client].fVolume * 100);
+	LoadHitmarkerSettings(client);
+	LoadHitmarkerColors(client);
+	LoadHitsoundSettings(client);
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -592,8 +599,7 @@ public Action Command_HeadColor(int client, int args)
 	g_HM_pData[client].headColor[1] = g;
 	g_HM_pData[client].headColor[2] = b;
 
-	Format(buffer, sizeof(buffer), "%d %d %d", r, g, b);
-	g_cHeadshotColor.Set(client, buffer);
+	SaveHitmarkerColors(client);
 
 	CReplyToCommand(client, "{green}[HitMarker]{default} You have set your headshot hitmarker color to {red}%d {green}%d {blue}%d", r, g, b);
 	return Plugin_Handled;
@@ -630,10 +636,9 @@ public Action Command_BodyColor(int client, int args)
 	g_HM_pData[client].bodyColor[1] = g;
 	g_HM_pData[client].bodyColor[2] = b;
 
-	Format(buffer, sizeof(buffer), "%d %d %d", r, g, b);
-	g_cBodyshotColor.Set(client, buffer);
+	SaveHitmarkerColors(client);
 
-	CReplyToCommand(client, "{green}[HitMarker]{default} You have set your headshot hitmarker color to {red}%d {green}%d {blue}%d", r, g, b);
+	CReplyToCommand(client, "{green}[HitMarker]{default} You have set your bodyshot hitmarker color to {red}%d {green}%d {blue}%d", r, g, b);
 	return Plugin_Handled;
 }
 
@@ -647,7 +652,7 @@ public Action Command_Hitsound(int client, int args)
 		if (g_HS_pData[client].enable)
 		{
 			g_HS_pData[client].enable = false;
-			g_cEnable.Set(client, "0");
+			SaveHitsoundSettings(client);
 			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds have been {red}disabled!");
 		}
 		else
@@ -660,7 +665,7 @@ public Action Command_Hitsound(int client, int args)
 		else
 		{
 			g_HS_pData[client].enable = true;
-			g_cEnable.Set(client, "1");
+			SaveHitsoundSettings(client);
 			CPrintToChat(client, "{green}[HitSound]{default} Hitsounds have been {green}enabled!");
 		}
 	}
@@ -670,13 +675,11 @@ public Action Command_Hitsound(int client, int args)
 		if (len != 0 && StringToIntEx(buffer, input) == len)
 		{
 			float fVolume = input / 100.0;
-			char recalc[8];
-			Format(recalc, sizeof(recalc), "%.2f", fVolume);
 
 			g_HS_pData[client].volume = input;
 			g_HS_pData[client].fVolume = fVolume;
+			SaveHitsoundSettings(client);
 			CPrintToChat(client, "{green}[HitSound]{default} Hitsound volume has been changed to {green}%d", input);
-			g_cVolume.Set(client, recalc);
 		}
 		else
 			DisplayCookieMenu(client);
@@ -693,9 +696,7 @@ void InternalToggleHitmarker(int client)
 	if (g_HM_pData[client].enable > 2)
 		g_HM_pData[client].enable = 0;
 	
-	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].enable);
-	g_cShowHitmarker.Set(client, buffer);
+	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].enable)
 	{
 		case 0:
@@ -713,9 +714,7 @@ void InternalToggleDamage(int client)
 	if (g_HM_pData[client].damage > 2)
 		g_HM_pData[client].damage = 0;
 	
-	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].damage);
-	g_cShowDamage.Set(client, buffer);
+	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].damage)
 	{
 		case 0:
@@ -733,9 +732,7 @@ void InternalToggleDisplayType(int client)
 	if (g_HM_pData[client].type > 2)
 		g_HM_pData[client].type = 0;
 	
-	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].type);
-	g_cDisplayType.Set(client, buffer);
+	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].type)
 	{
 		case 0:
@@ -753,9 +750,7 @@ void InternalToggleShowHealth(int client)
 	if (g_HM_pData[client].health > 2)
 		g_HM_pData[client].health = 0;
 	
-	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d", g_HM_pData[client].health);
-	g_cShowHealth.Set(client, buffer);
+	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].health)
 	{
 		case 0:
@@ -800,17 +795,20 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	int previousHealth = hp + damage;
 
 	// Play hitsound
-	if (g_HS_pData[attacker].detailed)
+	if (g_HS_pData[attacker].enable)
 	{
-		if (hp == 0)
-			EmitSoundToClient(attacker, g_sHitsoundKillPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
-		else if (hitgroup == 1)
-			EmitSoundToClient(attacker, g_sHitsoundHeadPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+		if (g_HS_pData[attacker].detailed)
+		{
+			if (hp == 0)
+				EmitSoundToClient(attacker, g_sHitsoundKillPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			else if (hitgroup == 1)
+				EmitSoundToClient(attacker, g_sHitsoundHeadPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			else
+				EmitSoundToClient(attacker, g_sHitsoundBodyPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+		}
 		else
-			EmitSoundToClient(attacker, g_sHitsoundBodyPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
+			EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
 	}
-	else
-		EmitSoundToClient(attacker, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[attacker].fVolume);
 
 	// Build our hitmarker
 	char sRank[32], buffer[128], sHP[128] = "Dead";
@@ -1132,8 +1130,7 @@ public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int 
 				if (g_HM_pData[client].style > g_iHitmarkerStyle)
 					g_HM_pData[client].style = 0;
 
-				Format(info, sizeof(info), "%d", g_HM_pData[client].style);
-				g_cHitmarkerStyle.Set(client, info);
+				SaveHitmarkerSettings(client);
 
 				HitmarkerMenu(client);
 			}
@@ -1244,8 +1241,7 @@ public int HeadColorHandler(Handle menu, MenuAction action, int client, int sele
 				g_HM_pData[client].headColor[2] = 200;
 			}
 
-			Format(buffer, sizeof(buffer), "%d %d %d", g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
-			g_cHeadshotColor.Set(client, buffer);
+			SaveHitmarkerColors(client);
 
 			HeadColor(client);
 		}
@@ -1328,8 +1324,7 @@ public int BodyColorHandler(Handle menu, MenuAction action, int client, int sele
 				g_HM_pData[client].bodyColor[2] = 200;
 			}
 
-			Format(buffer, sizeof(buffer), "%d %d %d", g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
-			g_cBodyshotColor.Set(client, buffer);
+			SaveHitmarkerColors(client);
 
 			BodyColor(client);
 		}
@@ -1409,9 +1404,7 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int s
 					g_HS_pData[client].volume = g_HS_pData[client].volume - 10;
 					if (g_HS_pData[client].volume <= 0) g_HS_pData[client].volume = 100;
 
-					char buffer[8];
-					Format(buffer, sizeof(buffer), "%.2f", g_HS_pData[client].fVolume);
-					g_cVolume.Set(client, buffer);
+					SaveHitsoundSettings(client);
 
 					CPrintToChat(client, "{green}[HitSound]{default} Hitsound volume has been changed to {green}%d", g_HS_pData[client].volume);
 				}
@@ -1426,21 +1419,21 @@ public void ToggleZombieHitsound(int client)
 {
 	g_HS_pData[client].enable = !g_HS_pData[client].enable;
 	CPrintToChat(client, "{green}[HitSound]{default} Zombie hitsounds are now %s", g_HS_pData[client].enable ? "{green}enabled" : "{red}disabled");
-	g_HS_pData[client].enable ? g_cEnable.Set(client, "1") : g_cEnable.Set(client, "0");
+	SaveHitsoundSettings(client);
 }
 
 public void ToggleBossHitsound(int client)
 {
 	g_HS_pData[client].boss = !g_HS_pData[client].boss;
 	CPrintToChat(client, "{green}[HitSound]{default} Boss hitsounds are now %s", g_HS_pData[client].boss ? "{green}enabled" : "{red}disabled");
-	g_HS_pData[client].boss ? g_cBoss.Set(client, "1") : g_cBoss.Set(client, "0");
+	SaveHitsoundSettings(client);
 }
 
 public void ToggleDetailedHitsound(int client)
 {
 	g_HS_pData[client].detailed = !g_HS_pData[client].detailed;
 	CPrintToChat(client, "{green}[HitSound]{default} Detailed hitsounds are now %s", g_HS_pData[client].detailed ? "{green}enabled" : "{red}disabled");
-	g_HS_pData[client].detailed ? g_cDetailed.Set(client, "1") : g_cDetailed.Set(client, "0");
+	SaveHitsoundSettings(client);
 }
 
 stock void PrecacheSounds()
@@ -1448,25 +1441,25 @@ stock void PrecacheSounds()
 	char sBuffer[PLATFORM_MAX_PATH];
 
 	// Boss Hitmarker Sound
-	GetConVarString(g_cvHitsound, g_sHitsoundPath, sizeof(g_sHitsoundPath));
+	g_cvHitsound.GetString(g_sHitsoundPath, sizeof(g_sHitsoundPath));
 	PrecacheSound(g_sHitsoundPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundPath);
 	AddFileToDownloadsTable(sBuffer);
 
 	// Body Shot Sound
-	GetConVarString(g_cvHitsoundBody, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
-	PrecacheSound(g_sHitsoundHeadPath, true);
-	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
-	AddFileToDownloadsTable(sBuffer);
-
-	// Head Shot Sound
-	GetConVarString(g_cvHitsoundHead, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	g_cvHitsoundBody.GetString(g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
 	PrecacheSound(g_sHitsoundBodyPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundBodyPath);
 	AddFileToDownloadsTable(sBuffer);
 
+	// Head Shot Sound
+	g_cvHitsoundHead.GetString(g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	PrecacheSound(g_sHitsoundHeadPath, true);
+	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundHeadPath);
+	AddFileToDownloadsTable(sBuffer);
+
 	// Kill Shot Sound
-	GetConVarString(g_cvHitsoundKill, g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
+	g_cvHitsoundKill.GetString(g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
 	PrecacheSound(g_sHitsoundKillPath, true);
 	Format(sBuffer, sizeof(sBuffer), "sound/%s", g_sHitsoundKillPath);
 	AddFileToDownloadsTable(sBuffer);
