@@ -199,11 +199,18 @@ public void OnPluginStart()
 
 	for (int client = 1; client <= MaxClients; client++)
 	{
-		if (IsClientInGame(client) && AreClientCookiesCached(client))
-			OnClientCookiesCached(client);
-	}
+		if (!IsClientInGame(client) || IsFakeClient(client))
+			continue;
 
-	g_bLate = false;
+		if (!AreClientCookiesCached(client))
+		{
+			g_HM_pData[client].Reset();
+			g_HS_pData[client].Reset();
+			continue;
+		}
+
+		OnClientCookiesCached(client);
+	}
 }
 
 public void OnAllPluginsLoaded()
@@ -535,22 +542,6 @@ void LoadHitsoundSettings(int client)
 //----------------------------------------------------------------------------------------------------
 // Purpose: Client connect & disconnect
 //----------------------------------------------------------------------------------------------------
-public void OnClientPutInServer(int client)
-{
-	if (!g_bLate)
-		return;
-
-	if (AreClientCookiesCached(client))
-	{
-		OnClientCookiesCached(client);
-	}
-	else
-	{
-		g_HM_pData[client].Reset();
-		g_HS_pData[client].Reset();
-	}
-}
-
 public void OnClientDisconnect(int client)
 {
 	g_HM_pData[client].Reset();
