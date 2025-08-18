@@ -441,28 +441,53 @@ void SaveHitmarkerSettings(int client)
 
 void LoadHitmarkerSettings(int client)
 {
-	char buffer[32];
+	char buffer[64];
 	g_cHitmarkerSettings.Get(client, buffer, sizeof(buffer));
-	
+
+	int defaultDamage = 1;
+	int defaultEnable = 2;
+	int defaultHealth = 1;
+	int defaultType = view_as<int>(DISPLAY_CENTER);
+	int defaultStyle = g_iHitmarkerStyle;
+
 	if (buffer[0] == '\0')
 	{
 		// Default values
-		g_HM_pData[client].damage = 1;
-		g_HM_pData[client].enable = 2;
-		g_HM_pData[client].health = 1;
-		g_HM_pData[client].type = view_as<int>(DISPLAY_CENTER);
-		g_HM_pData[client].style = g_iHitmarkerStyle;
+		g_HM_pData[client].damage = defaultDamage;
+		g_HM_pData[client].enable = defaultEnable;
+		g_HM_pData[client].health = defaultHealth;
+		g_HM_pData[client].type = defaultType;
+		g_HM_pData[client].style = defaultStyle;
 		return;
 	}
-	
+
 	char parts[5][8];
-	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
-	
-	g_HM_pData[client].damage = StringToInt(parts[0]);
-	g_HM_pData[client].enable = StringToInt(parts[1]);
-	g_HM_pData[client].health = StringToInt(parts[2]);
-	g_HM_pData[client].type = StringToInt(parts[3]);
-	g_HM_pData[client].style = StringToInt(parts[4]);
+	int numParts = ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+
+	int damage = defaultDamage;
+	int enable = defaultEnable;
+	int health = defaultHealth;
+	int type = defaultType;
+	int style = defaultStyle;
+
+	if (numParts >= 1) damage = StringToInt(parts[0]);
+	if (numParts >= 2) enable = StringToInt(parts[1]);
+	if (numParts >= 3) health = StringToInt(parts[2]);
+	if (numParts >= 4) type = StringToInt(parts[3]);
+	if (numParts >= 5) style = StringToInt(parts[4]);
+
+	// Clamp/validate values
+	if (damage < 0) damage = 0; if (damage > 2) damage = 2;
+	if (enable < 0) enable = 0; if (enable > 2) enable = 2;
+	if (health < 0) health = 0; if (health > 2) health = 2;
+	if (type < 0) type = 0; if (type > 2) type = 2;
+	if (style < 0) style = 0; if (style > g_iHitmarkerStyle) style = 0;
+
+	g_HM_pData[client].damage = damage;
+	g_HM_pData[client].enable = enable;
+	g_HM_pData[client].health = health;
+	g_HM_pData[client].type = type;
+	g_HM_pData[client].style = style;
 }
 
 void SaveHitmarkerColors(int client)
@@ -476,30 +501,54 @@ void SaveHitmarkerColors(int client)
 
 void LoadHitmarkerColors(int client)
 {
-	char buffer[32];
+	char buffer[64];
 	g_cHitmarkerColors.Get(client, buffer, sizeof(buffer));
-	
+
+	int defaultHeadR = 255, defaultHeadG = 45, defaultHeadB = 45;
+	int defaultBodyR = 255, defaultBodyG = 165, defaultBodyB = 0;
+
 	if (buffer[0] == '\0')
 	{
 		// Default colors
-		g_HM_pData[client].headColor[0] = 255;
-		g_HM_pData[client].headColor[1] = 45;
-		g_HM_pData[client].headColor[2] = 45;
-		g_HM_pData[client].bodyColor[0] = 255;
-		g_HM_pData[client].bodyColor[1] = 165;
-		g_HM_pData[client].bodyColor[2] = 0;
+		g_HM_pData[client].headColor[0] = defaultHeadR;
+		g_HM_pData[client].headColor[1] = defaultHeadG;
+		g_HM_pData[client].headColor[2] = defaultHeadB;
+		g_HM_pData[client].bodyColor[0] = defaultBodyR;
+		g_HM_pData[client].bodyColor[1] = defaultBodyG;
+		g_HM_pData[client].bodyColor[2] = defaultBodyB;
 		return;
 	}
-	
+
 	char parts[6][8];
-	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
-	
-	g_HM_pData[client].headColor[0] = StringToInt(parts[0]);
-	g_HM_pData[client].headColor[1] = StringToInt(parts[1]);
-	g_HM_pData[client].headColor[2] = StringToInt(parts[2]);
-	g_HM_pData[client].bodyColor[0] = StringToInt(parts[3]);
-	g_HM_pData[client].bodyColor[1] = StringToInt(parts[4]);
-	g_HM_pData[client].bodyColor[2] = StringToInt(parts[5]);
+	int numParts = ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+
+	int headR = defaultHeadR;
+	int headG = defaultHeadG;
+	int headB = defaultHeadB;
+	int bodyR = defaultBodyR;
+	int bodyG = defaultBodyG;
+	int bodyB = defaultBodyB;
+
+	if (numParts >= 1) headR = StringToInt(parts[0]);
+	if (numParts >= 2) headG = StringToInt(parts[1]);
+	if (numParts >= 3) headB = StringToInt(parts[2]);
+	if (numParts >= 4) bodyR = StringToInt(parts[3]);
+	if (numParts >= 5) bodyG = StringToInt(parts[4]);
+	if (numParts >= 6) bodyB = StringToInt(parts[5]);
+
+	if (headR < 0) headR = 0; if (headR > 255) headR = 255;
+	if (headG < 0) headG = 0; if (headG > 255) headG = 255;
+	if (headB < 0) headB = 0; if (headB > 255) headB = 255;
+	if (bodyR < 0) bodyR = 0; if (bodyR > 255) bodyR = 255;
+	if (bodyG < 0) bodyG = 0; if (bodyG > 255) bodyG = 255;
+	if (bodyB < 0) bodyB = 0; if (bodyB > 255) bodyB = 255;
+
+	g_HM_pData[client].headColor[0] = headR;
+	g_HM_pData[client].headColor[1] = headG;
+	g_HM_pData[client].headColor[2] = headB;
+	g_HM_pData[client].bodyColor[0] = bodyR;
+	g_HM_pData[client].bodyColor[1] = bodyG;
+	g_HM_pData[client].bodyColor[2] = bodyB;
 }
 
 void SaveHitsoundSettings(int client)
@@ -515,28 +564,45 @@ void SaveHitsoundSettings(int client)
 
 void LoadHitsoundSettings(int client)
 {
-	char buffer[32];
+	char buffer[64];
 	g_cHitsoundSettings.Get(client, buffer, sizeof(buffer));
-	
+
+	bool defaultEnable = true;
+	bool defaultBoss = true;
+	bool defaultDetailed = false;
+	int defaultVolume = DEFAULT_VOLUME_INT; // 0..100
+
 	if (buffer[0] == '\0')
 	{
 		// Default values
-		g_HS_pData[client].enable = true;
-		g_HS_pData[client].boss = true;
-		g_HS_pData[client].detailed = false;
-		g_HS_pData[client].volume = DEFAULT_VOLUME_INT;
+		g_HS_pData[client].enable = defaultEnable;
+		g_HS_pData[client].boss = defaultBoss;
+		g_HS_pData[client].detailed = defaultDetailed;
+		g_HS_pData[client].volume = defaultVolume;
 		g_HS_pData[client].fVolume = DEFAULT_VOLUME;
 		return;
 	}
-	
+
 	char parts[4][8];
-	ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
-	
-	g_HS_pData[client].enable = StringToInt(parts[0]) == 1;
-	g_HS_pData[client].boss = StringToInt(parts[1]) == 1;
-	g_HS_pData[client].detailed = StringToInt(parts[2]) == 1;
-	g_HS_pData[client].volume = StringToInt(parts[3]);
-	g_HS_pData[client].fVolume = g_HS_pData[client].volume / 100.0;
+	int numParts = ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
+
+	bool enable = defaultEnable;
+	bool boss = defaultBoss;
+	bool detailed = defaultDetailed;
+	int volume = defaultVolume;
+
+	if (numParts >= 1) enable = StringToInt(parts[0]) == 1;
+	if (numParts >= 2) boss = StringToInt(parts[1]) == 1;
+	if (numParts >= 3) detailed = StringToInt(parts[2]) == 1;
+	if (numParts >= 4) volume = StringToInt(parts[3]);
+
+	if (volume < 0) volume = 0; if (volume > 100) volume = 100;
+
+	g_HS_pData[client].enable = enable;
+	g_HS_pData[client].boss = boss;
+	g_HS_pData[client].detailed = detailed;
+	g_HS_pData[client].volume = volume;
+	g_HS_pData[client].fVolume = volume / 100.0;
 }
 
 //----------------------------------------------------------------------------------------------------
