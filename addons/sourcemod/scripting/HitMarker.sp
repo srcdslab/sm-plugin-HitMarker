@@ -157,10 +157,8 @@ public void OnPluginStart()
 	AutoExecConfig(true, "Hitmarkers");
 
 	// Plugin commands
-	RegConsoleCmd("sm_hm", Command_Hitmarkers, "Open hitmarkers settings");
 	RegConsoleCmd("sm_hitmarker", Command_Hitmarkers, "Open hitmarker settings");
 	RegConsoleCmd("sm_hitmarkers", Command_Hitmarkers, "Open hitmarker settings");
-	RegConsoleCmd("sm_sd", Command_Hitmarkers, "Open hitmarkers settings");
 	RegConsoleCmd("sm_showdamage", Command_Hitmarkers, "Open hitmarkers settings");
 
 	RegConsoleCmd("sm_headhitcolor", Command_HeadColor, "Change your zombie hitmarker color.");
@@ -169,7 +167,6 @@ public void OnPluginStart()
 	RegConsoleCmd("sm_bodyhitcolor", Command_BodyColor, "Change your zombie hitmarker color.");
 	RegConsoleCmd("sm_bodyhitcolour", Command_BodyColor, "Change your zombie hitmarker color.");
 
-	RegConsoleCmd("sm_hits", Command_Hitsound, "Bring up hitsounds settings menu");
 	RegConsoleCmd("sm_hitsound", Command_Hitsound, "Bring up hitsounds settings menu");
 	RegConsoleCmd("sm_hitsounds", Command_Hitsound, "Bring up hitsounds settings menu");
 
