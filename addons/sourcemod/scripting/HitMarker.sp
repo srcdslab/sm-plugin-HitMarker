@@ -287,17 +287,17 @@ public APLRes AskPluginLoad2(Handle myself, bool late, char[] error, int err_max
 
 	// Get client settings native
 	CreateNative("GetHitmarkerStatus", Native_GetHitmarkerStatus);
-	CreateNative("GetHitsoundStatus", Native_GetHitsoundStatus);
-	CreateNative("GetHitsoundVolume", Native_GetHitsoundVolume);
+	CreateNative("GetHitsoundStatus",  Native_GetHitsoundStatus);
+	CreateNative("GetHitsoundVolume",  Native_GetHitsoundVolume);
 
 	// Change client settings native
-	CreateNative("ToggleHitmarker", Native_ToggleHitmarker);
-	CreateNative("ToggleHitsound", Native_ToggleHitsound);
+	CreateNative("ToggleHitmarker",   Native_ToggleHitmarker);
+	CreateNative("ToggleHitsound",    Native_ToggleHitsound);
 	CreateNative("SetHitsoundVolume", Native_SetHitsoundVolume);
 
 	// Menu native
 	CreateNative("OpenHitmarkerMenu", Native_OpenHitmarkerMenu);
-	CreateNative("OpenHitsoundMenu", Native_OpenHitsoundMenu);
+	CreateNative("OpenHitsoundMenu",  Native_OpenHitsoundMenu);
 
 	return APLRes_Success;
 }
@@ -308,18 +308,9 @@ public int Native_GetHitmarkerStatus(Handle plugin, int numParams)
 	HitmarkerType type = view_as<HitmarkerType>(GetNativeCell(2));
 	switch (type)
 	{
-		case Hitmarker_Damage:
-		{
-			return g_HM_pData[client].damage;
-		}
-		case Hitmarker_Enable:
-		{
-			return g_HM_pData[client].enable;
-		}
-		case Hitmarker_Rank:
-		{
-			return g_HM_pData[client].health;
-		}
+		case Hitmarker_Damage: return g_HM_pData[client].damage;
+		case Hitmarker_Enable: return g_HM_pData[client].enable;
+		case Hitmarker_Rank:   return g_HM_pData[client].health;
 	}
 	return 1;
 }
@@ -330,18 +321,9 @@ public int Native_ToggleHitmarker(Handle plugin, int numParams)
 	HitmarkerType type = view_as<HitmarkerType>(GetNativeCell(2));
 	switch (type)
 	{
-		case Hitmarker_Damage:
-		{
-			InternalToggleDamage(client);
-		}
-		case Hitmarker_Enable:
-		{
-			InternalToggleHitmarker(client);
-		}
-		case Hitmarker_Rank:
-		{
-			InternalToggleShowHealth(client);
-		}
+		case Hitmarker_Damage: InternalToggleDamage(client);
+		case Hitmarker_Enable: InternalToggleHitmarker(client);
+		case Hitmarker_Rank:   InternalToggleShowHealth(client);
 	}
 	return 1;
 }
@@ -352,18 +334,9 @@ public int Native_OpenHitmarkerMenu(Handle plugin, int numParams)
 	MenuType type = view_as<MenuType>(GetNativeCell(2));
 	switch (type)
 	{
-		case Menu_Hitmarker:
-		{
-			HitmarkerMenu(client);
-		}
-		case Menu_HeadColor:
-		{
-			HeadColor(client);
-		}
-		case Menu_BodyColor:
-		{
-			BodyColor(client);
-		}
+		case Menu_Hitmarker: HitmarkerMenu(client);
+		case Menu_HeadColor: HeadColor(client);
+		case Menu_BodyColor: BodyColor(client);
 	}
 	return 1;
 }
@@ -374,12 +347,9 @@ public int Native_GetHitsoundStatus(Handle plugin, int numParams)
 	SoundType type = view_as<SoundType>(GetNativeCell(2));
 	switch (type)
 	{
-		case Sound_Zombie:
-			return g_HS_pData[client].enable;
-		case Sound_Boss:
-			return g_HS_pData[client].boss;
-		case Sound_Detailed:
-			return g_HS_pData[client].detailed;
+		case Sound_Zombie:   return g_HS_pData[client].enable;
+		case Sound_Boss:     return g_HS_pData[client].boss;
+		case Sound_Detailed: return g_HS_pData[client].detailed;
 	}
 	return 1;
 }
@@ -391,15 +361,13 @@ public any Native_GetHitsoundVolume(Handle plugin, int numParams)
 
 public int Native_ToggleHitsound(Handle plugin, int numParams)
 {
+	int client = GetNativeCell(1);
 	SoundType type = view_as<SoundType>(GetNativeCell(2));
 	switch (type)
 	{
-		case Sound_Zombie:
-			ToggleZombieHitsound(GetNativeCell(1));
-		case Sound_Boss:
-			ToggleBossHitsound(GetNativeCell(1));
-		case Sound_Detailed:
-			ToggleDetailedHitsound(GetNativeCell(1));
+		case Sound_Zombie:   ToggleZombieHitsound(client);
+		case Sound_Boss:     ToggleBossHitsound(client);
+		case Sound_Detailed: ToggleDetailedHitsound(client);
 	}
 	return 1;
 }
@@ -564,10 +532,10 @@ void LoadHitsoundSettings(int client)
 	char buffer[64];
 	g_cHitsoundSettings.Get(client, buffer, sizeof(buffer));
 
-	bool defaultEnable = true;
-	bool defaultBoss = true;
+	bool defaultEnable   = true;
+	bool defaultBoss     = true;
 	bool defaultDetailed = false;
-	int defaultVolume = DEFAULT_VOLUME_INT; // 0..100
+	int defaultVolume    = DEFAULT_VOLUME_INT; // 0..100
 
 	if (buffer[0] == '\0')
 	{
@@ -583,23 +551,23 @@ void LoadHitsoundSettings(int client)
 	char parts[4][8];
 	int numParts = ExplodeString(buffer, "|", parts, sizeof(parts), sizeof(parts[]));
 
-	bool enable = defaultEnable;
-	bool boss = defaultBoss;
+	bool enable   = defaultEnable;
+	bool boss     = defaultBoss;
 	bool detailed = defaultDetailed;
-	int volume = defaultVolume;
+	int volume    = defaultVolume;
 
-	if (numParts >= 1) enable = StringToInt(parts[0]) == 1;
-	if (numParts >= 2) boss = StringToInt(parts[1]) == 1;
+	if (numParts >= 1) enable   = StringToInt(parts[0]) == 1;
+	if (numParts >= 2) boss     = StringToInt(parts[1]) == 1;
 	if (numParts >= 3) detailed = StringToInt(parts[2]) == 1;
-	if (numParts >= 4) volume = StringToInt(parts[3]);
+	if (numParts >= 4) volume   = StringToInt(parts[3]);
 
 	if (volume < 0) volume = 0; if (volume > 100) volume = 100;
 
-	g_HS_pData[client].enable = enable;
-	g_HS_pData[client].boss = boss;
+	g_HS_pData[client].enable   = enable;
+	g_HS_pData[client].boss     = boss;
 	g_HS_pData[client].detailed = detailed;
-	g_HS_pData[client].volume = volume;
-	g_HS_pData[client].fVolume = volume / 100.0;
+	g_HS_pData[client].volume   = volume;
+	g_HS_pData[client].fVolume  = volume / 100.0;
 }
 
 //----------------------------------------------------------------------------------------------------
@@ -649,14 +617,9 @@ public Action Command_HeadColor(int client, int args)
 	GetCmdArg(3, buffer, sizeof(buffer));
 	b = StringToInt(buffer);
 
-	if (r > 255) r = 255;
-	else if (r < 0) r = 0;
-
-	if (g > 255) g = 255;
-	else if (g < 0) g = 0;
-
-	if (b > 255) b = 255;
-	else if (b < 0) b = 0;
+	if (r > 255) r = 255; if (r < 0) r = 0;
+	if (g > 255) g = 255; if (g < 0) g = 0;
+	if (b > 255) b = 255; if (b < 0) b = 0;
 
 	g_HM_pData[client].headColor[0] = r;
 	g_HM_pData[client].headColor[1] = g;
@@ -686,14 +649,9 @@ public Action Command_BodyColor(int client, int args)
 	GetCmdArg(3, buffer, sizeof(buffer));
 	b = StringToInt(buffer);
 
-	if (r > 255) r = 255;
-	else if (r < 0) r = 0;
-
-	if (g > 255) g = 255;
-	else if (g < 0) g = 0;
-
-	if (b > 255) b = 255;
-	else if (b < 0) b = 0;
+	if (r > 255) r = 255; if (r < 0) r = 0;
+	if (g > 255) g = 255; if (g < 0) g = 0;
+	if (b > 255) b = 255; if (b < 0) b = 0;
 
 	g_HM_pData[client].bodyColor[0] = r;
 	g_HM_pData[client].bodyColor[1] = g;
@@ -738,7 +696,6 @@ public Action Command_Hitsound(int client, int args)
 		if (len != 0 && StringToIntEx(buffer, input) == len)
 		{
 			float fVolume = input / 100.0;
-
 			g_HS_pData[client].volume = input;
 			g_HS_pData[client].fVolume = fVolume;
 			SaveHitsoundSettings(client);
@@ -762,12 +719,9 @@ void InternalToggleHitmarker(int client)
 	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].enable)
 	{
-		case 0:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Disabled");
-		case 1:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Enabled");
-		case 2:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker All");
+		case 0: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Disabled");
+		case 1: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker Enabled");
+		case 2: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Hitmarker All");
 	}
 }
 
@@ -780,12 +734,9 @@ void InternalToggleDamage(int client)
 	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].damage)
 	{
-		case 0:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Disabled");
-		case 1:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Enabled");
-		case 2:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Rank");
+		case 0: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Disabled");
+		case 1: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Enabled");
+		case 2: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Damage Rank");
 	}
 }
 
@@ -798,12 +749,9 @@ void InternalToggleDisplayType(int client)
 	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].type)
 	{
-		case 0:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Center");
-		case 1:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Game Text");
-		case 2:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Hint Text");
+		case 0: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Center");
+		case 1: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Game Text");
+		case 2: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Type Hint Text");
 	}
 }
 
@@ -816,12 +764,9 @@ void InternalToggleShowHealth(int client)
 	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].health)
 	{
-		case 0:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Disabled");
-		case 1:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Enabled");
-		case 2:
-			CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Name");
+		case 0: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Disabled");
+		case 1: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Enabled");
+		case 2: CPrintToChat(client, "%t %t", "Hitmarker Prefix", "Health Name");
 	}
 }
 
@@ -1077,10 +1022,7 @@ public void SettingsMenuHandler(int client, CookieMenuAction action, any info, c
 {
 	switch (action)
 	{
-		case CookieMenuAction_SelectOption:
-		{
-			HitmarkerMenu(client);
-		}
+		case CookieMenuAction_SelectOption: HitmarkerMenu(client);
 	}
 }
 
@@ -1101,12 +1043,9 @@ public void HitmarkerMenu(int client)
 
 		switch (g_HM_pData[client].enable)
 		{
-			case 0:
-				Format(buffer, sizeof(buffer), "Disabled");
-			case 1:
-				Format(buffer, sizeof(buffer), "Enabled");
-			case 2:
-				Format(buffer, sizeof(buffer), "Enabled (Players + Bosses)");
+			case 0: Format(buffer, sizeof(buffer), "Disabled");
+			case 1: Format(buffer, sizeof(buffer), "Enabled");
+			case 2: Format(buffer, sizeof(buffer), "Enabled (Players + Bosses)");
 		}
 		Format(buffer, sizeof(buffer), "Hitmarkers: %s", buffer);
 		menu.AddItem("toggle", buffer);
@@ -1116,12 +1055,9 @@ public void HitmarkerMenu(int client)
 		menu.SetTitle("Hitmarkers\n \nCurrent Style (%d/%d):\n%s", g_HM_pData[client].style + 1, sizeof(g_sHitStyles), g_sHitStyles[g_HM_pData[client].style]);
 		switch (g_HM_pData[client].enable)
 		{
-			case 0:
-				Format(buffer, sizeof(buffer), "Disabled");
-			case 1:
-				Format(buffer, sizeof(buffer), "Enabled");
-			case 2:
-				Format(buffer, sizeof(buffer), "Enabled (Players + Bosses)");
+			case 0: Format(buffer, sizeof(buffer), "Disabled");
+			case 1: Format(buffer, sizeof(buffer), "Enabled");
+			case 2: Format(buffer, sizeof(buffer), "Enabled (Players + Bosses)");
 		}
 		Format(buffer, sizeof(buffer), "Hitmarkers: %s\n \nCustomize Hitmarker:", buffer);
 		menu.AddItem("toggle", buffer);
@@ -1149,24 +1085,18 @@ public void HitmarkerMenu(int client)
 
 	switch (g_HM_pData[client].damage)
 	{
-		case 0:
-			Format(buffer, sizeof(buffer), "Off");
-		case 1:
-			Format(buffer, sizeof(buffer), "On");
-		case 2:
-			Format(buffer, sizeof(buffer), "On (+Rank)");
+		case 0: Format(buffer, sizeof(buffer), "Off");
+		case 1: Format(buffer, sizeof(buffer), "On");
+		case 2: Format(buffer, sizeof(buffer), "On (+Rank)");
 	}
 	Format(buffer, sizeof(buffer), "Show Damage: %s", buffer);
 	menu.AddItem("showdamage", buffer);
 
 	switch (g_HM_pData[client].health)
 	{
-		case 0:
-			Format(buffer, sizeof(buffer), "Off");
-		case 1:
-			Format(buffer, sizeof(buffer), "On");
-		case 2:
-			Format(buffer, sizeof(buffer), "On (+Victim name)");
+		case 0: Format(buffer, sizeof(buffer), "Off");
+		case 1: Format(buffer, sizeof(buffer), "On");
+		case 2: Format(buffer, sizeof(buffer), "On (+Victim name)");
 	}
 	Format(buffer, sizeof(buffer), "Show Health: %s", buffer);
 	menu.AddItem("showhealth", buffer);
@@ -1196,17 +1126,12 @@ public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int 
 					g_HM_pData[client].style = 0;
 
 				SaveHitmarkerSettings(client);
-
 				HitmarkerMenu(client);
 			}
 			else if (strcmp(info, "headcolor", false) == 0)
-			{
 				HeadColor(client);
-			}
 			else if (strcmp(info, "bodycolor", false) == 0)
-			{
 				BodyColor(client);
-			}
 			else if (strcmp(info, "showdamage", false) == 0)
 			{
 				InternalToggleDamage(client);
@@ -1223,9 +1148,7 @@ public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int 
 				HitmarkerMenu(client);
 			}
 			else if (strcmp(info, "hitsounds", false) == 0)
-			{
 				OpenHitsoundMenu(client);
-			}
 		}
 		case MenuAction_Cancel:
 		{
@@ -1307,7 +1230,6 @@ public int HeadColorHandler(Handle menu, MenuAction action, int client, int sele
 			}
 
 			SaveHitmarkerColors(client);
-
 			HeadColor(client);
 		}
 		case MenuAction_Cancel:
@@ -1390,7 +1312,6 @@ public int BodyColorHandler(Handle menu, MenuAction action, int client, int sele
 			}
 
 			SaveHitmarkerColors(client);
-
 			BodyColor(client);
 		}
 		case MenuAction_Cancel:
@@ -1455,22 +1376,20 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int s
 		{
 			switch (selection)
 			{
-				case 0:
-					ToggleZombieHitsound(client);
-				case 1:
-					ToggleBossHitsound(client);
-				case 2:
-					ToggleDetailedHitsound(client);
+				case 0: ToggleZombieHitsound(client);
+				case 1: ToggleBossHitsound(client);
+				case 2: ToggleDetailedHitsound(client);
 				case 3:
 				{
 					g_HS_pData[client].fVolume = g_HS_pData[client].fVolume - 0.1;
-					if (g_HS_pData[client].fVolume <= 0.0) g_HS_pData[client].fVolume = 1.0;
+					if (g_HS_pData[client].fVolume <= 0.0)
+						g_HS_pData[client].fVolume = 1.0;
 
 					g_HS_pData[client].volume = g_HS_pData[client].volume - 10;
-					if (g_HS_pData[client].volume <= 0) g_HS_pData[client].volume = 100;
+					if (g_HS_pData[client].volume <= 0)
+						g_HS_pData[client].volume = 100;
 
 					SaveHitsoundSettings(client);
-
 					CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Volume", g_HS_pData[client].volume);
 				}
 			}
