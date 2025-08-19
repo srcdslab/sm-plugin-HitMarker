@@ -185,7 +185,7 @@ public void OnPluginStart()
 	// Client cookies
 	SetCookieMenuItem(SettingsMenuHandler, INVALID_HANDLE, "Hitmarker Settings");
 	SetCookieMenuItem(CookieMenu_HitMarker, INVALID_HANDLE, "Hit Sound Settings");
-	
+
 
 	g_cHitmarkerSettings = new Cookie("hitmarker_settings", "Combined hitmarker settings (damage|enable|health|type|style)", CookieAccess_Private);
 	g_cHitmarkerColors = new Cookie("hitmarker_colors", "Combined hitmarker colors (headR|headG|headB|bodyR|bodyG|bodyB)", CookieAccess_Private);
@@ -408,7 +408,7 @@ public int Native_SetHitsoundVolume(Handle plugin, int numParams)
 {
 	int client = GetNativeCell(1);
 	int volume = GetNativeCell(2);
-	
+
 	g_HS_pData[client].volume = volume;
 	g_HS_pData[client].fVolume = volume / 100.0;
 	SaveHitsoundSettings(client);
@@ -427,11 +427,11 @@ public int Native_OpenHitsoundMenu(Handle plugin, int numParams)
 void SaveHitmarkerSettings(int client)
 {
 	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d", 
-		g_HM_pData[client].damage, 
-		g_HM_pData[client].enable, 
-		g_HM_pData[client].health, 
-		g_HM_pData[client].type, 
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d",
+		g_HM_pData[client].damage,
+		g_HM_pData[client].enable,
+		g_HM_pData[client].health,
+		g_HM_pData[client].type,
 		g_HM_pData[client].style);
 	g_cHitmarkerSettings.Set(client, buffer);
 }
@@ -490,7 +490,7 @@ void LoadHitmarkerSettings(int client)
 void SaveHitmarkerColors(int client)
 {
 	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d|%d", 
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d|%d|%d",
 		g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2],
 		g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
 	g_cHitmarkerColors.Set(client, buffer);
@@ -551,7 +551,7 @@ void LoadHitmarkerColors(int client)
 void SaveHitsoundSettings(int client)
 {
 	char buffer[32];
-	Format(buffer, sizeof(buffer), "%d|%d|%d|%d", 
+	Format(buffer, sizeof(buffer), "%d|%d|%d|%d",
 		g_HS_pData[client].enable ? 1 : 0,
 		g_HS_pData[client].boss ? 1 : 0,
 		g_HS_pData[client].detailed ? 1 : 0,
@@ -758,7 +758,7 @@ void InternalToggleHitmarker(int client)
 	g_HM_pData[client].enable++;
 	if (g_HM_pData[client].enable > 2)
 		g_HM_pData[client].enable = 0;
-	
+
 	SaveHitmarkerSettings(client);
 	switch (g_HM_pData[client].enable)
 	{
@@ -1065,7 +1065,7 @@ public void OnMapEnd()
 	Cleanup();
 }
 
-public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast) 
+public void Event_OnRoundEnd(Event event, const char[] name, bool dontBroadcast)
 {
 	CleanupAndInit();
 }
