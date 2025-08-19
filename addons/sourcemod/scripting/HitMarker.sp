@@ -255,10 +255,10 @@ public void OnConVarChange(ConVar convar, char[] oldValue, char[] newValue)
 public void OnConfigsExecuted()
 {
 	PrecacheSounds();
-	GetConVarString(g_cvHitsound, g_sHitsoundPath, sizeof(g_sHitsoundPath));
-	GetConVarString(g_cvHitsoundBody, g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
-	GetConVarString(g_cvHitsoundHead, g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
-	GetConVarString(g_cvHitsoundKill, g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
+	g_cvHitsound.GetString(g_sHitsoundPath, sizeof(g_sHitsoundPath));
+	g_cvHitsoundBody.GetString(g_sHitsoundBodyPath, sizeof(g_sHitsoundBodyPath));
+	g_cvHitsoundHead.GetString(g_sHitsoundHeadPath, sizeof(g_sHitsoundHeadPath));
+	g_cvHitsoundKill.GetString(g_sHitsoundKillPath, sizeof(g_sHitsoundKillPath));
 }
 
 stock void VerifyNatives()
