@@ -102,7 +102,7 @@
     {
         "en"        "Remaining health display is now {green}enabled{white}."
         "zho"       "已{green}開啓{white}對方剩下血量顯示。"
-        "chi"       "已{green}开启{white}對方剩下血量顯示。"
+        "chi"       "已{green}开启{white}对方剩下血量显示。"
         "fr"        "L'affichage de la santé restante est maintenant {green}activé{white}."
     }
 
