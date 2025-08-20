@@ -617,9 +617,9 @@ public Action Command_HeadColor(int client, int args)
 	GetCmdArg(3, buffer, sizeof(buffer));
 	b = StringToInt(buffer);
 
-	if (r > 255) r = 255; if (r < 0) r = 0;
-	if (g > 255) g = 255; if (g < 0) g = 0;
-	if (b > 255) b = 255; if (b < 0) b = 0;
+	if (r > 255) r = 255; else if (r < 0) r = 0;
+	if (g > 255) g = 255; else if (g < 0) g = 0;
+	if (b > 255) b = 255; else if (b < 0) b = 0;
 
 	g_HM_pData[client].headColor[0] = r;
 	g_HM_pData[client].headColor[1] = g;
@@ -649,9 +649,9 @@ public Action Command_BodyColor(int client, int args)
 	GetCmdArg(3, buffer, sizeof(buffer));
 	b = StringToInt(buffer);
 
-	if (r > 255) r = 255; if (r < 0) r = 0;
-	if (g > 255) g = 255; if (g < 0) g = 0;
-	if (b > 255) b = 255; if (b < 0) b = 0;
+	if (r > 255) r = 255; else if (r < 0) r = 0;
+	if (g > 255) g = 255; else if (g < 0) g = 0;
+	if (b > 255) b = 255; else if (b < 0) b = 0;
 
 	g_HM_pData[client].bodyColor[0] = r;
 	g_HM_pData[client].bodyColor[1] = g;
