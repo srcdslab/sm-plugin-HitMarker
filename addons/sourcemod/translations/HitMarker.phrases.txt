@@ -1,0 +1,220 @@
+"Phrases"
+{
+    // Prefix
+    "Hitmarker Prefix"
+    {
+        "en"        "{green}[HitMarker]{white}"
+        "zho"       "{green}[HitMarker]{white}"
+        "chi"       "{green}[HitMarker]{white}"
+        "fr"        "{green}[HitMarker]{white}"
+    }
+
+    "Hitsound Prefix"
+    {
+        "en"        "{green}[HitSound]{white}"
+        "zho"       "{green}[HitSound]{white}"
+        "chi"       "{green}[HitSound]{white}"
+        "fr"        "{green}[HitSound]{white}"
+    }
+
+    // Hitmarker
+    "Hitmarker Disabled"
+    {
+        "en"        "You have {red}disabled {white}hitmarkers."
+        "zho"       "已{red}停用{white}命中標記。"
+        "chi"       "已{red}停用{white}命中标记。"
+        "fr"        "Vous avez {red}désactivé {white}les marqueurs de coup."
+    }
+
+    "Hitmarker Enabled"
+    {
+        "en"        "You have {green}enabled {white}hitmarkers."
+        "zho"       "已{green}開啓{white}命中標記。"
+        "chi"       "已{green}开启{white}命中标记。"
+        "fr"        "Vous avez {green}activé {white}les marqueurs de coup."
+    }
+
+    "Hitmarker All"
+    {
+        "en"        "You have {green}enabled {white}hitmarkers {blue}(Players + Bosses){white}."
+        "zho"       "已{green}開啓{white}命中標記{blue}（玩家 + Boss）。"
+        "chi"       "已{green}开启{white}命中标记{blue}（玩家 + Boss）。"
+        "fr"        "Vous avez {green}activé {white}les marqueurs de coup {blue}(Joueurs + Boss){white}."
+    }
+
+    "Damage Disabled"
+    {
+        "en"        "Damage display is now {red}disabled{white}."
+        "zho"       "已{red}停用{white}命中傷害顯示。"
+        "chi"       "已{red}停用{white}命中伤害显示。"
+        "fr"        "L'affichage des dégâts est maintenant {red}désactivé{white}."
+    }
+
+    "Damage Enabled"
+    {
+        "en"        "Damage display is now {green}enabled{white}."
+        "zho"       "已{green}開啓{white}命中傷害顯示。"
+        "chi"       "已{green}开启{white}命中伤害显示。"
+        "fr"        "L'affichage des dégâts est maintenant {green}activé{white}."
+    }
+
+    "Damage Rank"
+    {
+        "en"        "Damage display with ranking is now {green}enabled{white}."
+        "zho"       "已{green}開啓{white}命中傷害跟排名顯示。"
+        "chi"       "已{green}开启{white}命中伤害跟排名显示。"
+        "fr"        "L'affichage des dégâts avec classement est maintenant {green}activé{white}."
+    }
+
+    "Type Center"
+    {
+        "en"        "Damage dealt is now being displayed as \"{blue}center text{white}\"."
+        "zho"       "傷害顯示方式已改成\"{blue}center text{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}center text{white}\"。"
+        "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte central{white}\"."
+    }
+
+    "Type Game Text"
+    {
+        "en"        "Damage dealt is now being displayed as \"{blue}game text{white}\"."
+        "zho"       "傷害顯示方式已改成\"{blue}game text{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}game text{white}\"。"
+        "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte du jeu{white}\"."
+    }
+
+    "Type Hint Text"
+    {
+        "en"        "Damage dealt is now being displayed as \"{blue}hint text{white}\"."
+        "zho"       "傷害顯示方式已改成\"{blue}hint text{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}hint text{white}\"。"
+        "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte d'indice{white}\"."
+    }
+
+    "Health Disabled"
+    {
+        "en"        "Remaining health display is now {red}disabled{white}."
+        "zho"       "已{red}停用{white}對方剩下血量顯示。"
+        "chi"       "已{red}停用{white}对方剩下血量显示。"
+        "fr"        "L'affichage de la santé restante est maintenant {red}désactivé{white}."
+    }
+
+    "Health Enabled"
+    {
+        "en"        "Remaining health display is now {green}enabled{white}."
+        "zho"       "已{green}開啓{white}對方剩下血量顯示。"
+        "chi"       "已{green}开启{white}对方剩下血量显示。"
+        "fr"        "L'affichage de la santé restante est maintenant {green}activé{white}."
+    }
+
+    "Health Name"
+    {
+        "en"        "Remaining health display is now {green}enabled{white} with {blue}victim name{white}."
+        "zho"       "已{green}開啓{white}對方名字跟剩下血量顯示。"
+        "chi"       "已{green}开启{white}对方名字跟剩下血量显示。"
+        "fr"        "L'affichage de la santé restante est maintenant {green}activé{white} avec le {blue}nom de la victime{white}."
+    }
+
+    "Head Color"
+    {
+        "#format"   "{1:i},{2:i},{3:i}"
+        "en"        "You have set your headshot hitmarker color to {red}{1} {green}{2} {blue}{3}{white}."
+        "zho"       "頭的命中標記顔色已調到 {red}{1} {green}{2} {blue}{3}{white}。"
+        "chi"       "头的命中标记颜色已调到 {red}{1} {green}{2} {blue}{3}{white}。"
+        "fr"        "Vous avez défini la couleur de votre marqueur de coup à la tête sur {red}{1} {green}{2} {blue}{3}{white}."
+    }
+
+    "Body Color"
+    {
+        "#format"   "{1:i},{2:i},{3:i}"
+        "en"        "You have set your bodyshot hitmarker color to {red}{1} {green}{2} {blue}{3}{white}."
+        "zho"       "身體的命中標記顔色已調到 {red}{1} {green}{2} {blue}{3}{white}。"
+        "chi"       "身体的命中标记颜色已调到 {red}{1} {green}{2} {blue}{3}{white}。"
+        "fr"        "Vous avez défini la couleur de votre marqueur de coup au corps sur {red}{1} {green}{2} {blue}{3}{white}."
+    }
+
+    // Hitsound
+    "Hitsound Disabled"
+    {
+        "en"        "Hitsounds have been {red}disabled{white}!"
+        "zho"       "子弹命中音效已{red}屏蔽{white}!"
+        "chi"       "子弹命中音效已{red}屏蔽{white}!"
+        "fr"        "Les sons de coup ont été {red}désactivés{white}!"
+    }
+
+    "Hitsound Enabled"
+    {
+        "en"        "Hitsounds have been {green}enabled{white}!"
+        "zho"       "已{green}開啓{white}子彈命中音效!"
+        "chi"       "已{green}开启{white}子弹命中音效!"
+        "fr"        "Les sons de coup ont été {green}activés{white}!"
+    }
+
+    "Hitsound Already Disabled"
+    {
+        "en"        "Hitsounds are already {red}disabled{white}!"
+        "zho"       "子彈命中音效已經{red}屏蔽{white}了!"
+        "chi"       "子弹命中音效已经{red}屏蔽{white}了!"
+        "fr"        "Les sons de coup sont déjà {red}désactivés{white}!"
+    }
+
+    "Hitsound Already Enabled"
+    {
+        "en"        "Hitsounds are already {green}enabled{white}!"
+        "zho"       "子彈命中音效已經{green}開啓{white}了!"
+        "chi"       "子弹命中音效已经{green}开启{white}了!"
+        "fr"        "Les sons de coup sont déjà {green}activés{white}!"
+    }
+
+    "Hitsound Volume"
+    {
+        "#format"   "{1:i}"
+        "en"        "Hitsound volume has been changed to {green}{1}{white}."
+        "zho"       "子彈命中音效音量已調到{green}{1}{white}。"
+        "chi"       "子弹命中音效音量已调到{green}{1}{white}。"
+        "fr"        "Le volume des sons de coup a été changé à {green}{1}{white}."
+    }
+
+    // Internal
+    "Enabled"
+    {
+        "en"        "{green}enabled"
+        "zho"       "{green}開啓"
+        "chi"       "{green}开启"
+        "fr"        "{green}activé"
+    }
+
+    "Disabled"
+    {
+        "en"        "{red}disabled"
+        "zho"       "{red}停用"
+        "chi"       "{red}停用"
+        "fr"        "{red}désactivé"
+    }
+
+    "Toggle Zombie"
+    {
+        "#format"   "{1:t}"
+        "en"        "Zombie hitsounds are now {1}{white}."
+        "zho"       "已{1}{white}僵尸命中音效。"
+        "chi"       "已{1}{white}僵尸命中音效。"
+        "fr"        "Les sons de coup de zombie sont maintenant {1}{white}."
+    }
+
+    "Toggle Boss"
+    {
+        "#format"   "{1:t}"
+        "en"        "Boss hitsounds are now {1}{white}."
+        "zho"       "已{1}{white}boss命中音效。"
+        "chi"       "已{1}{white}boss命中音效。"
+        "fr"        "Les sons de coup de boss sont maintenant {1}{white}."
+    }
+
+    "Toggle Detailed"
+    {
+        "#format"   "{1:t}"
+        "en"        "Detailed hitsounds are now {1}{white}."
+        "zho"       "已{1}{white}頭部跟身體命中音效。"
+        "chi"       "已{1}{white}头部跟身体命中音效。"
+        "fr"        "Les sons de coup détaillés sont maintenant {1}{white}."
+    }
+}
