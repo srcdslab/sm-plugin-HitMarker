@@ -16,7 +16,7 @@ This repository contains a **SourcePawn plugin** for **SourceMod**, providing hi
 
 - **Language**: SourcePawn (C-like syntax specific to SourceMod)
 - **Platform**: SourceMod 1.11+ framework for Source engine games
-- **Build System**: SourceKnight for dependency management and compilation
+- **Build System**: Native GitHub Actions workflow (setup-sp) for dependency management and compilation
 - **Compiler**: SourcePawn compiler (spcomp)
 
 ## Project Structure
@@ -31,7 +31,6 @@ This repository contains a **SourcePawn plugin** for **SourceMod**, providing hi
 │   └── translations/
 │       └── HitMarker.phrases.txt     # Multi-language strings
 ├── common/sound/hitmarker/           # Sound assets
-├── sourceknight.yaml                # Build configuration
 └── .github/workflows/ci.yml         # CI/CD pipeline
 ```
 
@@ -100,7 +99,7 @@ Format(buffer, sizeof(buffer), "Text %d", value);
 
 ## Dependencies & Integration
 
-### SourceKnight Dependencies
+### Dependencies (installed in CI)
 - **sourcemod**: Core SourceMod framework
 - **multicolors**: Colored chat messages
 - **spectate**: Spectator functionality
@@ -121,15 +120,15 @@ g_bPlugin_Available = LibraryExists("PluginName");
 ## Build & Development Process
 
 ### Local Development
-1. Install SourceKnight: Follow SourceKnight documentation
-2. Build: `sourceknight build` (or use CI/CD)
+1. Install the SourcePawn compiler (spcomp) matching the version used in CI (`rumblefrog/setup-sp`, "1.12.x")
+2. Build: `spcomp -i include -o ../plugins/HitMarker.smx HitMarker.sp` from `addons/sourcemod/scripting` (or use CI/CD)
 3. Test: Load plugin on development server
 
 ### File Modifications
 - **Main Logic**: Edit `HitMarker.sp`
 - **API Changes**: Update `hitmarkers.inc` native definitions
 - **New Translations**: Add to `HitMarker.phrases.txt`
-- **Dependencies**: Modify `sourceknight.yaml`
+- **Dependencies**: Modify `.github/workflows/ci.yml`
 
 ### Testing Strategy
 - **No unit tests**: SourcePawn plugins tested by server loading
