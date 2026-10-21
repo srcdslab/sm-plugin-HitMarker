@@ -107,7 +107,7 @@ enum DisplayType
 	DISPLAY_HINT = 2
 }
 
-Handle g_hHudSync = INVALID_HANDLE;
+Handle g_hHudSync = null;
 
 //----------------------------------------------------------------------------------------------------
 // Purpose: Hitmarker styles
@@ -183,8 +183,8 @@ public void OnPluginStart()
 	CleanupAndInit();
 
 	// Client cookies
-	SetCookieMenuItem(SettingsMenuHandler, INVALID_HANDLE, "Hitmarker Settings");
-	SetCookieMenuItem(CookieMenu_HitMarker, INVALID_HANDLE, "Hit Sound Settings");
+	SetCookieMenuItem(SettingsMenuHandler, 0, "Hitmarker Settings");
+	SetCookieMenuItem(CookieMenu_HitMarker, 0, "Hit Sound Settings");
 
 
 	g_cHitmarkerSettings = new Cookie("hitmarker_settings", "Combined hitmarker settings (damage|enable|health|type|style)", CookieAccess_Private);
@@ -773,9 +773,9 @@ void InternalToggleShowHealth(int client)
 //----------------------------------------------------------------------------------------------------
 // Purpose: Player hurt event hook
 //----------------------------------------------------------------------------------------------------
-public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
+public void Event_PlayerHurt(Event event, const char[] name, bool broadcast)
 {
-	int attacker = GetClientOfUserId(GetEventInt(event, "attacker"));
+	int attacker = GetClientOfUserId(event.GetInt("attacker"));
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
 
@@ -787,12 +787,12 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (tick == g_iLastTick[attacker])
 		return;
 
-	int victim = GetClientOfUserId(GetEventInt(event, "userid"));
+	int victim = GetClientOfUserId(event.GetInt("userid"));
 	if (!IsClientInGame(victim) || attacker == victim)
 		return;
 
-	int hitgroup = GetEventInt(event, "hitgroup");
-	int hp = GetEventInt(event, "health");
+	int hitgroup = event.GetInt("hitgroup");
+	int hp = event.GetInt("health");
 
 	// Play hitsound
 	if (g_HS_pData[attacker].enable)
@@ -819,7 +819,7 @@ public void Event_PlayerHurt(Handle event, const char[] name, bool broadcast)
 	if (g_HM_pData[attacker].style > g_iHitmarkerStyle)
 		g_HM_pData[attacker].style = 0;
 
-	int damage = GetEventInt(event, "dmg_health");
+	int damage = event.GetInt("dmg_health");
 	int previousHealth = hp + damage;
 
 	// Build our hitmarker
@@ -949,7 +949,7 @@ void SendHudMsg(int client, char[] szMessage, DisplayType type = DISPLAY_HINT, i
 		return;
 	}
 
-	if (g_hHudSync != INVALID_HANDLE)
+	if (g_hHudSync != null)
 	{
 		if (type == DISPLAY_GAME)
 		{
@@ -1031,7 +1031,7 @@ public void HitmarkerMenu(int client)
 	if (!client)
 		return;
 
-	Menu menu = CreateMenu(HitmarkerMenuHandler);
+	Menu menu = new Menu(HitmarkerMenuHandler);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
 
@@ -1105,14 +1105,14 @@ public void HitmarkerMenu(int client)
 	menu.Display(client, MENU_TIME_FOREVER);
 }
 
-public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int selection)
+public int HitmarkerMenuHandler(Menu menu, MenuAction action, int client, int selection)
 {
 	switch (action)
 	{
 		case MenuAction_Select:
 		{
 			char info[32];
-			GetMenuItem(menu, selection, info, sizeof(info));
+			menu.GetItem(selection, info, sizeof(info));
 
 			if (strcmp(info, "toggle", false) == 0)
 			{
@@ -1157,7 +1157,7 @@ public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int 
 		}
 		case MenuAction_End:
 		{
-			CloseHandle(menu);
+			delete menu;
 		}
 	}
 	return 0;
@@ -1165,7 +1165,7 @@ public int HitmarkerMenuHandler(Handle menu, MenuAction action, int client, int 
 
 public void HeadColor(int client)
 {
-	Menu menu = CreateMenu(HeadColorHandler);
+	Menu menu = new Menu(HeadColorHandler);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
 
@@ -1184,14 +1184,14 @@ public void HeadColor(int client)
 	menu.Display(client, MENU_TIME_FOREVER);
 }
 
-public int HeadColorHandler(Handle menu, MenuAction action, int client, int selection)
+public int HeadColorHandler(Menu menu, MenuAction action, int client, int selection)
 {
 	switch (action)
 	{
 		case MenuAction_Select:
 		{
 			char buffer[32];
-			GetMenuItem(menu, selection, buffer, 32);
+			menu.GetItem(selection, buffer, 32);
 			if (strcmp(buffer, "re", false) == 0)
 			{
 				g_HM_pData[client].headColor[0] = 255;
@@ -1239,7 +1239,7 @@ public int HeadColorHandler(Handle menu, MenuAction action, int client, int sele
 		}
 		case MenuAction_End:
 		{
-			CloseHandle(menu);
+			delete menu;
 		}
 	}
 	return 0;
@@ -1247,7 +1247,7 @@ public int HeadColorHandler(Handle menu, MenuAction action, int client, int sele
 
 public void BodyColor(int client)
 {
-	Menu menu = CreateMenu(BodyColorHandler);
+	Menu menu = new Menu(BodyColorHandler);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
 
@@ -1266,14 +1266,14 @@ public void BodyColor(int client)
 	menu.Display(client, MENU_TIME_FOREVER);
 }
 
-public int BodyColorHandler(Handle menu, MenuAction action, int client, int selection)
+public int BodyColorHandler(Menu menu, MenuAction action, int client, int selection)
 {
 	switch (action)
 	{
 		case MenuAction_Select:
 		{
 			char buffer[32];
-			GetMenuItem(menu, selection, buffer, 32);
+			menu.GetItem(selection, buffer, 32);
 			if (strcmp(buffer, "re", false) == 0)
 			{
 				g_HM_pData[client].bodyColor[0] = 255;
@@ -1321,7 +1321,7 @@ public int BodyColorHandler(Handle menu, MenuAction action, int client, int sele
 		}
 		case MenuAction_End:
 		{
-			CloseHandle(menu);
+			delete menu;
 		}
 	}
 	return 0;
@@ -1341,21 +1341,21 @@ public void DisplayCookieMenu(int client)
 	Menu menu = new Menu(MenuHandler_HitMarker, MENU_ACTIONS_DEFAULT | MenuAction_DisplayItem);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
-	SetMenuTitle(menu, "Hitsounds:\n \n");
+	menu.SetTitle("Hitsounds:\n \n");
 
 	char buffer[128];
 	Format(buffer, sizeof(buffer), "Hitsounds: %s\n ", g_HS_pData[client].enable ? "On" : "Off");
-	AddMenuItem(menu, "zombie", buffer);
+	menu.AddItem("zombie", buffer);
 
 	Format(buffer, sizeof(buffer), "Boss hitsounds: %s\n ", g_HS_pData[client].boss ? "On" : "Off");
-	AddMenuItem(menu, "boss", buffer);
+	menu.AddItem("boss", buffer);
 
 	Format(buffer, sizeof(buffer), "Detailed hitsounds: %s\n \nUse \"!hitsound [0-100]\" to set volume", g_HS_pData[client].detailed ? "On" : "Off");
-	AddMenuItem(menu, "detailed", buffer);
+	menu.AddItem("detailed", buffer);
 
 	Format(buffer, sizeof(buffer), "Volume: %d", g_HS_pData[client].volume);
-	AddMenuItem(menu, "vol", buffer);
-	DisplayMenu(menu, client, MENU_TIME_FOREVER);
+	menu.AddItem("vol", buffer);
+	menu.Display(client, MENU_TIME_FOREVER);
 }
 
 public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int selection)
