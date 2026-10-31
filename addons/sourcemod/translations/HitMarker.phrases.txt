@@ -7,6 +7,10 @@
         "zho"       "{green}[HitMarker]{white}"
         "chi"       "{green}[HitMarker]{white}"
         "fr"        "{green}[HitMarker]{white}"
+        "ru"        "{green}[HitMarker]{white}"
+        "es"        "{green}[HitMarker]{white}"
+        "de"        "{green}[HitMarker]{white}"
+        "pt"        "{green}[HitMarker]{white}"
     }
 
     "Hitsound Prefix"
@@ -15,6 +19,10 @@
         "zho"       "{green}[HitSound]{white}"
         "chi"       "{green}[HitSound]{white}"
         "fr"        "{green}[HitSound]{white}"
+        "ru"        "{green}[HitSound]{white}"
+        "es"        "{green}[HitSound]{white}"
+        "de"        "{green}[HitSound]{white}"
+        "pt"        "{green}[HitSound]{white}"
     }
 
     // Hitmarker
@@ -24,6 +32,10 @@
         "zho"       "已{red}停用{white}命中標記。"
         "chi"       "已{red}停用{white}命中标记。"
         "fr"        "Vous avez {red}désactivé {white}les marqueurs de coup."
+        "ru"        "Вы {red}отключили {white}хитмаркеры."
+        "es"        "Has {red}desactivado {white}los hitmarkers."
+        "de"        "Du hast Hitmarker {red}deaktiviert{white}."
+        "pt"        "Você {red}desativou {white}os hitmarkers."
     }
 
     "Hitmarker Enabled"
@@ -32,6 +44,10 @@
         "zho"       "已{green}開啓{white}命中標記。"
         "chi"       "已{green}开启{white}命中标记。"
         "fr"        "Vous avez {green}activé {white}les marqueurs de coup."
+        "ru"        "Вы {green}включили {white}хитмаркеры."
+        "es"        "Has {green}activado {white}los hitmarkers."
+        "de"        "Du hast Hitmarker {green}aktiviert{white}."
+        "pt"        "Você {green}ativou {white}os hitmarkers."
     }
 
     "Hitmarker All"
@@ -40,6 +56,10 @@
         "zho"       "已{green}開啓{white}命中標記{blue}（玩家 + Boss）。"
         "chi"       "已{green}开启{white}命中标记{blue}（玩家 + Boss）。"
         "fr"        "Vous avez {green}activé {white}les marqueurs de coup {blue}(Joueurs + Boss){white}."
+        "ru"        "Вы {green}включили {white}хитмаркеры {blue}(игроки + боссы){white}."
+        "es"        "Has {green}activado {white}los hitmarkers {blue}(jugadores + jefes){white}."
+        "de"        "Du hast Hitmarker {green}aktiviert {blue}(Spieler + Bosse){white}."
+        "pt"        "Você {green}ativou {white}os hitmarkers {blue}(jogadores + chefes){white}."
     }
 
     "Damage Disabled"
@@ -48,6 +68,10 @@
         "zho"       "已{red}停用{white}命中傷害顯示。"
         "chi"       "已{red}停用{white}命中伤害显示。"
         "fr"        "L'affichage des dégâts est maintenant {red}désactivé{white}."
+        "ru"        "Показ урона {red}отключён{white}."
+        "es"        "La visualización de daño está {red}desactivada{white}."
+        "de"        "Schadensanzeige ist jetzt {red}deaktiviert{white}."
+        "pt"        "A exibição de dano está {red}desativada{white}."
     }
 
     "Damage Enabled"
@@ -56,6 +80,10 @@
         "zho"       "已{green}開啓{white}命中傷害顯示。"
         "chi"       "已{green}开启{white}命中伤害显示。"
         "fr"        "L'affichage des dégâts est maintenant {green}activé{white}."
+        "ru"        "Показ урона {green}включён{white}."
+        "es"        "La visualización de daño está {green}activada{white}."
+        "de"        "Schadensanzeige ist jetzt {green}aktiviert{white}."
+        "pt"        "A exibição de dano está {green}ativada{white}."
     }
 
     "Damage Rank"
@@ -64,6 +92,10 @@
         "zho"       "已{green}開啓{white}命中傷害跟排名顯示。"
         "chi"       "已{green}开启{white}命中伤害跟排名显示。"
         "fr"        "L'affichage des dégâts avec classement est maintenant {green}activé{white}."
+        "ru"        "Показ урона с рейтингом {green}включён{white}."
+        "es"        "La visualización de daño con ranking está {green}activada{white}."
+        "de"        "Schadensanzeige mit Rang ist jetzt {green}aktiviert{white}."
+        "pt"        "A exibição de dano com ranking está {green}ativada{white}."
     }
 
     "Type Center"
@@ -72,6 +104,10 @@
         "zho"       "傷害顯示方式已改成\"{blue}center text{white}\"。"
         "chi"       "伤害显示方式已改成\"{blue}center text{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte central{white}\"."
+        "ru"        "Нанесённый урон теперь показывается как \"{blue}текст по центру{white}\"."
+        "es"        "El daño infligido ahora se muestra como \"{blue}texto central{white}\"."
+        "de"        "Verursachter Schaden wird jetzt als \"{blue}Center-Text{white}\" angezeigt."
+        "pt"        "O dano causado agora é exibido como \"{blue}texto central{white}\"."
     }
 
     "Type Game Text"
@@ -80,6 +116,10 @@
         "zho"       "傷害顯示方式已改成\"{blue}game text{white}\"。"
         "chi"       "伤害显示方式已改成\"{blue}game text{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte du jeu{white}\"."
+        "ru"        "Нанесённый урон теперь показывается как \"{blue}игровой текст{white}\"."
+        "es"        "El daño infligido ahora se muestra como \"{blue}texto del juego{white}\"."
+        "de"        "Verursachter Schaden wird jetzt als \"{blue}Game-Text{white}\" angezeigt."
+        "pt"        "O dano causado agora é exibido como \"{blue}texto do jogo{white}\"."
     }
 
     "Type Hint Text"
@@ -88,6 +128,10 @@
         "zho"       "傷害顯示方式已改成\"{blue}hint text{white}\"。"
         "chi"       "伤害显示方式已改成\"{blue}hint text{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte d'indice{white}\"."
+        "ru"        "Нанесённый урон теперь показывается как \"{blue}подсказка{white}\"."
+        "es"        "El daño infligido ahora se muestra como \"{blue}texto de ayuda{white}\"."
+        "de"        "Verursachter Schaden wird jetzt als \"{blue}Hinweistext{white}\" angezeigt."
+        "pt"        "O dano causado agora é exibido como \"{blue}texto de dica{white}\"."
     }
 
     "Health Disabled"
@@ -96,6 +140,10 @@
         "zho"       "已{red}停用{white}對方剩下血量顯示。"
         "chi"       "已{red}停用{white}对方剩下血量显示。"
         "fr"        "L'affichage de la santé restante est maintenant {red}désactivé{white}."
+        "ru"        "Показ оставшегося здоровья {red}отключён{white}."
+        "es"        "La visualización de vida restante está {red}desactivada{white}."
+        "de"        "Anzeige der Restgesundheit ist jetzt {red}deaktiviert{white}."
+        "pt"        "A exibição de vida restante está {red}desativada{white}."
     }
 
     "Health Enabled"
@@ -104,6 +152,10 @@
         "zho"       "已{green}開啓{white}對方剩下血量顯示。"
         "chi"       "已{green}开启{white}对方剩下血量显示。"
         "fr"        "L'affichage de la santé restante est maintenant {green}activé{white}."
+        "ru"        "Показ оставшегося здоровья {green}включён{white}."
+        "es"        "La visualización de vida restante está {green}activada{white}."
+        "de"        "Anzeige der Restgesundheit ist jetzt {green}aktiviert{white}."
+        "pt"        "A exibição de vida restante está {green}ativada{white}."
     }
 
     "Health Name"
@@ -112,6 +164,10 @@
         "zho"       "已{green}開啓{white}對方名字跟剩下血量顯示。"
         "chi"       "已{green}开启{white}对方名字跟剩下血量显示。"
         "fr"        "L'affichage de la santé restante est maintenant {green}activé{white} avec le {blue}nom de la victime{white}."
+        "ru"        "Показ оставшегося здоровья {green}включён{white} с {blue}именем жертвы{white}."
+        "es"        "La visualización de vida restante está {green}activada{white} con el {blue}nombre de la víctima{white}."
+        "de"        "Anzeige der Restgesundheit mit {blue}Namen des Opfers{white} ist jetzt {green}aktiviert{white}."
+        "pt"        "A exibição de vida restante está {green}ativada{white} com o {blue}nome da vítima{white}."
     }
 
     "Head Color"
@@ -121,6 +177,10 @@
         "zho"       "頭的命中標記顔色已調到 {red}{1} {green}{2} {blue}{3}{white}。"
         "chi"       "头的命中标记颜色已调到 {red}{1} {green}{2} {blue}{3}{white}。"
         "fr"        "Vous avez défini la couleur de votre marqueur de coup à la tête sur {red}{1} {green}{2} {blue}{3}{white}."
+        "ru"        "Цвет хитмаркера в голову: {red}{1} {green}{2} {blue}{3}{white}."
+        "es"        "Color del hitmarker en la cabeza: {red}{1} {green}{2} {blue}{3}{white}."
+        "de"        "Kopfschuss-Hitmarker-Farbe gesetzt auf {red}{1} {green}{2} {blue}{3}{white}."
+        "pt"        "Cor do hitmarker na cabeça: {red}{1} {green}{2} {blue}{3}{white}."
     }
 
     "Body Color"
@@ -130,15 +190,23 @@
         "zho"       "身體的命中標記顔色已調到 {red}{1} {green}{2} {blue}{3}{white}。"
         "chi"       "身体的命中标记颜色已调到 {red}{1} {green}{2} {blue}{3}{white}。"
         "fr"        "Vous avez défini la couleur de votre marqueur de coup au corps sur {red}{1} {green}{2} {blue}{3}{white}."
+        "ru"        "Цвет хитмаркера в тело: {red}{1} {green}{2} {blue}{3}{white}."
+        "es"        "Color del hitmarker en el cuerpo: {red}{1} {green}{2} {blue}{3}{white}."
+        "de"        "Körpertreffer-Hitmarker-Farbe gesetzt auf {red}{1} {green}{2} {blue}{3}{white}."
+        "pt"        "Cor do hitmarker no corpo: {red}{1} {green}{2} {blue}{3}{white}."
     }
 
     // Hitsound
     "Hitsound Disabled"
     {
         "en"        "Hitsounds have been {red}disabled{white}!"
-        "zho"       "子弹命中音效已{red}屏蔽{white}!"
+        "zho"       "子彈命中音效已{red}屏蔽{white}!"
         "chi"       "子弹命中音效已{red}屏蔽{white}!"
         "fr"        "Les sons de coup ont été {red}désactivés{white}!"
+        "ru"        "Звуки попаданий {red}отключены{white}!"
+        "es"        "¡Los sonidos de impacto han sido {red}desactivados{white}!"
+        "de"        "Treffersounds wurden {red}deaktiviert{white}!"
+        "pt"        "Os sons de acerto foram {red}desativados{white}!"
     }
 
     "Hitsound Enabled"
@@ -147,6 +215,10 @@
         "zho"       "已{green}開啓{white}子彈命中音效!"
         "chi"       "已{green}开启{white}子弹命中音效!"
         "fr"        "Les sons de coup ont été {green}activés{white}!"
+        "ru"        "Звуки попаданий {green}включены{white}!"
+        "es"        "¡Los sonidos de impacto han sido {green}activados{white}!"
+        "de"        "Treffersounds wurden {green}aktiviert{white}!"
+        "pt"        "Os sons de acerto foram {green}ativados{white}!"
     }
 
     "Hitsound Already Disabled"
@@ -155,6 +227,10 @@
         "zho"       "子彈命中音效已經{red}屏蔽{white}了!"
         "chi"       "子弹命中音效已经{red}屏蔽{white}了!"
         "fr"        "Les sons de coup sont déjà {red}désactivés{white}!"
+        "ru"        "Звуки попаданий уже {red}отключены{white}!"
+        "es"        "¡Los sonidos de impacto ya están {red}desactivados{white}!"
+        "de"        "Treffersounds sind bereits {red}deaktiviert{white}!"
+        "pt"        "Os sons de acerto já estão {red}desativados{white}!"
     }
 
     "Hitsound Already Enabled"
@@ -163,6 +239,10 @@
         "zho"       "子彈命中音效已經{green}開啓{white}了!"
         "chi"       "子弹命中音效已经{green}开启{white}了!"
         "fr"        "Les sons de coup sont déjà {green}activés{white}!"
+        "ru"        "Звуки попаданий уже {green}включены{white}!"
+        "es"        "¡Los sonidos de impacto ya están {green}activados{white}!"
+        "de"        "Treffersounds sind bereits {green}aktiviert{white}!"
+        "pt"        "Os sons de acerto já estão {green}ativados{white}!"
     }
 
     "Hitsound Volume"
@@ -172,6 +252,10 @@
         "zho"       "子彈命中音效音量已調到{green}{1}{white}。"
         "chi"       "子弹命中音效音量已调到{green}{1}{white}。"
         "fr"        "Le volume des sons de coup a été changé à {green}{1}{white}."
+        "ru"        "Громкость звуков попаданий изменена на {green}{1}{white}."
+        "es"        "El volumen de los sonidos de impacto cambió a {green}{1}{white}."
+        "de"        "Treffersound-Lautstärke wurde auf {green}{1}{white} geändert."
+        "pt"        "O volume dos sons de acerto foi alterado para {green}{1}{white}."
     }
 
     // Internal
@@ -180,7 +264,11 @@
         "en"        "{green}enabled"
         "zho"       "{green}開啓"
         "chi"       "{green}开启"
-        "fr"        "{green}activé"
+        "fr"        "{green}activés"
+        "ru"        "{green}включены"
+        "es"        "{green}activados"
+        "de"        "{green}aktiviert"
+        "pt"        "{green}ativados"
     }
 
     "Disabled"
@@ -188,16 +276,24 @@
         "en"        "{red}disabled"
         "zho"       "{red}停用"
         "chi"       "{red}停用"
-        "fr"        "{red}désactivé"
+        "fr"        "{red}désactivés"
+        "ru"        "{red}отключены"
+        "es"        "{red}desactivados"
+        "de"        "{red}deaktiviert"
+        "pt"        "{red}desativados"
     }
 
     "Toggle Zombie"
     {
         "#format"   "{1:t}"
         "en"        "Zombie hitsounds are now {1}{white}."
-        "zho"       "已{1}{white}僵尸命中音效。"
+        "zho"       "已{1}{white}殭屍命中音效。"
         "chi"       "已{1}{white}僵尸命中音效。"
         "fr"        "Les sons de coup de zombie sont maintenant {1}{white}."
+        "ru"        "Звуки попаданий по зомби: {1}{white}."
+        "es"        "Sonidos de impacto en zombis: {1}{white}."
+        "de"        "Treffersounds bei Zombies: {1}{white}."
+        "pt"        "Sons de acerto em zumbis: {1}{white}."
     }
 
     "Toggle Boss"
@@ -207,6 +303,10 @@
         "zho"       "已{1}{white}boss命中音效。"
         "chi"       "已{1}{white}boss命中音效。"
         "fr"        "Les sons de coup de boss sont maintenant {1}{white}."
+        "ru"        "Звуки попаданий по боссам: {1}{white}."
+        "es"        "Sonidos de impacto en jefes: {1}{white}."
+        "de"        "Treffersounds bei Bossen: {1}{white}."
+        "pt"        "Sons de acerto em chefes: {1}{white}."
     }
 
     "Toggle Detailed"
@@ -216,5 +316,9 @@
         "zho"       "已{1}{white}頭部跟身體命中音效。"
         "chi"       "已{1}{white}头部跟身体命中音效。"
         "fr"        "Les sons de coup détaillés sont maintenant {1}{white}."
+        "ru"        "Детальные звуки попаданий: {1}{white}."
+        "es"        "Sonidos de impacto detallados: {1}{white}."
+        "de"        "Detaillierte Treffersounds: {1}{white}."
+        "pt"        "Sons de acerto detalhados: {1}{white}."
     }
 }
