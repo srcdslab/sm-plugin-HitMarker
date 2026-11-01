@@ -321,4 +321,461 @@
         "de"        "Detaillierte Treffersounds: {1}{white}."
         "pt"        "Sons de acerto detalhados: {1}{white}."
     }
+
+    "HM_Cookie_Hitmarker"
+    {
+        "en"        "Hitmarker Settings"
+        "fr"        "Réglages des marqueurs de coup"
+        "ru"        "Настройки хитмаркеров"
+        "es"        "Ajustes de hitmarkers"
+        "de"        "Hitmarker-Einstellungen"
+        "pt"        "Configurações de hitmarker"
+        "chi"       "命中标记设置"
+        "zho"       "命中標記設定"
+    }
+
+    "HM_Cookie_Hitsound"
+    {
+        "en"        "Hit Sound Settings"
+        "fr"        "Réglages des sons de coup"
+        "ru"        "Настройки звуков попаданий"
+        "es"        "Ajustes de sonidos de impacto"
+        "de"        "Treffersound-Einstellungen"
+        "pt"        "Configurações de sons de acerto"
+        "chi"       "命中音效设置"
+        "zho"       "命中音效設定"
+    }
+
+    "HM_Menu_Settings_Title"
+    {
+        "en"        "Hitmarker Settings\n "
+        "fr"        "Réglages des marqueurs de coup\n "
+        "ru"        "Настройки хитмаркеров\n "
+        "es"        "Ajustes de hitmarkers\n "
+        "de"        "Hitmarker-Einstellungen\n "
+        "pt"        "Configurações de hitmarker\n "
+        "chi"       "命中标记设置\n "
+        "zho"       "命中標記設定\n "
+    }
+
+    "HM_Menu_Style_Title"
+    {
+        "#format"   "{1:d},{2:d},{3:s}"
+        "en"        "Hitmarkers\n \nCurrent Style ({1}/{2}):\n{3}"
+        "fr"        "Marqueurs de coup\n \nStyle actuel ({1}/{2}) :\n{3}"
+        "ru"        "Хитмаркеры\n \nТекущий стиль ({1}/{2}):\n{3}"
+        "es"        "Hitmarkers\n \nEstilo actual ({1}/{2}):\n{3}"
+        "de"        "Hitmarker\n \nAktueller Stil ({1}/{2}):\n{3}"
+        "pt"        "Hitmarkers\n \nEstilo atual ({1}/{2}):\n{3}"
+        "chi"       "命中标记\n \n当前样式（{1}/{2}）：\n{3}"
+        "zho"       "命中標記\n \n目前樣式（{1}/{2}）：\n{3}"
+    }
+
+    "HM_Menu_Disabled"
+    {
+        "en"        "Disabled"
+        "fr"        "Désactivés"
+        "ru"        "Выключены"
+        "es"        "Desactivados"
+        "de"        "Deaktiviert"
+        "pt"        "Desativados"
+        "chi"       "已禁用"
+        "zho"       "已停用"
+    }
+
+    "HM_Menu_Enabled"
+    {
+        "en"        "Enabled"
+        "fr"        "Activés"
+        "ru"        "Включены"
+        "es"        "Activados"
+        "de"        "Aktiviert"
+        "pt"        "Ativados"
+        "chi"       "已启用"
+        "zho"       "已啟用"
+    }
+
+    "HM_Menu_Enabled_All"
+    {
+        "en"        "Enabled (Players + Bosses)"
+        "fr"        "Activés (joueurs + boss)"
+        "ru"        "Включены (игроки + боссы)"
+        "es"        "Activados (jugadores + jefes)"
+        "de"        "Aktiviert (Spieler + Bosse)"
+        "pt"        "Ativados (jogadores + chefes)"
+        "chi"       "已启用（玩家 + Boss）"
+        "zho"       "已啟用（玩家 + Boss）"
+    }
+
+    "HM_Menu_Hitmarkers"
+    {
+        "#format"   "{1:s}"
+        "en"        "Hitmarkers: {1}"
+        "fr"        "Marqueurs de coup : {1}"
+        "ru"        "Хитмаркеры: {1}"
+        "es"        "Hitmarkers: {1}"
+        "de"        "Hitmarker: {1}"
+        "pt"        "Hitmarkers: {1}"
+        "chi"       "命中标记：{1}"
+        "zho"       "命中標記：{1}"
+    }
+
+    "HM_Menu_Hitmarkers_Customize"
+    {
+        "#format"   "{1:s}"
+        "en"        "Hitmarkers: {1}\n \nCustomize Hitmarker:"
+        "fr"        "Marqueurs de coup : {1}\n \nPersonnaliser le marqueur :"
+        "ru"        "Хитмаркеры: {1}\n \nНастройка хитмаркера:"
+        "es"        "Hitmarkers: {1}\n \nPersonalizar hitmarker:"
+        "de"        "Hitmarker: {1}\n \nHitmarker anpassen:"
+        "pt"        "Hitmarkers: {1}\n \nPersonalizar hitmarker:"
+        "chi"       "命中标记：{1}\n \n自定义命中标记："
+        "zho"       "命中標記：{1}\n \n自訂命中標記："
+    }
+
+    "HM_Menu_Change_Style"
+    {
+        "en"        "Change Style"
+        "fr"        "Changer de style"
+        "ru"        "Сменить стиль"
+        "es"        "Cambiar estilo"
+        "de"        "Stil ändern"
+        "pt"        "Mudar estilo"
+        "chi"       "更换样式"
+        "zho"       "更換樣式"
+    }
+
+    "HM_Menu_Head_Color"
+    {
+        "#format"   "{1:d},{2:d},{3:d}"
+        "en"        "Headshot Color: {1} {2} {3}"
+        "fr"        "Couleur tête : {1} {2} {3}"
+        "ru"        "Цвет попадания в голову: {1} {2} {3}"
+        "es"        "Color de headshot: {1} {2} {3}"
+        "de"        "Kopftreffer-Farbe: {1} {2} {3}"
+        "pt"        "Cor de headshot: {1} {2} {3}"
+        "chi"       "爆头颜色：{1} {2} {3}"
+        "zho"       "爆頭顏色：{1} {2} {3}"
+    }
+
+    "HM_Menu_Body_Color"
+    {
+        "#format"   "{1:d},{2:d},{3:d}"
+        "en"        "Bodyshot Color: {1} {2} {3}\n "
+        "fr"        "Couleur corps : {1} {2} {3}\n "
+        "ru"        "Цвет попадания в тело: {1} {2} {3}\n "
+        "es"        "Color de impacto al cuerpo: {1} {2} {3}\n "
+        "de"        "Körpertreffer-Farbe: {1} {2} {3}\n "
+        "pt"        "Cor de acerto no corpo: {1} {2} {3}\n "
+        "chi"       "身体命中颜色：{1} {2} {3}\n "
+        "zho"       "身體命中顏色：{1} {2} {3}\n "
+    }
+
+    "HM_Menu_Type_Center"
+    {
+        "en"        "Game Center"
+        "fr"        "Centre de l'écran"
+        "ru"        "Центр экрана"
+        "es"        "Centro de pantalla"
+        "de"        "Bildschirmmitte"
+        "pt"        "Centro da tela"
+        "chi"       "屏幕中央"
+        "zho"       "螢幕中央"
+    }
+
+    "HM_Menu_Type_Game_Text"
+    {
+        "en"        "Game Text"
+        "fr"        "Texte HUD"
+        "ru"        "Текст HUD"
+        "es"        "Texto HUD"
+        "de"        "HUD-Text"
+        "pt"        "Texto HUD"
+        "chi"       "HUD 文本"
+        "zho"       "HUD 文字"
+    }
+
+    "HM_Menu_Type_Hint"
+    {
+        "en"        "Hint"
+        "fr"        "Indice"
+        "ru"        "Подсказка"
+        "es"        "Pista"
+        "de"        "Hinweis"
+        "pt"        "Dica"
+        "chi"       "提示"
+        "zho"       "提示"
+    }
+
+    "HM_Menu_Display_Type"
+    {
+        "#format"   "{1:s}"
+        "en"        "Display Type: {1}"
+        "fr"        "Type d'affichage : {1}"
+        "ru"        "Тип отображения: {1}"
+        "es"        "Tipo de visualización: {1}"
+        "de"        "Anzeigeart: {1}"
+        "pt"        "Tipo de exibição: {1}"
+        "chi"       "显示方式：{1}"
+        "zho"       "顯示方式：{1}"
+    }
+
+    "HM_Menu_Off"
+    {
+        "en"        "Off"
+        "fr"        "Désactivé"
+        "ru"        "Выкл"
+        "es"        "Desactivado"
+        "de"        "Aus"
+        "pt"        "Desligado"
+        "chi"       "关"
+        "zho"       "關"
+    }
+
+    "HM_Menu_On"
+    {
+        "en"        "On"
+        "fr"        "Activé"
+        "ru"        "Вкл"
+        "es"        "Activado"
+        "de"        "An"
+        "pt"        "Ligado"
+        "chi"       "开"
+        "zho"       "開"
+    }
+
+    "HM_Menu_On_Rank"
+    {
+        "en"        "On (+Rank)"
+        "fr"        "Activé (+rang)"
+        "ru"        "Вкл (+ранг)"
+        "es"        "Activado (+rango)"
+        "de"        "An (+Rang)"
+        "pt"        "Ligado (+rank)"
+        "chi"       "开（+排名）"
+        "zho"       "開（+排名）"
+    }
+
+    "HM_Menu_On_Victim"
+    {
+        "en"        "On (+Victim name)"
+        "fr"        "Activé (+nom de la victime)"
+        "ru"        "Вкл (+имя жертвы)"
+        "es"        "Activado (+nombre de la víctima)"
+        "de"        "An (+Name des Opfers)"
+        "pt"        "Ligado (+nome da vítima)"
+        "chi"       "开（+受害者名字）"
+        "zho"       "開（+受害者名字）"
+    }
+
+    "HM_Menu_Show_Damage"
+    {
+        "#format"   "{1:s}"
+        "en"        "Show Damage: {1}"
+        "fr"        "Afficher les dégâts : {1}"
+        "ru"        "Показывать урон: {1}"
+        "es"        "Mostrar daño: {1}"
+        "de"        "Schaden anzeigen: {1}"
+        "pt"        "Mostrar dano: {1}"
+        "chi"       "显示伤害：{1}"
+        "zho"       "顯示傷害：{1}"
+    }
+
+    "HM_Menu_Show_Health"
+    {
+        "#format"   "{1:s}"
+        "en"        "Show Health: {1}"
+        "fr"        "Afficher la vie : {1}"
+        "ru"        "Показывать здоровье: {1}"
+        "es"        "Mostrar vida: {1}"
+        "de"        "Leben anzeigen: {1}"
+        "pt"        "Mostrar vida: {1}"
+        "chi"       "显示血量：{1}"
+        "zho"       "顯示血量：{1}"
+    }
+
+    "HM_Menu_Hitsounds_Settings"
+    {
+        "en"        "Hit Sounds Settings"
+        "fr"        "Réglages des sons de coup"
+        "ru"        "Настройки звуков попаданий"
+        "es"        "Ajustes de sonidos de impacto"
+        "de"        "Treffersound-Einstellungen"
+        "pt"        "Configurações de sons de acerto"
+        "chi"       "命中音效设置"
+        "zho"       "命中音效設定"
+    }
+
+    "HM_Head_Colors_Title"
+    {
+        "en"        "Headshot Hitmarker Colors:\n \nUse \"!headhitcolor <r> <g> <b>\"\nOr choose a color below\n \n"
+        "fr"        "Couleurs du marqueur (tête) :\n \nUtilisez \"!headhitcolor <r> <g> <b>\"\nOu choisissez une couleur ci-dessous\n \n"
+        "ru"        "Цвета хитмаркера (голова):\n \nИспользуйте \"!headhitcolor <r> <g> <b>\"\nИли выберите цвет ниже\n \n"
+        "es"        "Colores del hitmarker (cabeza):\n \nUsa \"!headhitcolor <r> <g> <b>\"\nO elige un color abajo\n \n"
+        "de"        "Hitmarker-Farben (Kopf):\n \nNutze \"!headhitcolor <r> <g> <b>\"\nOder wähle unten eine Farbe\n \n"
+        "pt"        "Cores do hitmarker (cabeça):\n \nUse \"!headhitcolor <r> <g> <b>\"\nOu escolha uma cor abaixo\n \n"
+        "chi"       "爆头命中标记颜色：\n \n使用 \"!headhitcolor <r> <g> <b>\"\n或在下方选择颜色\n \n"
+        "zho"       "爆頭命中標記顏色：\n \n使用 \"!headhitcolor <r> <g> <b>\"\n或在下方選擇顏色\n \n"
+    }
+
+    "HM_Body_Colors_Title"
+    {
+        "en"        "Bodyshot Hitmarker Colors:\n \nUse \"!bodyhitcolor <r> <g> <b>\"\nOr choose a color below\n \n"
+        "fr"        "Couleurs du marqueur (corps) :\n \nUtilisez \"!bodyhitcolor <r> <g> <b>\"\nOu choisissez une couleur ci-dessous\n \n"
+        "ru"        "Цвета хитмаркера (тело):\n \nИспользуйте \"!bodyhitcolor <r> <g> <b>\"\nИли выберите цвет ниже\n \n"
+        "es"        "Colores del hitmarker (cuerpo):\n \nUsa \"!bodyhitcolor <r> <g> <b>\"\nO elige un color abajo\n \n"
+        "de"        "Hitmarker-Farben (Körper):\n \nNutze \"!bodyhitcolor <r> <g> <b>\"\nOder wähle unten eine Farbe\n \n"
+        "pt"        "Cores do hitmarker (corpo):\n \nUse \"!bodyhitcolor <r> <g> <b>\"\nOu escolha uma cor abaixo\n \n"
+        "chi"       "身体命中标记颜色：\n \n使用 \"!bodyhitcolor <r> <g> <b>\"\n或在下方选择颜色\n \n"
+        "zho"       "身體命中標記顏色：\n \n使用 \"!bodyhitcolor <r> <g> <b>\"\n或在下方選擇顏色\n \n"
+    }
+
+    "HM_Current_Color"
+    {
+        "#format"   "{1:d},{2:d},{3:d}"
+        "en"        "Current color: {1} {2} {3}\n"
+        "fr"        "Couleur actuelle : {1} {2} {3}\n"
+        "ru"        "Текущий цвет: {1} {2} {3}\n"
+        "es"        "Color actual: {1} {2} {3}\n"
+        "de"        "Aktuelle Farbe: {1} {2} {3}\n"
+        "pt"        "Cor atual: {1} {2} {3}\n"
+        "chi"       "当前颜色：{1} {2} {3}\n"
+        "zho"       "目前顏色：{1} {2} {3}\n"
+    }
+
+    "HM_Color_Red"
+    {
+        "en"        "Red"
+        "fr"        "Rouge"
+        "ru"        "Красный"
+        "es"        "Rojo"
+        "de"        "Rot"
+        "pt"        "Vermelho"
+        "chi"       "红色"
+        "zho"       "紅色"
+    }
+
+    "HM_Color_Orange"
+    {
+        "en"        "Orange"
+        "fr"        "Orange"
+        "ru"        "Оранжевый"
+        "es"        "Naranja"
+        "de"        "Orange"
+        "pt"        "Laranja"
+        "chi"       "橙色"
+        "zho"       "橙色"
+    }
+
+    "HM_Color_Green"
+    {
+        "en"        "Green"
+        "fr"        "Vert"
+        "ru"        "Зелёный"
+        "es"        "Verde"
+        "de"        "Grün"
+        "pt"        "Verde"
+        "chi"       "绿色"
+        "zho"       "綠色"
+    }
+
+    "HM_Color_Light_Blue"
+    {
+        "en"        "Light Blue"
+        "fr"        "Bleu clair"
+        "ru"        "Голубой"
+        "es"        "Azul claro"
+        "de"        "Hellblau"
+        "pt"        "Azul-claro"
+        "chi"       "浅蓝色"
+        "zho"       "淺藍色"
+    }
+
+    "HM_Color_Yellow"
+    {
+        "en"        "Yellow"
+        "fr"        "Jaune"
+        "ru"        "Жёлтый"
+        "es"        "Amarillo"
+        "de"        "Gelb"
+        "pt"        "Amarelo"
+        "chi"       "黄色"
+        "zho"       "黃色"
+    }
+
+    "HM_Color_White"
+    {
+        "en"        "White"
+        "fr"        "Blanc"
+        "ru"        "Белый"
+        "es"        "Blanco"
+        "de"        "Weiß"
+        "pt"        "Branco"
+        "chi"       "白色"
+        "zho"       "白色"
+    }
+
+    "HM_HS_Title"
+    {
+        "en"        "Hitsounds:\n \n"
+        "fr"        "Sons de coup :\n \n"
+        "ru"        "Звуки попаданий:\n \n"
+        "es"        "Sonidos de impacto:\n \n"
+        "de"        "Treffersounds:\n \n"
+        "pt"        "Sons de acerto:\n \n"
+        "chi"       "命中音效：\n \n"
+        "zho"       "命中音效：\n \n"
+    }
+
+    "HM_HS_Zombie"
+    {
+        "#format"   "{1:t}"
+        "en"        "Hitsounds: {1}\n "
+        "fr"        "Sons de coup : {1}\n "
+        "ru"        "Звуки попаданий: {1}\n "
+        "es"        "Sonidos de impacto: {1}\n "
+        "de"        "Treffersounds: {1}\n "
+        "pt"        "Sons de acerto: {1}\n "
+        "chi"       "命中音效：{1}\n "
+        "zho"       "命中音效：{1}\n "
+    }
+
+    "HM_HS_Boss"
+    {
+        "#format"   "{1:t}"
+        "en"        "Boss hitsounds: {1}\n "
+        "fr"        "Sons de coup sur boss : {1}\n "
+        "ru"        "Звуки попаданий по боссам: {1}\n "
+        "es"        "Sonidos de impacto en jefes: {1}\n "
+        "de"        "Boss-Treffersounds: {1}\n "
+        "pt"        "Sons de acerto em chefes: {1}\n "
+        "chi"       "Boss 命中音效：{1}\n "
+        "zho"       "Boss 命中音效：{1}\n "
+    }
+
+    "HM_HS_Detailed"
+    {
+        "#format"   "{1:t}"
+        "en"        "Detailed hitsounds: {1}\n \nUse \"!hitsound [0-100]\" to set volume"
+        "fr"        "Sons de coup détaillés : {1}\n \nUtilisez \"!hitsound [0-100]\" pour régler le volume"
+        "ru"        "Детальные звуки: {1}\n \n\"!hitsound [0-100]\" — громкость"
+        "es"        "Sonidos detallados: {1}\n \nUsa \"!hitsound [0-100]\" para el volumen"
+        "de"        "Detaillierte Treffersounds: {1}\n \nNutze \"!hitsound [0-100]\" für die Lautstärke"
+        "pt"        "Sons detalhados: {1}\n \nUse \"!hitsound [0-100]\" para o volume"
+        "chi"       "详细命中音效：{1}\n \n使用 \"!hitsound [0-100]\" 设置音量"
+        "zho"       "詳細命中音效：{1}\n \n使用 \"!hitsound [0-100]\" 設定音量"
+    }
+
+    "HM_HS_Volume"
+    {
+        "#format"   "{1:d}"
+        "en"        "Volume: {1}"
+        "fr"        "Volume : {1}"
+        "ru"        "Громкость: {1}"
+        "es"        "Volumen: {1}"
+        "de"        "Lautstärke: {1}"
+        "pt"        "Volume: {1}"
+        "chi"       "音量：{1}"
+        "zho"       "音量：{1}"
+    }
 }
