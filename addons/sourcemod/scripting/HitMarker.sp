@@ -1033,7 +1033,7 @@ public void SettingsMenuHandler(int client, CookieMenuAction action, any info, c
 {
 	switch (action)
 	{
-		case CookieMenuAction_DisplayOption: Format(buffer, maxlen, "%T", "Hitmarker Settings", client);
+		case CookieMenuAction_DisplayOption: FormatEx(buffer, maxlen, "%T", "HM_Cookie_Hitmarker", client);
 		case CookieMenuAction_SelectOption: HitmarkerMenu(client);
 	}
 }
@@ -1051,65 +1051,69 @@ public void HitmarkerMenu(int client)
 
 	if (g_HM_pData[client].enable == 0)
 	{
-		menu.SetTitle("%T\n ", "Hitmarker Settings", client);
+		menu.SetTitle("%T", "HM_Menu_Settings_Title", client);
 
 		switch (g_HM_pData[client].enable)
 		{
-			case 0: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers Disabled", client);
-			case 1: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers Enabled", client);
-			case 2: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers All", client);
+			case 0: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Disabled", client);
+			case 1: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Enabled", client);
+			case 2: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Enabled_All", client);
 		}
+		Format(buffer, sizeof(buffer), "%T", "HM_Menu_Hitmarkers", client, buffer);
 		menu.AddItem("toggle", buffer);
 	}
 	else
 	{
-		menu.SetTitle("%T\n \n%T\n%s", "Menu Hitmarkers Title", client, "Menu Current Style", client, g_HM_pData[client].style + 1, sizeof(g_sHitStyles), g_sHitStyles[g_HM_pData[client].style]);
+		menu.SetTitle("%T", "HM_Menu_Style_Title", client, g_HM_pData[client].style + 1, sizeof(g_sHitStyles), g_sHitStyles[g_HM_pData[client].style]);
 		switch (g_HM_pData[client].enable)
 		{
-			case 0: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers Disabled", client);
-			case 1: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers Enabled", client);
-			case 2: Format(buffer, sizeof(buffer), "%T", "Menu Hitmarkers All", client);
+			case 0: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Disabled", client);
+			case 1: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Enabled", client);
+			case 2: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Enabled_All", client);
 		}
-		Format(buffer, sizeof(buffer), "%s\n \n%T", buffer, "Menu Customize", client);
+		Format(buffer, sizeof(buffer), "%T", "HM_Menu_Hitmarkers_Customize", client, buffer);
 		menu.AddItem("toggle", buffer);
 		// menu.AddItem("toggle", "Disable Hitmarkers\n \nCustomize Hitmarker:");
-		Format(buffer, sizeof(buffer), "%T", "Menu Change Style", client);
+		Format(buffer, sizeof(buffer), "%T", "HM_Menu_Change_Style", client);
 		menu.AddItem("style", buffer);
 
-		Format(buffer, sizeof(buffer), "%T", "Menu Head Color", client, g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
+		Format(buffer, sizeof(buffer), "%T", "HM_Menu_Head_Color", client, g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
 		menu.AddItem("headcolor", buffer);
 
-		Format(buffer, sizeof(buffer), "%T\n ", "Menu Body Color", client, g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
+		Format(buffer, sizeof(buffer), "%T", "HM_Menu_Body_Color", client, g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
 		menu.AddItem("bodycolor", buffer);
 	}
 
 	switch (g_HM_pData[client].type)
 	{
 		case 0:
-			Format(buffer, sizeof(buffer), "%T", "Menu Display Center", client);
+			Format(buffer, sizeof(buffer), "%T", "HM_Menu_Type_Center", client);
 		case 1:
-			Format(buffer, sizeof(buffer), "%T", "Menu Display Game", client);
+			Format(buffer, sizeof(buffer), "%T", "HM_Menu_Type_Game_Text", client);
 		case 2:
-			Format(buffer, sizeof(buffer), "%T", "Menu Display Hint", client);
+			Format(buffer, sizeof(buffer), "%T", "HM_Menu_Type_Hint", client);
 	}
+	Format(buffer, sizeof(buffer), "%T", "HM_Menu_Display_Type", client, buffer);
 	menu.AddItem("display", buffer);
 
 	switch (g_HM_pData[client].damage)
 	{
-		case 0: Format(buffer, sizeof(buffer), "%T", "Menu Damage Off", client);
-		case 1: Format(buffer, sizeof(buffer), "%T", "Menu Damage On", client);
-		case 2: Format(buffer, sizeof(buffer), "%T", "Menu Damage Rank", client);
+		case 0: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Off", client);
+		case 1: Format(buffer, sizeof(buffer), "%T", "HM_Menu_On", client);
+		case 2: Format(buffer, sizeof(buffer), "%T", "HM_Menu_On_Rank", client);
 	}
+	Format(buffer, sizeof(buffer), "%T", "HM_Menu_Show_Damage", client, buffer);
 	menu.AddItem("showdamage", buffer);
 
 	switch (g_HM_pData[client].health)
 	{
-		case 0: Format(buffer, sizeof(buffer), "%T", "Menu Health Off", client);
-		case 1: Format(buffer, sizeof(buffer), "%T", "Menu Health On", client);
-		case 2: Format(buffer, sizeof(buffer), "%T", "Menu Health Name", client);
+		case 0: Format(buffer, sizeof(buffer), "%T", "HM_Menu_Off", client);
+		case 1: Format(buffer, sizeof(buffer), "%T", "HM_Menu_On", client);
+		case 2: Format(buffer, sizeof(buffer), "%T", "HM_Menu_On_Victim", client);
 	}
+	Format(buffer, sizeof(buffer), "%T", "HM_Menu_Show_Health", client, buffer);
 	menu.AddItem("showhealth", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Menu Hitsound Settings", client);
+	Format(buffer, sizeof(buffer), "%T", "HM_Menu_Hitsounds_Settings", client);
 	menu.AddItem("hitsounds", buffer);
 
 	menu.Display(client, MENU_TIME_FOREVER);
@@ -1173,19 +1177,31 @@ public int HitmarkerMenuHandler(Menu menu, MenuAction action, int client, int se
 	return 0;
 }
 
+void AddColorMenuItem(Menu menu, int client, const char[] info, const char[] phrase)
+{
+	char display[64];
+	FormatEx(display, sizeof(display), "%T", phrase, client);
+	menu.AddItem(info, display);
+}
+
 public void HeadColor(int client)
 {
 	Menu menu = new Menu(HeadColorHandler);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
 
-	char buffer[512];
-	Format(buffer, sizeof(buffer), "%T\n \n%T\n%T\n \n", "Menu Head Colors Title", client, "Menu Color Command", client, "!headhitcolor <r> <g> <b>", "Menu Color Choose", client);
+	char buffer[256];
+	Format(buffer, 256, "%T", "HM_Head_Colors_Title", client);
 
-	Format(buffer, sizeof(buffer), "%s%T\n", buffer, "Menu Current Color", client, g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
+	Format(buffer, 256, "%s%T", buffer, "HM_Current_Color", client, g_HM_pData[client].headColor[0], g_HM_pData[client].headColor[1], g_HM_pData[client].headColor[2]);
 	menu.SetTitle(buffer);
 
-	AddColorItems(menu, client);
+	AddColorMenuItem(menu, client, "re", "HM_Color_Red");
+	AddColorMenuItem(menu, client, "or", "HM_Color_Orange");
+	AddColorMenuItem(menu, client, "gr", "HM_Color_Green");
+	AddColorMenuItem(menu, client, "bl", "HM_Color_Light_Blue");
+	AddColorMenuItem(menu, client, "yl", "HM_Color_Yellow");
+	AddColorMenuItem(menu, client, "wh", "HM_Color_White");
 	menu.Display(client, MENU_TIME_FOREVER);
 }
 
@@ -1256,31 +1272,19 @@ public void BodyColor(int client)
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
 
-	char buffer[512];
-	Format(buffer, sizeof(buffer), "%T\n \n%T\n%T\n \n", "Menu Body Colors Title", client, "Menu Color Command", client, "!bodyhitcolor <r> <g> <b>", "Menu Color Choose", client);
+	char buffer[256];
+	Format(buffer, 256, "%T", "HM_Body_Colors_Title", client);
 
-	Format(buffer, sizeof(buffer), "%s%T\n", buffer, "Menu Current Color", client, g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
+	Format(buffer, 256, "%s%T", buffer, "HM_Current_Color", client, g_HM_pData[client].bodyColor[0], g_HM_pData[client].bodyColor[1], g_HM_pData[client].bodyColor[2]);
 	menu.SetTitle(buffer);
 
-	AddColorItems(menu, client);
+	AddColorMenuItem(menu, client, "re", "HM_Color_Red");
+	AddColorMenuItem(menu, client, "or", "HM_Color_Orange");
+	AddColorMenuItem(menu, client, "gr", "HM_Color_Green");
+	AddColorMenuItem(menu, client, "bl", "HM_Color_Light_Blue");
+	AddColorMenuItem(menu, client, "yl", "HM_Color_Yellow");
+	AddColorMenuItem(menu, client, "wh", "HM_Color_White");
 	menu.Display(client, MENU_TIME_FOREVER);
-}
-
-void AddColorItems(Menu menu, int client)
-{
-	char buffer[64];
-	Format(buffer, sizeof(buffer), "%T", "Color Red", client);
-	menu.AddItem("re", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Color Orange", client);
-	menu.AddItem("or", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Color Green", client);
-	menu.AddItem("gr", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Color Light Blue", client);
-	menu.AddItem("bl", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Color Yellow", client);
-	menu.AddItem("yl", buffer);
-	Format(buffer, sizeof(buffer), "%T", "Color White", client);
-	menu.AddItem("wh", buffer);
 }
 
 public int BodyColorHandler(Menu menu, MenuAction action, int client, int selection)
@@ -1349,7 +1353,7 @@ public void CookieMenu_HitMarker(int client, CookieMenuAction action, any info, 
 	switch (action)
 	{
 		case CookieMenuAction_DisplayOption:
-			Format(buffer, maxlen, "%T", "Hit Sound Settings", client);
+			FormatEx(buffer, maxlen, "%T", "HM_Cookie_Hitsound", client);
 		case CookieMenuAction_SelectOption:
 			DisplayCookieMenu(client);
 	}
@@ -1360,19 +1364,19 @@ public void DisplayCookieMenu(int client)
 	Menu menu = new Menu(MenuHandler_HitMarker, MENU_ACTIONS_DEFAULT | MenuAction_DisplayItem);
 	menu.ExitBackButton = true;
 	menu.ExitButton = true;
-	menu.SetTitle("%T\n \n", "Menu Hitsounds Title", client);
+	menu.SetTitle("%T", "HM_HS_Title", client);
 
 	char buffer[256];
-	Format(buffer, sizeof(buffer), "%T\n ", g_HS_pData[client].enable ? "Menu Hitsounds On" : "Menu Hitsounds Off", client);
+	Format(buffer, sizeof(buffer), "%T", "HM_HS_Zombie", client, g_HS_pData[client].enable ? "HM_Menu_On" : "HM_Menu_Off");
 	menu.AddItem("zombie", buffer);
 
-	Format(buffer, sizeof(buffer), "%T\n ", g_HS_pData[client].boss ? "Menu Boss Hitsounds On" : "Menu Boss Hitsounds Off", client);
+	Format(buffer, sizeof(buffer), "%T", "HM_HS_Boss", client, g_HS_pData[client].boss ? "HM_Menu_On" : "HM_Menu_Off");
 	menu.AddItem("boss", buffer);
 
-	Format(buffer, sizeof(buffer), "%T\n \n%T", g_HS_pData[client].detailed ? "Menu Detailed Hitsounds On" : "Menu Detailed Hitsounds Off", client, "Menu Volume Command", client, "!hitsound [0-100]");
+	Format(buffer, sizeof(buffer), "%T", "HM_HS_Detailed", client, g_HS_pData[client].detailed ? "HM_Menu_On" : "HM_Menu_Off");
 	menu.AddItem("detailed", buffer);
 
-	Format(buffer, sizeof(buffer), "%T", "Menu Volume", client, g_HS_pData[client].volume);
+	Format(buffer, sizeof(buffer), "%T", "HM_HS_Volume", client, g_HS_pData[client].volume);
 	menu.AddItem("vol", buffer);
 	menu.Display(client, MENU_TIME_FOREVER);
 }
