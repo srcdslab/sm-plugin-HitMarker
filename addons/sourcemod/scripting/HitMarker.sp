@@ -688,9 +688,10 @@ public Action Command_Hitsound(int client, int args)
 
 	if (strcmp(buffer, "off", false) == 0)
 	{
-		if (g_HS_pData[client].enable)
+		if (g_HS_pData[client].enable || g_HS_pData[client].boss)
 		{
 			g_HS_pData[client].enable = false;
+			g_HS_pData[client].boss = false;
 			SaveHitsoundSettings(client);
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Disabled");
 		}
@@ -699,11 +700,12 @@ public Action Command_Hitsound(int client, int args)
 	}
 	else if (strcmp(buffer, "on", false) == 0)
 	{
-		if (g_HS_pData[client].enable)
+		if (g_HS_pData[client].enable && g_HS_pData[client].boss)
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Already Enabled");
 		else
 		{
 			g_HS_pData[client].enable = true;
+			g_HS_pData[client].boss = true;
 			SaveHitsoundSettings(client);
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Enabled");
 		}
@@ -923,7 +925,7 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 	if (tick == g_iLastTick[activator])
 		return;
 
-	if (g_HS_pData[activator].enable && g_HS_pData[activator].boss && g_HS_pData[activator].fVolume != 0.0)
+	if (g_HS_pData[activator].boss && g_HS_pData[activator].fVolume != 0.0)
 		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
 
 	g_iLastTick[activator] = tick;

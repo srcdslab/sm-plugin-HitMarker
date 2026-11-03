@@ -28,6 +28,7 @@
     "Command In Game Only"
     {
         "en"        "This command can only be used in-game."
+        "zho"       "此指令只能在遊戲中使用。"
         "chi"       "此命令只能在游戏中使用。"
         "fr"        "Cette commande ne peut être utilisée qu'en jeu."
         "ru"        "Эту команду можно использовать только в игре."
