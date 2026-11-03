@@ -25,6 +25,18 @@
         "pt"        "{green}[HitSound]{white}"
     }
 
+    "Command In Game Only"
+    {
+        "en"        "This command can only be used in-game."
+        "zho"       "此指令只能在遊戲中使用。"
+        "chi"       "此命令只能在游戏中使用。"
+        "fr"        "Cette commande ne peut être utilisée qu'en jeu."
+        "ru"        "Эту команду можно использовать только в игре."
+        "es"        "Este comando solo se puede usar dentro del juego."
+        "de"        "Dieser Befehl kann nur im Spiel verwendet werden."
+        "pt"        "Este comando só pode ser usado dentro do jogo."
+    }
+
     // Hitmarker
     "Hitmarker Disabled"
     {
@@ -101,8 +113,8 @@
     "Type Center"
     {
         "en"        "Damage dealt is now being displayed as \"{blue}center text{white}\"."
-        "zho"       "傷害顯示方式已改成\"{blue}center text{white}\"。"
-        "chi"       "伤害显示方式已改成\"{blue}center text{white}\"。"
+        "zho"       "傷害顯示方式已改成\"{blue}中央文字{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}中央文字{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte central{white}\"."
         "ru"        "Нанесённый урон теперь показывается как \"{blue}текст по центру{white}\"."
         "es"        "El daño infligido ahora se muestra como \"{blue}texto central{white}\"."
@@ -113,8 +125,8 @@
     "Type Game Text"
     {
         "en"        "Damage dealt is now being displayed as \"{blue}game text{white}\"."
-        "zho"       "傷害顯示方式已改成\"{blue}game text{white}\"。"
-        "chi"       "伤害显示方式已改成\"{blue}game text{white}\"。"
+        "zho"       "傷害顯示方式已改成\"{blue}遊戲文字{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}游戏文字{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte du jeu{white}\"."
         "ru"        "Нанесённый урон теперь показывается как \"{blue}игровой текст{white}\"."
         "es"        "El daño infligido ahora se muestra como \"{blue}texto del juego{white}\"."
@@ -125,8 +137,8 @@
     "Type Hint Text"
     {
         "en"        "Damage dealt is now being displayed as \"{blue}hint text{white}\"."
-        "zho"       "傷害顯示方式已改成\"{blue}hint text{white}\"。"
-        "chi"       "伤害显示方式已改成\"{blue}hint text{white}\"。"
+        "zho"       "傷害顯示方式已改成\"{blue}提示文字{white}\"。"
+        "chi"       "伤害显示方式已改成\"{blue}提示文字{white}\"。"
         "fr"        "Les dégâts infligés sont maintenant affichés comme \"{blue}texte d'indice{white}\"."
         "ru"        "Нанесённый урон теперь показывается как \"{blue}подсказка{white}\"."
         "es"        "El daño infligido ahora se muestra como \"{blue}texto de ayuda{white}\"."

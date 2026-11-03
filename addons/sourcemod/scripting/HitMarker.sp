@@ -601,6 +601,12 @@ public Action Command_Hitmarkers(int client, int args)
 
 public Action Command_HeadColor(int client, int args)
 {
+	if (!client)
+	{
+		CReplyToCommand(client, "%t %t", "Hitmarker Prefix", "Command In Game Only");
+		return Plugin_Handled;
+	}
+
 	if (args != 3)
 	{
 		HeadColor(client);
@@ -633,6 +639,12 @@ public Action Command_HeadColor(int client, int args)
 
 public Action Command_BodyColor(int client, int args)
 {
+	if (!client)
+	{
+		CReplyToCommand(client, "%t %t", "Hitmarker Prefix", "Command In Game Only");
+		return Plugin_Handled;
+	}
+
 	if (args != 3)
 	{
 		BodyColor(client);
@@ -665,14 +677,21 @@ public Action Command_BodyColor(int client, int args)
 
 public Action Command_Hitsound(int client, int args)
 {
+	if (!client)
+	{
+		CReplyToCommand(client, "%t %t", "Hitsound Prefix", "Command In Game Only");
+		return Plugin_Handled;
+	}
+
 	char buffer[8];
 	int len = GetCmdArg(1, buffer, sizeof(buffer));
 
 	if (strcmp(buffer, "off", false) == 0)
 	{
-		if (g_HS_pData[client].enable)
+		if (g_HS_pData[client].enable || g_HS_pData[client].boss)
 		{
 			g_HS_pData[client].enable = false;
+			g_HS_pData[client].boss = false;
 			SaveHitsoundSettings(client);
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Disabled");
 		}
@@ -681,11 +700,12 @@ public Action Command_Hitsound(int client, int args)
 	}
 	else if (strcmp(buffer, "on", false) == 0)
 	{
-		if (g_HS_pData[client].enable)
+		if (g_HS_pData[client].enable && g_HS_pData[client].boss)
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Already Enabled");
 		else
 		{
 			g_HS_pData[client].enable = true;
+			g_HS_pData[client].boss = true;
 			SaveHitsoundSettings(client);
 			CPrintToChat(client, "%t %t", "Hitsound Prefix", "Hitsound Enabled");
 		}
@@ -905,7 +925,7 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 	if (tick == g_iLastTick[activator])
 		return;
 
-	if (g_HS_pData[activator].fVolume != 0.0)
+	if (g_HS_pData[activator].boss && g_HS_pData[activator].fVolume != 0.0)
 		EmitSoundToClient(activator, g_sHitsoundPath, SOUND_FROM_PLAYER, SNDCHAN_AUTO, SNDLEVEL_NORMAL, SND_NOFLAGS, g_HS_pData[activator].fVolume);
 
 	g_iLastTick[activator] = tick;
@@ -923,13 +943,6 @@ public void Hook_EntityOnDamage(const char[] output, int caller, int activator, 
 		Format(buffer, sizeof(buffer), "\n\n\n\n%s\n\n\n\n", g_sHitStyles[g_HM_pData[activator].style]);
 		SendHudMsg(activator, buffer, DISPLAY_GAME);
 	}
-
-	if (!g_HS_pData[activator].enable || !g_HS_pData[activator].boss)
-		return;
-
-	int iTeam = GetClientTeam(activator);
-	if (iTeam == CS_TEAM_NONE || iTeam == CS_TEAM_SPECTATOR)
-		return;
 }
 
 void SendHudMsg(int client, char[] szMessage, DisplayType type = DISPLAY_HINT, int hitgroup = 0)
@@ -1376,8 +1389,7 @@ public int MenuHandler_HitMarker(Menu menu, MenuAction action, int client, int s
 	{
 		case MenuAction_End:
 		{
-			if (client != MenuEnd_Selected)
-				delete menu;
+			delete menu;
 		}
 		case MenuAction_Cancel:
 		{
