@@ -847,7 +847,12 @@ public void Event_PlayerHurt(Event event, const char[] name, bool broadcast)
 
 #if defined _TopDefenders_included
 	if (g_bShowDamage && g_bTopDefsNative && g_HM_pData[attacker].damage == 2)
-		Format(sRank, sizeof(sRank), "(#%d)", TopDefenders_GetClientRank(attacker));
+	{
+		// -1 when the attacker is not ranked yet: show no rank instead of a fake one
+		int iRank = TopDefenders_GetClientRank(attacker);
+		if (iRank > 0)
+			Format(sRank, sizeof(sRank), "(#%d)", iRank);
+	}
 #endif
 
 	if (g_bShowDamage && g_HM_pData[attacker].health != 0 && previousHealth > 0)
