@@ -11,6 +11,11 @@
         "es"        "{green}[HitMarker]{white}"
         "de"        "{green}[HitMarker]{white}"
         "pt"        "{green}[HitMarker]{white}"
+        "pl"        "{green}[HitMarker]{white}"
+        "tr"        "{green}[HitMarker]{white}"
+        "it"        "{green}[HitMarker]{white}"
+        "ua"        "{green}[HitMarker]{white}"
+        "cze"       "{green}[HitMarker]{white}"
     }
 
     "Hitsound Prefix"
@@ -23,6 +28,11 @@
         "es"        "{green}[HitSound]{white}"
         "de"        "{green}[HitSound]{white}"
         "pt"        "{green}[HitSound]{white}"
+        "pl"        "{green}[HitSound]{white}"
+        "tr"        "{green}[HitSound]{white}"
+        "it"        "{green}[HitSound]{white}"
+        "ua"        "{green}[HitSound]{white}"
+        "cze"       "{green}[HitSound]{white}"
     }
 
     "Command In Game Only"
@@ -35,6 +45,11 @@
         "es"        "Este comando solo se puede usar dentro del juego."
         "de"        "Dieser Befehl kann nur im Spiel verwendet werden."
         "pt"        "Este comando só pode ser usado dentro do jogo."
+        "pl"        "Tej komendy można używać tylko w grze."
+        "tr"        "Bu komut yalnızca oyun içinde kullanılabilir."
+        "it"        "Questo comando può essere usato solo in gioco."
+        "ua"        "Цю команду можна використовувати лише в грі."
+        "cze"       "Tento příkaz lze použít pouze ve hře."
     }
 
     // Hitmarker
@@ -48,6 +63,11 @@
         "es"        "Has {red}desactivado {white}los hitmarkers."
         "de"        "Du hast Hitmarker {red}deaktiviert{white}."
         "pt"        "Você {red}desativou {white}os hitmarkers."
+        "pl"        "Hitmarkery zostały {red}wyłączone{white}."
+        "tr"        "Hitmarker'ları {red}devre dışı {white}bıraktınız."
+        "it"        "Hai {red}disattivato {white}gli hitmarker."
+        "ua"        "Ви {red}вимкнули {white}хітмаркери."
+        "cze"       "Hitmarkery jste {red}vypnuli{white}."
     }
 
     "Hitmarker Enabled"
@@ -60,6 +80,11 @@
         "es"        "Has {green}activado {white}los hitmarkers."
         "de"        "Du hast Hitmarker {green}aktiviert{white}."
         "pt"        "Você {green}ativou {white}os hitmarkers."
+        "pl"        "Hitmarkery zostały {green}włączone{white}."
+        "tr"        "Hitmarker'ları {green}etkinleştirdiniz{white}."
+        "it"        "Hai {green}attivato {white}gli hitmarker."
+        "ua"        "Ви {green}увімкнули {white}хітмаркери."
+        "cze"       "Hitmarkery jste {green}zapnuli{white}."
     }
 
     "Hitmarker All"
@@ -72,6 +97,11 @@
         "es"        "Has {green}activado {white}los hitmarkers {blue}(jugadores + jefes){white}."
         "de"        "Du hast Hitmarker {green}aktiviert {blue}(Spieler + Bosse){white}."
         "pt"        "Você {green}ativou {white}os hitmarkers {blue}(jogadores + chefes){white}."
+        "pl"        "Hitmarkery zostały {green}włączone {blue}(gracze + bossy){white}."
+        "tr"        "Hitmarker'ları {green}etkinleştirdiniz {blue}(oyuncular + bosslar){white}."
+        "it"        "Hai {green}attivato {white}gli hitmarker {blue}(giocatori + boss){white}."
+        "ua"        "Ви {green}увімкнули {white}хітмаркери {blue}(гравці + боси){white}."
+        "cze"       "Hitmarkery jste {green}zapnuli {blue}(hráči + bossové){white}."
     }
 
     "Damage Disabled"
@@ -84,6 +114,11 @@
         "es"        "La visualización de daño está {red}desactivada{white}."
         "de"        "Schadensanzeige ist jetzt {red}deaktiviert{white}."
         "pt"        "A exibição de dano está {red}desativada{white}."
+        "pl"        "Wyświetlanie obrażeń zostało {red}wyłączone{white}."
+        "tr"        "Hasar gösterimi artık {red}devre dışı{white}."
+        "it"        "La visualizzazione del danno è ora {red}disattivata{white}."
+        "ua"        "Відображення шкоди тепер {red}вимкнено{white}."
+        "cze"       "Zobrazení poškození je nyní {red}vypnuto{white}."
     }
 
     "Damage Enabled"
@@ -96,6 +131,11 @@
         "es"        "La visualización de daño está {green}activada{white}."
         "de"        "Schadensanzeige ist jetzt {green}aktiviert{white}."
         "pt"        "A exibição de dano está {green}ativada{white}."
+        "pl"        "Wyświetlanie obrażeń zostało {green}włączone{white}."
+        "tr"        "Hasar gösterimi artık {green}etkin{white}."
+        "it"        "La visualizzazione del danno è ora {green}attivata{white}."
+        "ua"        "Відображення шкоди тепер {green}увімкнено{white}."
+        "cze"       "Zobrazení poškození je nyní {green}zapnuto{white}."
     }
 
     "Damage Rank"
@@ -108,6 +148,11 @@
         "es"        "La visualización de daño con ranking está {green}activada{white}."
         "de"        "Schadensanzeige mit Rang ist jetzt {green}aktiviert{white}."
         "pt"        "A exibição de dano com ranking está {green}ativada{white}."
+        "pl"        "Wyświetlanie obrażeń z rankingiem zostało {green}włączone{white}."
+        "tr"        "Sıralamalı hasar gösterimi artık {green}etkin{white}."
+        "it"        "La visualizzazione del danno con classifica è ora {green}attivata{white}."
+        "ua"        "Відображення шкоди з рейтингом тепер {green}увімкнено{white}."
+        "cze"       "Zobrazení poškození s pořadím je nyní {green}zapnuto{white}."
     }
 
     "Type Center"
@@ -120,6 +165,11 @@
         "es"        "El daño infligido ahora se muestra como \"{blue}texto central{white}\"."
         "de"        "Verursachter Schaden wird jetzt als \"{blue}Center-Text{white}\" angezeigt."
         "pt"        "O dano causado agora é exibido como \"{blue}texto central{white}\"."
+        "pl"        "Zadane obrażenia są teraz wyświetlane jako \"{blue}tekst na środku{white}\"."
+        "tr"        "Verilen hasar artık \"{blue}orta metin{white}\" olarak gösteriliyor."
+        "it"        "Il danno inflitto ora viene mostrato come \"{blue}testo centrale{white}\"."
+        "ua"        "Завдану шкоду тепер показано як \"{blue}текст по центру{white}\"."
+        "cze"       "Způsobené poškození se nyní zobrazuje jako \"{blue}text uprostřed{white}\"."
     }
 
     "Type Game Text"
@@ -132,6 +182,11 @@
         "es"        "El daño infligido ahora se muestra como \"{blue}texto del juego{white}\"."
         "de"        "Verursachter Schaden wird jetzt als \"{blue}Game-Text{white}\" angezeigt."
         "pt"        "O dano causado agora é exibido como \"{blue}texto do jogo{white}\"."
+        "pl"        "Zadane obrażenia są teraz wyświetlane jako \"{blue}game text{white}\"."
+        "tr"        "Verilen hasar artık \"{blue}game text{white}\" olarak gösteriliyor."
+        "it"        "Il danno inflitto ora viene mostrato come \"{blue}game text{white}\"."
+        "ua"        "Завдану шкоду тепер показано як \"{blue}game text{white}\"."
+        "cze"       "Způsobené poškození se nyní zobrazuje jako \"{blue}game text{white}\"."
     }
 
     "Type Hint Text"
@@ -144,6 +199,11 @@
         "es"        "El daño infligido ahora se muestra como \"{blue}texto de ayuda{white}\"."
         "de"        "Verursachter Schaden wird jetzt als \"{blue}Hinweistext{white}\" angezeigt."
         "pt"        "O dano causado agora é exibido como \"{blue}texto de dica{white}\"."
+        "pl"        "Zadane obrażenia są teraz wyświetlane jako \"{blue}hint text{white}\"."
+        "tr"        "Verilen hasar artık \"{blue}hint text{white}\" olarak gösteriliyor."
+        "it"        "Il danno inflitto ora viene mostrato come \"{blue}hint text{white}\"."
+        "ua"        "Завдану шкоду тепер показано як \"{blue}hint text{white}\"."
+        "cze"       "Způsobené poškození se nyní zobrazuje jako \"{blue}hint text{white}\"."
     }
 
     "Health Disabled"
@@ -156,6 +216,11 @@
         "es"        "La visualización de vida restante está {red}desactivada{white}."
         "de"        "Anzeige der Restgesundheit ist jetzt {red}deaktiviert{white}."
         "pt"        "A exibição de vida restante está {red}desativada{white}."
+        "pl"        "Wyświetlanie pozostałego zdrowia zostało {red}wyłączone{white}."
+        "tr"        "Kalan can gösterimi artık {red}devre dışı{white}."
+        "it"        "La visualizzazione della salute rimanente è ora {red}disattivata{white}."
+        "ua"        "Відображення залишку здоров'я тепер {red}вимкнено{white}."
+        "cze"       "Zobrazení zbývajícího zdraví je nyní {red}vypnuto{white}."
     }
 
     "Health Enabled"
@@ -168,6 +233,11 @@
         "es"        "La visualización de vida restante está {green}activada{white}."
         "de"        "Anzeige der Restgesundheit ist jetzt {green}aktiviert{white}."
         "pt"        "A exibição de vida restante está {green}ativada{white}."
+        "pl"        "Wyświetlanie pozostałego zdrowia zostało {green}włączone{white}."
+        "tr"        "Kalan can gösterimi artık {green}etkin{white}."
+        "it"        "La visualizzazione della salute rimanente è ora {green}attivata{white}."
+        "ua"        "Відображення залишку здоров'я тепер {green}увімкнено{white}."
+        "cze"       "Zobrazení zbývajícího zdraví je nyní {green}zapnuto{white}."
     }
 
     "Health Name"
@@ -180,6 +250,11 @@
         "es"        "La visualización de vida restante está {green}activada{white} con el {blue}nombre de la víctima{white}."
         "de"        "Anzeige der Restgesundheit mit {blue}Namen des Opfers{white} ist jetzt {green}aktiviert{white}."
         "pt"        "A exibição de vida restante está {green}ativada{white} com o {blue}nome da vítima{white}."
+        "pl"        "Wyświetlanie pozostałego zdrowia zostało {green}włączone{white} razem z {blue}nazwą ofiary{white}."
+        "tr"        "Kalan can gösterimi artık {green}etkin{white} ve {blue}kurban adı{white} ile birlikte."
+        "it"        "La visualizzazione della salute rimanente è ora {green}attivata{white} con il {blue}nome della vittima{white}."
+        "ua"        "Відображення залишку здоров'я тепер {green}увімкнено{white} разом з {blue}ім'ям жертви{white}."
+        "cze"       "Zobrazení zbývajícího zdraví je nyní {green}zapnuto{white} spolu s {blue}jménem oběti{white}."
     }
 
     "Head Color"
@@ -193,6 +268,11 @@
         "es"        "Color del hitmarker en la cabeza: {red}{1} {green}{2} {blue}{3}{white}."
         "de"        "Kopfschuss-Hitmarker-Farbe gesetzt auf {red}{1} {green}{2} {blue}{3}{white}."
         "pt"        "Cor do hitmarker na cabeça: {red}{1} {green}{2} {blue}{3}{white}."
+        "pl"        "Kolor hitmarkera trafienia w głowę ustawiono na {red}{1} {green}{2} {blue}{3}{white}."
+        "tr"        "Kafadan vuruş hitmarker rengini {red}{1} {green}{2} {blue}{3}{white} olarak ayarladınız."
+        "it"        "Hai impostato il colore dell'hitmarker per i colpi alla testa su {red}{1} {green}{2} {blue}{3}{white}."
+        "ua"        "Колір хітмаркера для пострілів у голову встановлено: {red}{1} {green}{2} {blue}{3}{white}."
+        "cze"       "Barva hitmarkeru pro zásah do hlavy byla nastavena na {red}{1} {green}{2} {blue}{3}{white}."
     }
 
     "Body Color"
@@ -206,6 +286,11 @@
         "es"        "Color del hitmarker en el cuerpo: {red}{1} {green}{2} {blue}{3}{white}."
         "de"        "Körpertreffer-Hitmarker-Farbe gesetzt auf {red}{1} {green}{2} {blue}{3}{white}."
         "pt"        "Cor do hitmarker no corpo: {red}{1} {green}{2} {blue}{3}{white}."
+        "pl"        "Kolor hitmarkera trafienia w tułów ustawiono na {red}{1} {green}{2} {blue}{3}{white}."
+        "tr"        "Gövdeden vuruş hitmarker rengini {red}{1} {green}{2} {blue}{3}{white} olarak ayarladınız."
+        "it"        "Hai impostato il colore dell'hitmarker per i colpi al corpo su {red}{1} {green}{2} {blue}{3}{white}."
+        "ua"        "Колір хітмаркера для пострілів у тіло встановлено: {red}{1} {green}{2} {blue}{3}{white}."
+        "cze"       "Barva hitmarkeru pro zásah do těla byla nastavena na {red}{1} {green}{2} {blue}{3}{white}."
     }
 
     // Hitsound
@@ -219,6 +304,11 @@
         "es"        "¡Los sonidos de impacto han sido {red}desactivados{white}!"
         "de"        "Treffersounds wurden {red}deaktiviert{white}!"
         "pt"        "Os sons de acerto foram {red}desativados{white}!"
+        "pl"        "Dźwięki trafień zostały {red}wyłączone{white}!"
+        "tr"        "Vuruş sesleri {red}devre dışı bırakıldı{white}!"
+        "it"        "I suoni di colpo sono stati {red}disattivati{white}!"
+        "ua"        "Звуки влучань {red}вимкнено{white}!"
+        "cze"       "Zvuky zásahů byly {red}vypnuty{white}!"
     }
 
     "Hitsound Enabled"
@@ -231,6 +321,11 @@
         "es"        "¡Los sonidos de impacto han sido {green}activados{white}!"
         "de"        "Treffersounds wurden {green}aktiviert{white}!"
         "pt"        "Os sons de acerto foram {green}ativados{white}!"
+        "pl"        "Dźwięki trafień zostały {green}włączone{white}!"
+        "tr"        "Vuruş sesleri {green}etkinleştirildi{white}!"
+        "it"        "I suoni di colpo sono stati {green}attivati{white}!"
+        "ua"        "Звуки влучань {green}увімкнено{white}!"
+        "cze"       "Zvuky zásahů byly {green}zapnuty{white}!"
     }
 
     "Hitsound Already Disabled"
@@ -243,6 +338,11 @@
         "es"        "¡Los sonidos de impacto ya están {red}desactivados{white}!"
         "de"        "Treffersounds sind bereits {red}deaktiviert{white}!"
         "pt"        "Os sons de acerto já estão {red}desativados{white}!"
+        "pl"        "Dźwięki trafień są już {red}wyłączone{white}!"
+        "tr"        "Vuruş sesleri zaten {red}devre dışı{white}!"
+        "it"        "I suoni di colpo sono già {red}disattivati{white}!"
+        "ua"        "Звуки влучань уже {red}вимкнено{white}!"
+        "cze"       "Zvuky zásahů jsou již {red}vypnuty{white}!"
     }
 
     "Hitsound Already Enabled"
@@ -255,6 +355,11 @@
         "es"        "¡Los sonidos de impacto ya están {green}activados{white}!"
         "de"        "Treffersounds sind bereits {green}aktiviert{white}!"
         "pt"        "Os sons de acerto já estão {green}ativados{white}!"
+        "pl"        "Dźwięki trafień są już {green}włączone{white}!"
+        "tr"        "Vuruş sesleri zaten {green}etkin{white}!"
+        "it"        "I suoni di colpo sono già {green}attivati{white}!"
+        "ua"        "Звуки влучань уже {green}увімкнено{white}!"
+        "cze"       "Zvuky zásahů jsou již {green}zapnuty{white}!"
     }
 
     "Hitsound Volume"
@@ -268,6 +373,11 @@
         "es"        "El volumen de los sonidos de impacto cambió a {green}{1}{white}."
         "de"        "Treffersound-Lautstärke wurde auf {green}{1}{white} geändert."
         "pt"        "O volume dos sons de acerto foi alterado para {green}{1}{white}."
+        "pl"        "Głośność dźwięków trafień zmieniono na {green}{1}{white}."
+        "tr"        "Vuruş sesi seviyesi {green}{1}{white} olarak değiştirildi."
+        "it"        "Il volume dei suoni di colpo è stato cambiato a {green}{1}{white}."
+        "ua"        "Гучність звуків влучань змінено на {green}{1}{white}."
+        "cze"       "Hlasitost zvuků zásahů byla změněna na {green}{1}{white}."
     }
 
     // Internal
@@ -281,6 +391,11 @@
         "es"        "{green}activados"
         "de"        "{green}aktiviert"
         "pt"        "{green}ativados"
+        "pl"        "{green}włączone"
+        "tr"        "{green}etkin"
+        "it"        "{green}attivati"
+        "ua"        "{green}увімкнено"
+        "cze"       "{green}zapnuty"
     }
 
     "Disabled"
@@ -293,6 +408,11 @@
         "es"        "{red}desactivados"
         "de"        "{red}deaktiviert"
         "pt"        "{red}desativados"
+        "pl"        "{red}wyłączone"
+        "tr"        "{red}devre dışı"
+        "it"        "{red}disattivati"
+        "ua"        "{red}вимкнено"
+        "cze"       "{red}vypnuty"
     }
 
     "Toggle Zombie"
@@ -306,6 +426,11 @@
         "es"        "Sonidos de impacto en zombis: {1}{white}."
         "de"        "Treffersounds bei Zombies: {1}{white}."
         "pt"        "Sons de acerto em zumbis: {1}{white}."
+        "pl"        "Dźwięki trafień w zombie: {1}{white}."
+        "tr"        "Zombi vuruş sesleri: {1}{white}."
+        "it"        "Suoni di colpo sugli zombie: {1}{white}."
+        "ua"        "Звуки влучань по зомбі: {1}{white}."
+        "cze"       "Zvuky zásahů na zombie: {1}{white}."
     }
 
     "Toggle Boss"
@@ -319,6 +444,11 @@
         "es"        "Sonidos de impacto en jefes: {1}{white}."
         "de"        "Treffersounds bei Bossen: {1}{white}."
         "pt"        "Sons de acerto em chefes: {1}{white}."
+        "pl"        "Dźwięki trafień w bossa: {1}{white}."
+        "tr"        "Boss vuruş sesleri: {1}{white}."
+        "it"        "Suoni di colpo sui boss: {1}{white}."
+        "ua"        "Звуки влучань по босах: {1}{white}."
+        "cze"       "Zvuky zásahů na bosse: {1}{white}."
     }
 
     "Toggle Detailed"
@@ -332,6 +462,11 @@
         "es"        "Sonidos de impacto detallados: {1}{white}."
         "de"        "Detaillierte Treffersounds: {1}{white}."
         "pt"        "Sons de acerto detalhados: {1}{white}."
+        "pl"        "Szczegółowe dźwięki trafień: {1}{white}."
+        "tr"        "Ayrıntılı vuruş sesleri: {1}{white}."
+        "it"        "Suoni di colpo dettagliati: {1}{white}."
+        "ua"        "Детальні звуки влучань: {1}{white}."
+        "cze"       "Podrobné zvuky zásahů: {1}{white}."
     }
 
     "HM_Cookie_Hitmarker"
@@ -344,6 +479,11 @@
         "pt"        "Configurações de hitmarker"
         "chi"       "命中标记设置"
         "zho"       "命中標記設定"
+        "pl"        "Ustawienia hitmarkera"
+        "tr"        "Hitmarker Ayarları"
+        "it"        "Impostazioni hitmarker"
+        "ua"        "Налаштування хітмаркера"
+        "cze"       "Nastavení hitmarkeru"
     }
 
     "HM_Cookie_Hitsound"
@@ -356,6 +496,11 @@
         "pt"        "Configurações de sons de acerto"
         "chi"       "命中音效设置"
         "zho"       "命中音效設定"
+        "pl"        "Ustawienia dźwięku trafień"
+        "tr"        "Vuruş Sesi Ayarları"
+        "it"        "Impostazioni suono di colpo"
+        "ua"        "Налаштування звуку влучання"
+        "cze"       "Nastavení zvuku zásahu"
     }
 
     "HM_Menu_Settings_Title"
@@ -368,6 +513,11 @@
         "pt"        "Configurações de hitmarker\n "
         "chi"       "命中标记设置\n "
         "zho"       "命中標記設定\n "
+        "pl"        "Ustawienia hitmarkera\n "
+        "tr"        "Hitmarker Ayarları\n "
+        "it"        "Impostazioni hitmarker\n "
+        "ua"        "Налаштування хітмаркера\n "
+        "cze"       "Nastavení hitmarkeru\n "
     }
 
     "HM_Menu_Style_Title"
@@ -381,6 +531,11 @@
         "pt"        "Hitmarkers\n \nEstilo atual ({1}/{2}):\n{3}"
         "chi"       "命中标记\n \n当前样式（{1}/{2}）：\n{3}"
         "zho"       "命中標記\n \n目前樣式（{1}/{2}）：\n{3}"
+        "pl"        "Hitmarkery\n \nObecny styl ({1}/{2}):\n{3}"
+        "tr"        "Hitmarker'lar\n \nGeçerli Stil ({1}/{2}):\n{3}"
+        "it"        "Hitmarker\n \nStile attuale ({1}/{2}):\n{3}"
+        "ua"        "Хітмаркери\n \nПоточний стиль ({1}/{2}):\n{3}"
+        "cze"       "Hitmarkery\n \nAktuální styl ({1}/{2}):\n{3}"
     }
 
     "HM_Menu_Disabled"
@@ -393,6 +548,11 @@
         "pt"        "Desativados"
         "chi"       "已禁用"
         "zho"       "已停用"
+        "pl"        "Wyłączone"
+        "tr"        "Devre dışı"
+        "it"        "Disattivato"
+        "ua"        "Вимкнено"
+        "cze"       "Vypnuto"
     }
 
     "HM_Menu_Enabled"
@@ -405,6 +565,11 @@
         "pt"        "Ativados"
         "chi"       "已启用"
         "zho"       "已啟用"
+        "pl"        "Włączone"
+        "tr"        "Etkin"
+        "it"        "Attivato"
+        "ua"        "Увімкнено"
+        "cze"       "Zapnuto"
     }
 
     "HM_Menu_Enabled_All"
@@ -417,6 +582,11 @@
         "pt"        "Ativados (jogadores + chefes)"
         "chi"       "已启用（玩家 + Boss）"
         "zho"       "已啟用（玩家 + Boss）"
+        "pl"        "Włączone (gracze + bossy)"
+        "tr"        "Etkin (Oyuncular + Bosslar)"
+        "it"        "Attivato (giocatori + boss)"
+        "ua"        "Увімкнено (гравці + боси)"
+        "cze"       "Zapnuto (hráči + bossové)"
     }
 
     "HM_Menu_Hitmarkers"
@@ -430,6 +600,11 @@
         "pt"        "Hitmarkers: {1}"
         "chi"       "命中标记：{1}"
         "zho"       "命中標記：{1}"
+        "pl"        "Hitmarkery: {1}"
+        "tr"        "Hitmarker'lar: {1}"
+        "it"        "Hitmarker: {1}"
+        "ua"        "Хітмаркери: {1}"
+        "cze"       "Hitmarkery: {1}"
     }
 
     "HM_Menu_Hitmarkers_Customize"
@@ -443,6 +618,11 @@
         "pt"        "Hitmarkers: {1}\n \nPersonalizar hitmarker:"
         "chi"       "命中标记：{1}\n \n自定义命中标记："
         "zho"       "命中標記：{1}\n \n自訂命中標記："
+        "pl"        "Hitmarkery: {1}\n \nDostosuj hitmarker:"
+        "tr"        "Hitmarker'lar: {1}\n \nHitmarker'ı özelleştir:"
+        "it"        "Hitmarker: {1}\n \nPersonalizza hitmarker:"
+        "ua"        "Хітмаркери: {1}\n \nНалаштувати хітмаркер:"
+        "cze"       "Hitmarkery: {1}\n \nPřizpůsobit hitmarker:"
     }
 
     "HM_Menu_Change_Style"
@@ -455,6 +635,11 @@
         "pt"        "Mudar estilo"
         "chi"       "更换样式"
         "zho"       "更換樣式"
+        "pl"        "Zmień styl"
+        "tr"        "Stili Değiştir"
+        "it"        "Cambia stile"
+        "ua"        "Змінити стиль"
+        "cze"       "Změnit styl"
     }
 
     "HM_Menu_Head_Color"
@@ -468,6 +653,11 @@
         "pt"        "Cor de headshot: {1} {2} {3}"
         "chi"       "爆头颜色：{1} {2} {3}"
         "zho"       "爆頭顏色：{1} {2} {3}"
+        "pl"        "Kolor trafienia w głowę: {1} {2} {3}"
+        "tr"        "Kafa Vuruşu Rengi: {1} {2} {3}"
+        "it"        "Colore colpo alla testa: {1} {2} {3}"
+        "ua"        "Колір пострілу в голову: {1} {2} {3}"
+        "cze"       "Barva zásahu do hlavy: {1} {2} {3}"
     }
 
     "HM_Menu_Body_Color"
@@ -481,6 +671,11 @@
         "pt"        "Cor de acerto no corpo: {1} {2} {3}\n "
         "chi"       "身体命中颜色：{1} {2} {3}\n "
         "zho"       "身體命中顏色：{1} {2} {3}\n "
+        "pl"        "Kolor trafienia w tułów: {1} {2} {3}\n "
+        "tr"        "Gövde Vuruşu Rengi: {1} {2} {3}\n "
+        "it"        "Colore colpo al corpo: {1} {2} {3}\n "
+        "ua"        "Колір пострілу в тіло: {1} {2} {3}\n "
+        "cze"       "Barva zásahu do těla: {1} {2} {3}\n "
     }
 
     "HM_Menu_Type_Center"
@@ -493,6 +688,11 @@
         "pt"        "Centro da tela"
         "chi"       "屏幕中央"
         "zho"       "螢幕中央"
+        "pl"        "Środek ekranu"
+        "tr"        "Oyun Ortası"
+        "it"        "Centro schermo"
+        "ua"        "Центр екрана"
+        "cze"       "Střed obrazovky"
     }
 
     "HM_Menu_Type_Game_Text"
@@ -505,6 +705,11 @@
         "pt"        "Texto HUD"
         "chi"       "HUD 文本"
         "zho"       "HUD 文字"
+        "pl"        "Game Text"
+        "tr"        "Game Text"
+        "it"        "Game Text"
+        "ua"        "Game Text"
+        "cze"       "Game Text"
     }
 
     "HM_Menu_Type_Hint"
@@ -517,6 +722,11 @@
         "pt"        "Dica"
         "chi"       "提示"
         "zho"       "提示"
+        "pl"        "Podpowiedź"
+        "tr"        "İpucu"
+        "it"        "Suggerimento"
+        "ua"        "Підказка"
+        "cze"       "Nápověda"
     }
 
     "HM_Menu_Display_Type"
@@ -530,6 +740,11 @@
         "pt"        "Tipo de exibição: {1}"
         "chi"       "显示方式：{1}"
         "zho"       "顯示方式：{1}"
+        "pl"        "Typ wyświetlania: {1}"
+        "tr"        "Gösterim Türü: {1}"
+        "it"        "Tipo di visualizzazione: {1}"
+        "ua"        "Тип відображення: {1}"
+        "cze"       "Typ zobrazení: {1}"
     }
 
     "HM_Menu_Off"
@@ -542,6 +757,11 @@
         "pt"        "Desligado"
         "chi"       "关"
         "zho"       "關"
+        "pl"        "Wył."
+        "tr"        "Kapalı"
+        "it"        "Off"
+        "ua"        "Вимк."
+        "cze"       "Vyp."
     }
 
     "HM_Menu_On"
@@ -554,6 +774,11 @@
         "pt"        "Ligado"
         "chi"       "开"
         "zho"       "開"
+        "pl"        "Wł."
+        "tr"        "Açık"
+        "it"        "On"
+        "ua"        "Увімк."
+        "cze"       "Zap."
     }
 
     "HM_Menu_On_Rank"
@@ -566,6 +791,11 @@
         "pt"        "Ligado (+rank)"
         "chi"       "开（+排名）"
         "zho"       "開（+排名）"
+        "pl"        "Wł. (+ranking)"
+        "tr"        "Açık (+Sıralama)"
+        "it"        "On (+classifica)"
+        "ua"        "Увімк. (+рейтинг)"
+        "cze"       "Zap. (+pořadí)"
     }
 
     "HM_Menu_On_Victim"
@@ -578,6 +808,11 @@
         "pt"        "Ligado (+nome da vítima)"
         "chi"       "开（+受害者名字）"
         "zho"       "開（+受害者名字）"
+        "pl"        "Wł. (+nazwa ofiary)"
+        "tr"        "Açık (+Kurban adı)"
+        "it"        "On (+nome vittima)"
+        "ua"        "Увімк. (+ім'я жертви)"
+        "cze"       "Zap. (+jméno oběti)"
     }
 
     "HM_Menu_Show_Damage"
@@ -591,6 +826,11 @@
         "pt"        "Mostrar dano: {1}"
         "chi"       "显示伤害：{1}"
         "zho"       "顯示傷害：{1}"
+        "pl"        "Pokazuj obrażenia: {1}"
+        "tr"        "Hasarı Göster: {1}"
+        "it"        "Mostra danno: {1}"
+        "ua"        "Показувати шкоду: {1}"
+        "cze"       "Zobrazit poškození: {1}"
     }
 
     "HM_Menu_Show_Health"
@@ -604,6 +844,11 @@
         "pt"        "Mostrar vida: {1}"
         "chi"       "显示血量：{1}"
         "zho"       "顯示血量：{1}"
+        "pl"        "Pokazuj zdrowie: {1}"
+        "tr"        "Canı Göster: {1}"
+        "it"        "Mostra salute: {1}"
+        "ua"        "Показувати здоров'я: {1}"
+        "cze"       "Zobrazit zdraví: {1}"
     }
 
     "HM_Menu_Hitsounds_Settings"
@@ -616,6 +861,11 @@
         "pt"        "Configurações de sons de acerto"
         "chi"       "命中音效设置"
         "zho"       "命中音效設定"
+        "pl"        "Ustawienia dźwięków trafień"
+        "tr"        "Vuruş Sesi Ayarları"
+        "it"        "Impostazioni suoni di colpo"
+        "ua"        "Налаштування звуків влучань"
+        "cze"       "Nastavení zvuků zásahů"
     }
 
     "HM_Head_Colors_Title"
@@ -628,6 +878,11 @@
         "pt"        "Cores do hitmarker (cabeça):\n \nUse \"!headhitcolor <r> <g> <b>\"\nOu escolha uma cor abaixo\n \n"
         "chi"       "爆头命中标记颜色：\n \n使用 \"!headhitcolor <r> <g> <b>\"\n或在下方选择颜色\n \n"
         "zho"       "爆頭命中標記顏色：\n \n使用 \"!headhitcolor <r> <g> <b>\"\n或在下方選擇顏色\n \n"
+        "pl"        "Kolory hitmarkera trafienia w głowę:\n \nUżyj \"!headhitcolor <r> <g> <b>\"\nLub wybierz kolor poniżej\n \n"
+        "tr"        "Kafa Vuruşu Hitmarker Renkleri:\n \n\"!headhitcolor <r> <g> <b>\" kullanın\nVeya aşağıdan bir renk seçin\n \n"
+        "it"        "Colori hitmarker colpo alla testa:\n \nUsa \"!headhitcolor <r> <g> <b>\"\nOppure scegli un colore qui sotto\n \n"
+        "ua"        "Кольори хітмаркера для пострілів у голову:\n \nВикористайте \"!headhitcolor <r> <g> <b>\"\nАбо виберіть колір нижче\n \n"
+        "cze"       "Barvy hitmarkeru pro zásah do hlavy:\n \nPoužijte \"!headhitcolor <r> <g> <b>\"\nNebo vyberte barvu níže\n \n"
     }
 
     "HM_Body_Colors_Title"
@@ -640,6 +895,11 @@
         "pt"        "Cores do hitmarker (corpo):\n \nUse \"!bodyhitcolor <r> <g> <b>\"\nOu escolha uma cor abaixo\n \n"
         "chi"       "身体命中标记颜色：\n \n使用 \"!bodyhitcolor <r> <g> <b>\"\n或在下方选择颜色\n \n"
         "zho"       "身體命中標記顏色：\n \n使用 \"!bodyhitcolor <r> <g> <b>\"\n或在下方選擇顏色\n \n"
+        "pl"        "Kolory hitmarkera trafienia w tułów:\n \nUżyj \"!bodyhitcolor <r> <g> <b>\"\nLub wybierz kolor poniżej\n \n"
+        "tr"        "Gövde Vuruşu Hitmarker Renkleri:\n \n\"!bodyhitcolor <r> <g> <b>\" kullanın\nVeya aşağıdan bir renk seçin\n \n"
+        "it"        "Colori hitmarker colpo al corpo:\n \nUsa \"!bodyhitcolor <r> <g> <b>\"\nOppure scegli un colore qui sotto\n \n"
+        "ua"        "Кольори хітмаркера для пострілів у тіло:\n \nВикористайте \"!bodyhitcolor <r> <g> <b>\"\nАбо виберіть колір нижче\n \n"
+        "cze"       "Barvy hitmarkeru pro zásah do těla:\n \nPoužijte \"!bodyhitcolor <r> <g> <b>\"\nNebo vyberte barvu níže\n \n"
     }
 
     "HM_Current_Color"
@@ -653,6 +913,11 @@
         "pt"        "Cor atual: {1} {2} {3}\n"
         "chi"       "当前颜色：{1} {2} {3}\n"
         "zho"       "目前顏色：{1} {2} {3}\n"
+        "pl"        "Obecny kolor: {1} {2} {3}\n"
+        "tr"        "Geçerli renk: {1} {2} {3}\n"
+        "it"        "Colore attuale: {1} {2} {3}\n"
+        "ua"        "Поточний колір: {1} {2} {3}\n"
+        "cze"       "Aktuální barva: {1} {2} {3}\n"
     }
 
     "HM_Color_Red"
@@ -665,6 +930,11 @@
         "pt"        "Vermelho"
         "chi"       "红色"
         "zho"       "紅色"
+        "pl"        "Czerwony"
+        "tr"        "Kırmızı"
+        "it"        "Rosso"
+        "ua"        "Червоний"
+        "cze"       "Červená"
     }
 
     "HM_Color_Orange"
@@ -677,6 +947,11 @@
         "pt"        "Laranja"
         "chi"       "橙色"
         "zho"       "橙色"
+        "pl"        "Pomarańczowy"
+        "tr"        "Turuncu"
+        "it"        "Arancione"
+        "ua"        "Помаранчевий"
+        "cze"       "Oranžová"
     }
 
     "HM_Color_Green"
@@ -689,6 +964,11 @@
         "pt"        "Verde"
         "chi"       "绿色"
         "zho"       "綠色"
+        "pl"        "Zielony"
+        "tr"        "Yeşil"
+        "it"        "Verde"
+        "ua"        "Зелений"
+        "cze"       "Zelená"
     }
 
     "HM_Color_Light_Blue"
@@ -701,6 +981,11 @@
         "pt"        "Azul-claro"
         "chi"       "浅蓝色"
         "zho"       "淺藍色"
+        "pl"        "Jasnoniebieski"
+        "tr"        "Açık Mavi"
+        "it"        "Azzurro"
+        "ua"        "Блакитний"
+        "cze"       "Světle modrá"
     }
 
     "HM_Color_Yellow"
@@ -713,6 +998,11 @@
         "pt"        "Amarelo"
         "chi"       "黄色"
         "zho"       "黃色"
+        "pl"        "Żółty"
+        "tr"        "Sarı"
+        "it"        "Giallo"
+        "ua"        "Жовтий"
+        "cze"       "Žlutá"
     }
 
     "HM_Color_White"
@@ -725,6 +1015,11 @@
         "pt"        "Branco"
         "chi"       "白色"
         "zho"       "白色"
+        "pl"        "Biały"
+        "tr"        "Beyaz"
+        "it"        "Bianco"
+        "ua"        "Білий"
+        "cze"       "Bílá"
     }
 
     "HM_HS_Title"
@@ -737,6 +1032,11 @@
         "pt"        "Sons de acerto:\n \n"
         "chi"       "命中音效：\n \n"
         "zho"       "命中音效：\n \n"
+        "pl"        "Dźwięki trafień:\n \n"
+        "tr"        "Vuruş Sesleri:\n \n"
+        "it"        "Suoni di colpo:\n \n"
+        "ua"        "Звуки влучань:\n \n"
+        "cze"       "Zvuky zásahů:\n \n"
     }
 
     "HM_HS_Zombie"
@@ -750,6 +1050,11 @@
         "pt"        "Sons de acerto: {1}\n "
         "chi"       "命中音效：{1}\n "
         "zho"       "命中音效：{1}\n "
+        "pl"        "Dźwięki trafień: {1}\n "
+        "tr"        "Vuruş sesleri: {1}\n "
+        "it"        "Suoni di colpo: {1}\n "
+        "ua"        "Звуки влучань: {1}\n "
+        "cze"       "Zvuky zásahů: {1}\n "
     }
 
     "HM_HS_Boss"
@@ -763,6 +1068,11 @@
         "pt"        "Sons de acerto em chefes: {1}\n "
         "chi"       "Boss 命中音效：{1}\n "
         "zho"       "Boss 命中音效：{1}\n "
+        "pl"        "Dźwięki trafień w bossa: {1}\n "
+        "tr"        "Boss vuruş sesleri: {1}\n "
+        "it"        "Suoni di colpo sui boss: {1}\n "
+        "ua"        "Звуки влучань по босах: {1}\n "
+        "cze"       "Zvuky zásahů na bosse: {1}\n "
     }
 
     "HM_HS_Detailed"
@@ -776,6 +1086,11 @@
         "pt"        "Sons detalhados: {1}\n \nUse \"!hitsound [0-100]\" para o volume"
         "chi"       "详细命中音效：{1}\n \n使用 \"!hitsound [0-100]\" 设置音量"
         "zho"       "詳細命中音效：{1}\n \n使用 \"!hitsound [0-100]\" 設定音量"
+        "pl"        "Szczegółowe dźwięki trafień: {1}\n \nUżyj \"!hitsound [0-100]\", aby ustawić głośność"
+        "tr"        "Ayrıntılı vuruş sesleri: {1}\n \nSes seviyesini ayarlamak için \"!hitsound [0-100]\" kullanın"
+        "it"        "Suoni di colpo dettagliati: {1}\n \nUsa \"!hitsound [0-100]\" per impostare il volume"
+        "ua"        "Детальні звуки влучань: {1}\n \nВикористайте \"!hitsound [0-100]\", щоб налаштувати гучність"
+        "cze"       "Podrobné zvuky zásahů: {1}\n \nPoužijte \"!hitsound [0-100]\" pro nastavení hlasitosti"
     }
 
     "HM_HS_Volume"
@@ -789,5 +1104,10 @@
         "pt"        "Volume: {1}"
         "chi"       "音量：{1}"
         "zho"       "音量：{1}"
+        "pl"        "Głośność: {1}"
+        "tr"        "Ses seviyesi: {1}"
+        "it"        "Volume: {1}"
+        "ua"        "Гучність: {1}"
+        "cze"       "Hlasitost: {1}"
     }
 }
