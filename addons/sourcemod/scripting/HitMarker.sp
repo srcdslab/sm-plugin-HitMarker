@@ -22,6 +22,7 @@
 ConVar g_cvEnable;
 ConVar g_cvChannel;
 ConVar g_cvShowDamage;
+ConVar g_cvIgnoreTeam;
 ConVar g_cvHitsound;
 ConVar g_cvHitsoundHead;
 ConVar g_cvHitsoundBody;
@@ -40,6 +41,7 @@ Cookie g_cHitsoundSettings;   // Combined: enable|boss|detailed|volume
 bool g_bLate = false;
 bool g_bEnable = true;
 bool g_bShowDamage = true;
+int g_iIgnoreTeam = CS_TEAM_T;
 bool g_bPlugin_DynamicChannels = false;
 bool g_bDynamicNative = false;
 bool g_bPlugin_TopDefenders = false;
@@ -149,6 +151,11 @@ public void OnPluginStart()
 	g_cvShowDamage.AddChangeHook(OnConVarChange);
 	g_bShowDamage = g_cvShowDamage.BoolValue;
 
+	// Zombie mods: zombies (T) hit with their knife, so they get no hitmarker. Set 0 for modes where both teams shoot.
+	g_cvIgnoreTeam = CreateConVar("sm_hitmarker_ignore_team", "2", "Attackers on this team get no hitmarker nor hitsound for player hits (0 = none, 2 = T, 3 = CT)", _, true, 0.0, true, 3.0);
+	g_cvIgnoreTeam.AddChangeHook(OnConVarChange);
+	g_iIgnoreTeam = g_cvIgnoreTeam.IntValue;
+
 	// Hitsound convars
 	g_cvHitsound = CreateConVar("sm_hitsound_path", "hitmarker/hitmarker.mp3", "File location of normal hitsound relative to sound folder.");
 	g_cvHitsoundHead = CreateConVar("sm_hitsound_head_path", "hitmarker/headshot.mp3", "File location of head hitsound relative to sound folder.");
@@ -250,6 +257,7 @@ public void OnConVarChange(ConVar convar, char[] oldValue, char[] newValue)
 	g_bEnable = g_cvEnable.BoolValue;
 	g_iHUDChannel = g_cvChannel.IntValue;
 	g_bShowDamage = g_cvShowDamage.BoolValue;
+	g_iIgnoreTeam = g_cvIgnoreTeam.IntValue;
 }
 
 public void OnConfigsExecuted()
@@ -799,7 +807,7 @@ public void Event_PlayerHurt(Event event, const char[] name, bool broadcast)
 	if (!(1 <= attacker <= MaxClients) || !IsClientInGame(attacker))
 		return;
 
-	if (!IsPlayerAlive(attacker) || GetClientTeam(attacker) == CS_TEAM_T)
+	if (!IsPlayerAlive(attacker) || (g_iIgnoreTeam > CS_TEAM_SPECTATOR && GetClientTeam(attacker) == g_iIgnoreTeam))
 		return;
 
 	// Only perform 1 hitmarker/hitsound per tick
